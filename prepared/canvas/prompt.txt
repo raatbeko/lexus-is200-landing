@@ -1,0 +1,24 @@
+# CANVAS АНИМАЦИЯ
+
+КАДРЫ: canvas/frames/ezgif-frame-001.jpg → ezgif-frame-153.jpg
+ВСЕГО: 150 кадров
+
+НАСТРОЙКА:
+- Canvas: position fixed, width 100vw, height 100vh
+- object-fit: cover (кадры заполняют весь экран)
+- Общая высота body: 8000px
+
+ЗАГРУЗКА:
+- Предзагрузить все кадры через Promise.all
+- Показывать прелоадер: чёрный экран + прогресс бар красный
+- Текст прелоадера: "LEXUS IS 200" (Bebas Neue)
+- После загрузки: прелоадер fade out
+
+ПРИВЯЗКА К СКРОЛЛУ:
+- ScrollTrigger: start "top top", end "bottom bottom", scrub: 1
+- index = Math.floor(progress * 149)
+- ctx.drawImage(frames[index], 0, 0, canvas.width, canvas.height)
+
+МОБИЛЬНЫЙ:
+- На 480px: каждый второй кадр (75 кадров)
+- Уменьшить высоту body до 5000px

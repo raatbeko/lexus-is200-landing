@@ -1,11 +1,8 @@
-# ЦВЕТОВАЯ ПАЛИТРА
-
-Background:      #0A0A0A
-Surface:         #111111
-Surface Light:   #1A1A1A
+Background:      #F5F5F5
+Surface:         #EEEEEE
 Accent:          #E03030
 Accent Hover:    #FF4444
-Text Primary:    #FFFFFF
-Text Secondary:  #888888
-Border:          #222222
-Overlay:         rgba(0,0,0,0.6)
+Text Primary:    #0A0A0A
+Text Secondary:  #444444
+Border:          #DDDDDD
+Overlay:         rgba(255,255,255,0.7)
