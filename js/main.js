@@ -108,13 +108,28 @@ loadFrames();
 // ===== СКРОЛЛ И АНИМАЦИИ =====
 function initScroll() {
   // Lenis — плавный скролл
+  const isMobileScroll = window.innerWidth < 768;
   const lenis = new Lenis({
-    duration: 1.4,
-    easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+    duration:        2.5,
+    easing:          t => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+    smoothWheel:     true,
+    wheelMultiplier: 0.8,
+    touchMultiplier: isMobileScroll ? 0.4 : 0.6,
   });
   lenis.on('scroll', ScrollTrigger.update);
   gsap.ticker.add(time => lenis.raf(time * 1000));
   gsap.ticker.lagSmoothing(0);
+
+  // Lerp — плавная интерполяция между кадрами
+  let currentIndex = 0;
+  let targetIndex  = 0;
+  function lerp(a, b, t) { return a + (b - a) * t; }
+
+  gsap.ticker.add(() => {
+    currentIndex = lerp(currentIndex, targetIndex, 0.08);
+    const idx = Math.round(currentIndex);
+    if (frames[idx]) drawFrame(idx);
+  });
 
   // DOM
   const header      = document.getElementById('header');
@@ -161,13 +176,14 @@ function initScroll() {
   // ===== Главный ScrollTrigger =====
   ScrollTrigger.create({
     trigger: document.body,
-    start: 'top top',
-    end:   'bottom bottom',
+    start:   'top top',
+    end:     'bottom bottom',
+    scrub:   1.5,
     onUpdate(self) {
       const p = self.progress;
 
-      // Кадр canvas
-      drawFrame(Math.floor(p * (frames.length - 1)));
+      // Целевой кадр — lerp-ticker отрисует плавно
+      targetIndex = Math.floor(p * (frames.length - 1));
 
       // --- Header фон ---
       if (p > 0.10 && !S.headerBg) {
