@@ -1,6 +1,7 @@
 // ===== КОНФИГУРАЦИЯ =====
-const TOTAL_FRAMES = 122;
-const FRAME_PATH   = 'prepared/canvas/frames/';
+const TOTAL_FRAMES  = 122;
+const FRAME_PATH    = 'prepared/canvas/frames/';
+const FRAME_PATH_MB = 'prepared/canvas/frames-mobile/';
 const IS_MOBILE    = window.innerWidth <= 480;
 
 // ===== CANVAS =====
@@ -47,53 +48,62 @@ function drawFrame(idx) {
 }
 
 // ===== ЗАГРУЗКА КАДРОВ =====
-function loadFrames() {
+const framePath = window.innerWidth < 768 ? FRAME_PATH_MB : FRAME_PATH;
+
+// Загрузить диапазон кадров [from, to] включительно (параллельно)
+function loadRange(from, to) {
   return new Promise((resolve) => {
-    // На мобильных — каждый второй кадр
-    const indices = IS_MOBILE
-      ? Array.from({ length: Math.ceil(TOTAL_FRAMES / 2) }, (_, i) => i * 2 + 1)
-      : Array.from({ length: TOTAL_FRAMES }, (_, i) => i + 1);
+    const count = to - from + 1;
+    let done = 0;
 
-    const total = indices.length;
-    let loaded  = 0;
-
-    const fill    = document.getElementById('preloader-fill');
-    const percent = document.getElementById('preloader-percent');
-
-    indices.forEach((num, i) => {
+    for (let num = from; num <= to; num++) {
+      const i   = num - 1;
       const img = new Image();
-
       img.onload = img.onerror = () => {
         if (img.naturalWidth) frames[i] = img;
-        loaded++;
-        const pct = Math.round((loaded / total) * 100);
-        fill.style.width    = pct + '%';
-        percent.textContent = pct + '%';
-        if (loaded === total) resolve();
+        if (++done === count) resolve();
       };
-
-      img.src = FRAME_PATH + 'frame_' + padNum(num) + '.jpg';
-    });
+      img.src = framePath + 'frame_' + padNum(num) + '.jpg';
+    }
   });
 }
 
-// ===== СТАРТ =====
-loadFrames().then(() => {
+async function loadFrames() {
+  const fill    = document.getElementById('preloader-fill');
+  const percent = document.getElementById('preloader-percent');
+
+  // Срочно: первые 10 кадров — последовательно с прогресс-баром
+  for (let num = 1; num <= 10; num++) {
+    const i   = num - 1;
+    const img = new Image();
+    await new Promise((res) => {
+      img.onload = img.onerror = () => {
+        if (img.naturalWidth) frames[i] = img;
+        fill.style.width    = (num * 10) + '%';
+        percent.textContent = (num * 10) + '%';
+        res();
+      };
+      img.src = framePath + 'frame_' + padNum(num) + '.jpg';
+    });
+  }
+
+  // Скрыть прелоадер и запустить сайт
   gsap.registerPlugin(ScrollTrigger);
-
-  // Скрыть прелоадер
   gsap.to('#preloader', {
-    opacity: 0,
-    duration: 0.7,
-    ease: 'power1.inOut',
-    onComplete() {
-      document.getElementById('preloader').style.display = 'none';
-    }
+    opacity: 0, duration: 0.7, ease: 'power1.inOut',
+    onComplete() { document.getElementById('preloader').style.display = 'none'; }
   });
-
   drawFrame(0);
   initScroll();
-});
+
+  // Средний приоритет: 11–60
+  await loadRange(11, 60);
+  // Фоновая догрузка: 61–конец
+  loadRange(61, TOTAL_FRAMES);
+}
+
+// ===== СТАРТ =====
+loadFrames();
 
 // ===== СКРОЛЛ И АНИМАЦИИ =====
 function initScroll() {
