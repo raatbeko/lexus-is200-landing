@@ -1,464 +1,303 @@
-// ===== ИНИЦИАЛИЗАЦИЯ LENIS (плавный скролл) =====
-const lenis = new Lenis({
-  duration: 1.2,
-  easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-  smooth: true,
-});
+// ===== КОНФИГУРАЦИЯ =====
+const TOTAL_FRAMES = 122;
+const FRAME_PATH   = 'prepared/canvas/frames/';
+const IS_MOBILE    = window.innerWidth <= 480;
 
-function rafLoop(time) {
-  lenis.raf(time);
-  requestAnimationFrame(rafLoop);
-}
-requestAnimationFrame(rafLoop);
+// ===== CANVAS =====
+const canvas  = document.getElementById('canvas');
+const ctx     = canvas.getContext('2d');
+const wrapper = document.getElementById('canvas-wrapper');
 
-// Связываем Lenis с GSAP ScrollTrigger
-lenis.on('scroll', ScrollTrigger.update);
-gsap.ticker.add((time) => {
-  lenis.raf(time * 1000);
-});
-gsap.ticker.lagSmoothing(0);
+// ===== КАДРЫ (до resizeCanvas — иначе TDZ) =====
+const frames = [];
+let currentFrame = 0;
 
-// ===== РЕГИСТРАЦИЯ ПЛАГИНОВ GSAP =====
-gsap.registerPlugin(ScrollTrigger);
-
-// ===== HEADER: появление сверху при загрузке =====
-gsap.from('#header', {
-  y: '-100%',
-  duration: 0.8,
-  ease: 'power3.out',
-  delay: 0.3,
-});
-
-// ===== HEADER: фон при скролле =====
-const header = document.getElementById('header');
-window.addEventListener('scroll', () => {
-  if (window.scrollY > 50) {
-    header.classList.add('scrolled');
+function resizeCanvas() {
+  if (window.innerWidth < 768) {
+    // Мобильный: canvas 16:9, wrapper центрирует на светлом фоне
+    canvas.width  = window.innerWidth;
+    canvas.height = Math.round(window.innerWidth * 9 / 16);
   } else {
-    header.classList.remove('scrolled');
+    // Десктоп: canvas fullscreen
+    canvas.width  = window.innerWidth;
+    canvas.height = window.innerHeight;
   }
-});
+  if (frames.length) drawFrame(currentFrame);
+}
+resizeCanvas();
+window.addEventListener('resize', resizeCanvas);
 
-// Активный пункт навигации при скролле
-const navLinks = document.querySelectorAll('.header__nav-link');
-const sections = document.querySelectorAll('section[id]');
-
-window.addEventListener('scroll', () => {
-  let current = '';
-  sections.forEach((section) => {
-    const sectionTop = section.offsetTop - 120;
-    if (window.scrollY >= sectionTop) {
-      current = section.getAttribute('id');
-    }
-  });
-  navLinks.forEach((link) => {
-    link.classList.remove('active');
-    const href = link.getAttribute('href').replace('#', '');
-    if (href === current) {
-      link.classList.add('active');
-    }
-  });
-});
-
-// ===== HERO: анимации при загрузке =====
-const heroTl = gsap.timeline({ delay: 0.1 });
-
-// Надпись eyebrow
-heroTl.to('.hero__eyebrow', {
-  opacity: 1,
-  y: 0,
-  duration: 0.6,
-  ease: 'power2.out',
-});
-
-// Каждое слово заголовка с задержкой (stagger)
-heroTl.to('.hero__word', {
-  y: 0,
-  opacity: 1,
-  duration: 0.8,
-  stagger: 0.15,
-  ease: 'power3.out',
-}, '-=0.2');
-
-// Кнопка CTA
-heroTl.to('.hero__cta', {
-  opacity: 1,
-  duration: 0.6,
-  ease: 'power2.out',
-}, '-=0.3');
-
-// Слоган справа
-heroTl.to('.hero__slogan', {
-  opacity: 1,
-  duration: 0.8,
-  ease: 'power2.out',
-}, '-=0.4');
-
-// Плавный parallax на фоне hero при скролле
-gsap.to('.hero__bg', {
-  y: '-15%',
-  ease: 'none',
-  scrollTrigger: {
-    trigger: '.hero',
-    start: 'top top',
-    end: 'bottom top',
-    scrub: true,
-  },
-});
-
-// ===== FEATURES: анимации при скролле =====
-
-// Заголовок секции
-gsap.from('.features .section-title', {
-  y: 60,
-  opacity: 0,
-  duration: 0.9,
-  ease: 'power3.out',
-  scrollTrigger: {
-    trigger: '.features',
-    start: 'top 80%',
-  },
-});
-
-gsap.from('.features .section-sub', {
-  y: 30,
-  opacity: 0,
-  duration: 0.7,
-  delay: 0.2,
-  ease: 'power2.out',
-  scrollTrigger: {
-    trigger: '.features',
-    start: 'top 80%',
-  },
-});
-
-// Карточки с stagger
-gsap.to('.feature-card', {
-  y: 0,
-  opacity: 1,
-  duration: 0.8,
-  stagger: 0.15,
-  ease: 'power3.out',
-  scrollTrigger: {
-    trigger: '.features__grid',
-    start: 'top 80%',
-  },
-});
-
-// ===== SLOGAN: анимации при скролле =====
-
-// Parallax фона slogan
-gsap.to('.slogan__bg', {
-  y: '-10%',
-  ease: 'none',
-  scrollTrigger: {
-    trigger: '.slogan',
-    start: 'top bottom',
-    end: 'bottom top',
-    scrub: true,
-  },
-});
-
-// Красная вертикальная линия
-gsap.to('.slogan__line', {
-  scaleY: 1,
-  duration: 0.6,
-  ease: 'power2.out',
-  scrollTrigger: {
-    trigger: '.slogan',
-    start: 'top 70%',
-  },
-});
-
-// Текст слогана
-gsap.to('.slogan__text-wrap', {
-  y: 0,
-  opacity: 1,
-  duration: 1,
-  ease: 'power3.out',
-  scrollTrigger: {
-    trigger: '.slogan',
-    start: 'top 65%',
-  },
-});
-
-// ===== SPECS: анимации при скролле =====
-
-// Заголовок
-gsap.from('.specs .section-title', {
-  y: 50,
-  opacity: 0,
-  duration: 0.9,
-  ease: 'power3.out',
-  scrollTrigger: {
-    trigger: '.specs',
-    start: 'top 80%',
-  },
-});
-
-// Строки характеристик с stagger
-gsap.to('.specs__item', {
-  x: 0,
-  opacity: 1,
-  duration: 0.6,
-  stagger: 0.08,
-  ease: 'power2.out',
-  scrollTrigger: {
-    trigger: '.specs__list',
-    start: 'top 80%',
-  },
-});
-
-// Фото машины справа
-gsap.to('.specs__right', {
-  x: 0,
-  opacity: 1,
-  duration: 1,
-  ease: 'power3.out',
-  scrollTrigger: {
-    trigger: '.specs__inner',
-    start: 'top 75%',
-  },
-});
-
-// ===== COUNT UP: счётчики цифр =====
-function countUp(el, target, isFloat) {
-  const duration = 1500; // миллисекунды
-  const start = performance.now();
-  const decimals = isFloat ? 1 : 0;
-
-  function update(time) {
-    const elapsed = time - start;
-    const progress = Math.min(elapsed / duration, 1);
-    // Easing: ease-out cubic
-    const eased = 1 - Math.pow(1 - progress, 3);
-    const current = eased * target;
-    el.textContent = current.toFixed(decimals);
-    if (progress < 1) {
-      requestAnimationFrame(update);
-    } else {
-      el.textContent = target.toFixed(decimals);
-    }
-  }
-  requestAnimationFrame(update);
+function padNum(n) {
+  return String(n).padStart(4, '0');
 }
 
-// Запускаем счётчики при появлении секции specs
-ScrollTrigger.create({
-  trigger: '.specs__list',
-  start: 'top 75%',
-  once: true,
-  onEnter: () => {
-    document.querySelectorAll('.count-up').forEach((el) => {
-      const target = parseFloat(el.dataset.target);
-      const isFloat = el.dataset.float === '1';
-      countUp(el, target, isFloat);
+function drawFrame(idx) {
+  idx = Math.max(0, Math.min(idx, frames.length - 1));
+  currentFrame = idx;
+  const f = frames[idx];
+  if (!f || !f.complete || !f.naturalWidth) return;
+
+  const cw = canvas.width, ch = canvas.height;
+  const fw = f.naturalWidth, fh = f.naturalHeight;
+  const scale = Math.max(cw / fw, ch / fh);
+  const sw = fw * scale, sh = fh * scale;
+
+  ctx.clearRect(0, 0, cw, ch);
+  ctx.drawImage(f, (cw - sw) / 2, (ch - sh) / 2, sw, sh);
+}
+
+// ===== ЗАГРУЗКА КАДРОВ =====
+function loadFrames() {
+  return new Promise((resolve) => {
+    // На мобильных — каждый второй кадр
+    const indices = IS_MOBILE
+      ? Array.from({ length: Math.ceil(TOTAL_FRAMES / 2) }, (_, i) => i * 2 + 1)
+      : Array.from({ length: TOTAL_FRAMES }, (_, i) => i + 1);
+
+    const total = indices.length;
+    let loaded  = 0;
+
+    const fill    = document.getElementById('preloader-fill');
+    const percent = document.getElementById('preloader-percent');
+
+    indices.forEach((num, i) => {
+      const img = new Image();
+
+      img.onload = img.onerror = () => {
+        if (img.naturalWidth) frames[i] = img;
+        loaded++;
+        const pct = Math.round((loaded / total) * 100);
+        fill.style.width    = pct + '%';
+        percent.textContent = pct + '%';
+        if (loaded === total) resolve();
+      };
+
+      img.src = FRAME_PATH + 'frame_' + padNum(num) + '.jpg';
     });
-  },
-});
+  });
+}
 
-// ===== CONTACT: анимации при скролле =====
-gsap.to('.contact__title', {
-  y: 0,
-  opacity: 1,
-  duration: 0.9,
-  ease: 'power3.out',
-  scrollTrigger: {
-    trigger: '.contact',
-    start: 'top 80%',
-  },
-});
+// ===== СТАРТ =====
+loadFrames().then(() => {
+  gsap.registerPlugin(ScrollTrigger);
 
-gsap.to('.contact__sub', {
-  y: 0,
-  opacity: 1,
-  duration: 0.7,
-  ease: 'power2.out',
-  scrollTrigger: {
-    trigger: '.contact',
-    start: 'top 75%',
-  },
-});
-
-gsap.to('.contact__form', {
-  y: 0,
-  opacity: 1,
-  duration: 0.8,
-  delay: 0.15,
-  ease: 'power3.out',
-  scrollTrigger: {
-    trigger: '.contact',
-    start: 'top 75%',
-  },
-});
-
-// ===== COLOR PICKER =====
-const cpColors = [
-  {
-    file:  'car-black.png',
-    name:  'OBSIDIAN BLACK',
-    price: 'от 8 500 $',
-    desc:  'Классический чёрный. Агрессивный и безвременный.',
-    glow:  'rgba(26,26,26,0.35)',
-  },
-  {
-    file:  'car-white.png',
-    name:  'PEARL WHITE',
-    price: 'от 8 200 $',
-    desc:  'Белый перламутр. Чистота японского дизайна.',
-    glow:  'rgba(220,220,220,0.12)',
-  },
-  {
-    file:  'car-gray.png',
-    name:  'PLATINUM SILVER',
-    price: 'от 7 900 $',
-    desc:  'Серебро. Технологичность в каждом отблеске.',
-    glow:  'rgba(168,168,168,0.18)',
-  },
-  {
-    file:  'car-blue.png',
-    name:  'MIDNIGHT BLUE',
-    price: 'от 8 100 $',
-    desc:  'Ночной синий. Редкий цвет для тонких ценителей.',
-    glow:  'rgba(26,58,110,0.35)',
-  },
-];
-
-const cpName     = document.getElementById('cpName');
-const cpPrice    = document.getElementById('cpPrice');
-const cpDesc     = document.getElementById('cpDesc');
-const cpGlow     = document.getElementById('cpGlow');
-const cpCounter  = document.getElementById('cpCounter');
-const cpSwatches = document.querySelectorAll('.cp-swatch');
-
-// Обновление UI при смене слайда
-function cpUpdateUI(index) {
-  const data = cpColors[index];
-
-  // Свечение
-  cpGlow.style.background = `radial-gradient(ellipse at center, ${data.glow} 0%, transparent 70%)`;
-
-  // Текст: fade out → обновить → fade in
-  gsap.to([cpName, cpPrice, cpDesc], {
+  // Скрыть прелоадер
+  gsap.to('#preloader', {
     opacity: 0,
-    y: -10,
-    duration: 0.15,
-    ease: 'power1.in',
-    onComplete: () => {
-      cpName.textContent  = data.name;
-      cpPrice.textContent = data.price;
-      cpDesc.textContent  = data.desc;
-      gsap.to([cpName, cpPrice, cpDesc], {
-        opacity: 1,
-        y: 0,
-        duration: 0.3,
-        stagger: 0.05,
-        ease: 'power2.out',
-      });
-    },
+    duration: 0.7,
+    ease: 'power1.inOut',
+    onComplete() {
+      document.getElementById('preloader').style.display = 'none';
+    }
   });
 
-  // Активный кружок и счётчик
-  cpSwatches.forEach((s) => s.classList.remove('active'));
-  cpSwatches[index].classList.add('active');
-  cpCounter.textContent = `0${index + 1} / 04`;
-}
-
-// Инициализация Swiper
-const cpSwiper = new Swiper('.cp-swiper', {
-  effect: 'fade',
-  fadeEffect: { crossFade: true },
-  grabCursor: true,
-  loop: true,
-  speed: 600,
-  on: {
-    slideChange() {
-      cpUpdateUI(this.realIndex);
-    },
-  },
+  drawFrame(0);
+  initScroll();
 });
 
-// Кружки → slideToLoop
-cpSwatches.forEach((swatch) => {
-  swatch.addEventListener('click', () => {
-    cpSwiper.slideToLoop(parseInt(swatch.dataset.index));
+// ===== СКРОЛЛ И АНИМАЦИИ =====
+function initScroll() {
+  // Lenis — плавный скролл
+  const lenis = new Lenis({
+    duration: 1.4,
+    easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
   });
-});
+  lenis.on('scroll', ScrollTrigger.update);
+  gsap.ticker.add(time => lenis.raf(time * 1000));
+  gsap.ticker.lagSmoothing(0);
 
-// PREV / NEXT
-document.getElementById('cpPrev').addEventListener('click', () => {
-  cpSwiper.slidePrev();
-});
-document.getElementById('cpNext').addEventListener('click', () => {
-  cpSwiper.slideNext();
-});
+  // DOM
+  const header      = document.getElementById('header');
+  const headerBtn   = document.getElementById('header-btn');
+  const darkOverlay = document.getElementById('dark-overlay');
+  const footer      = document.getElementById('footer');
+  const contactWrap = document.getElementById('contact-wrap');
+  const contactForm = document.getElementById('contact-form');
+  const contactSuc  = document.getElementById('contact-success');
 
-// Появление секции при скролле
-gsap.from('.colorpicker__info', {
-  x: -60,
-  opacity: 0,
-  duration: 0.9,
-  ease: 'power3.out',
-  scrollTrigger: {
-    trigger: '.colorpicker',
-    start: 'top 75%',
-  },
-});
-gsap.from('.colorpicker__stage', {
-  y: 60,
-  opacity: 0,
-  duration: 1,
-  ease: 'power3.out',
-  scrollTrigger: {
-    trigger: '.colorpicker',
-    start: 'top 75%',
-  },
-});
-gsap.from('.colorpicker__swatches', {
-  x: 60,
-  opacity: 0,
-  duration: 0.9,
-  ease: 'power3.out',
-  scrollTrigger: {
-    trigger: '.colorpicker',
-    start: 'top 75%',
-  },
-});
+  const textIntro  = document.getElementById('text-intro');
+  const textEngine = document.getElementById('text-engine');
+  const textRwd    = document.getElementById('text-rwd');
+  const textJapan  = document.getElementById('text-japan');
+  const textSpeed  = document.getElementById('text-speed');
+  const textBorn   = document.getElementById('text-born');
 
-// ===== МОБИЛЬНОЕ МЕНЮ (бургер) =====
-const burgerBtn  = document.getElementById('burgerBtn');
-const mobileNav  = document.getElementById('mobileNav');
+  const speedCounter  = document.getElementById('speed-counter');
+  const staggerSpans  = document.querySelectorAll('#text-born .text-stagger span');
 
-if (burgerBtn && mobileNav) {
-  burgerBtn.addEventListener('click', () => {
-    const isOpen = burgerBtn.classList.toggle('open');
-    mobileNav.classList.toggle('open', isOpen);
+  // Состояние — чтобы не запускать одну анимацию несколько раз
+  const S = {
+    headerBg:    false,
+    btnHidden:   false,
+    intro:       null,
+    engine:      null,
+    rwd:         null,
+    japan:       null,
+    speed:       null,
+    born:        null,
+    contact:     null,
+    countUpDone: false,
+    staggerDone: false,
+  };
+
+  // ===== Хелперы показа/скрытия =====
+  function show(el, from, to) {
+    gsap.fromTo(el, { opacity: 0, ...from }, { opacity: 1, ...to, duration: 0.55, ease: 'power2.out' });
+  }
+  function hide(el, to) {
+    gsap.to(el, { opacity: 0, ...to, duration: 0.4, ease: 'power2.in' });
+  }
+
+  // ===== Главный ScrollTrigger =====
+  ScrollTrigger.create({
+    trigger: document.body,
+    start: 'top top',
+    end:   'bottom bottom',
+    onUpdate(self) {
+      const p = self.progress;
+
+      // Кадр canvas
+      drawFrame(Math.floor(p * (frames.length - 1)));
+
+      // --- Header фон ---
+      if (p > 0.10 && !S.headerBg) {
+        S.headerBg = true;
+        header.classList.add('header--scrolled');
+      } else if (p <= 0.10 && S.headerBg) {
+        S.headerBg = false;
+        header.classList.remove('header--scrolled');
+      }
+
+      // --- Кнопка КУПИТЬ ---
+      if (p >= 0.90 && !S.btnHidden) {
+        S.btnHidden = true;
+        gsap.to(headerBtn, { opacity: 0, duration: 0.3,
+          onComplete: () => { headerBtn.style.pointerEvents = 'none'; } });
+      } else if (p < 0.90 && S.btnHidden) {
+        S.btnHidden = false;
+        headerBtn.style.pointerEvents = 'auto';
+        gsap.to(headerBtn, { opacity: 1, duration: 0.3 });
+      }
+
+      // --- ТЕКСТ: LEXUS IS 200 | 0–15% ---
+      if (p >= 0.02 && p < 0.15 && S.intro !== true) {
+        S.intro = true;
+        show(textIntro.querySelector('.text-inner'), { y: 24 }, { y: 0 });
+        gsap.set(textIntro, { opacity: 1 });
+      } else if ((p < 0.02 || p >= 0.15) && S.intro !== false) {
+        S.intro = false;
+        hide(textIntro, { y: -18 });
+      }
+
+      // --- ТЕКСТ: 3.0L INLINE-6 | 15–30% ---
+      if (p >= 0.17 && p < 0.30 && S.engine !== true) {
+        S.engine = true;
+        gsap.set(textEngine, { opacity: 1 });
+        show(textEngine.querySelector('.text-inner'), { x: -60 }, { x: 0 });
+      } else if ((p < 0.17 || p >= 0.30) && S.engine !== false) {
+        S.engine = false;
+        hide(textEngine, { x: 50 });
+      }
+
+      // --- ТЕКСТ: ЗАДНИЙ ПРИВОД | 30–45% ---
+      if (p >= 0.32 && p < 0.45 && S.rwd !== true) {
+        S.rwd = true;
+        gsap.set(textRwd, { opacity: 1 });
+        show(textRwd.querySelector('.text-inner'), { x: 60 }, { x: 0 });
+      } else if ((p < 0.32 || p >= 0.45) && S.rwd !== false) {
+        S.rwd = false;
+        hide(textRwd, { x: -50 });
+      }
+
+      // --- ТЕКСТ: ЯПОНСКАЯ ТОЧНОСТЬ | 45–60% ---
+      if (p >= 0.47 && p < 0.60 && S.japan !== true) {
+        S.japan = true;
+        gsap.set(textJapan, { opacity: 1 });
+        show(textJapan.querySelector('.text-inner'), { scale: 0.9 }, { scale: 1 });
+      } else if ((p < 0.47 || p >= 0.60) && S.japan !== false) {
+        S.japan = false;
+        hide(textJapan, { scale: 0.95 });
+      }
+
+      // --- ТЕКСТ: 8.3 СЕК | 60–75% ---
+      if (p >= 0.62 && p < 0.75 && S.speed !== true) {
+        S.speed = true;
+        gsap.set(textSpeed, { opacity: 1 });
+        show(textSpeed.querySelector('.text-inner'), { y: 20 }, { y: 0 });
+
+        // CountUp — запускается один раз
+        if (!S.countUpDone) {
+          S.countUpDone = true;
+          const obj = { val: 0 };
+          gsap.to(obj, {
+            val: 8.3,
+            duration: 1.6,
+            ease: 'power2.out',
+            onUpdate() { speedCounter.textContent = obj.val.toFixed(1); }
+          });
+        }
+      } else if ((p < 0.62 || p >= 0.75) && S.speed !== false) {
+        S.speed = false;
+        hide(textSpeed, { y: -18 });
+      }
+
+      // --- ТЕКСТ: РОЖДЁН ДЛЯ ДОРОГИ | 75–90% ---
+      if (p >= 0.77 && p < 0.90 && S.born !== true) {
+        S.born = true;
+        gsap.set(textBorn, { opacity: 1 });
+
+        // Стаггер по словам — один раз
+        if (!S.staggerDone) {
+          S.staggerDone = true;
+          gsap.to(staggerSpans, {
+            opacity: 1,
+            y: 0,
+            duration: 0.65,
+            stagger: 0.22,
+            ease: 'power2.out',
+          });
+        }
+      } else if ((p < 0.77 || p >= 0.90) && S.born !== false) {
+        S.born = false;
+        hide(textBorn, {});
+        // Сброс слов при скролле назад
+        if (p < 0.77) {
+          S.staggerDone = false;
+          gsap.set(staggerSpans, { opacity: 0, y: 32 });
+        }
+      }
+
+      // --- ФОРМА + осветление | 90–100% ---
+      if (p >= 0.90 && S.contact !== true) {
+        S.contact = true;
+        gsap.to(darkOverlay, { opacity: 0.94, duration: 0.7 });
+        gsap.to(contactWrap, { opacity: 1, duration: 0.6 });
+        contactWrap.style.pointerEvents = 'auto';
+        gsap.to(footer, { opacity: 1, duration: 0.6 });
+        footer.style.pointerEvents = 'auto';
+      } else if (p < 0.90 && S.contact !== false) {
+        S.contact = false;
+        gsap.to(darkOverlay, { opacity: 0, duration: 0.6 });
+        gsap.to(contactWrap, { opacity: 0, duration: 0.4 });
+        contactWrap.style.pointerEvents = 'none';
+        gsap.to(footer, { opacity: 0, duration: 0.4 });
+        footer.style.pointerEvents = 'none';
+      }
+    }
   });
 
-  // Закрыть при клике на ссылку
-  mobileNav.querySelectorAll('.header__mobile-link').forEach((link) => {
-    link.addEventListener('click', () => {
-      burgerBtn.classList.remove('open');
-      mobileNav.classList.remove('open');
-    });
-  });
-}
-
-// ===== ФОРМА: обработка отправки =====
-const form = document.getElementById('contactForm');
-if (form) {
-  form.addEventListener('submit', (e) => {
+  // ===== Форма: отправка =====
+  contactForm.addEventListener('submit', e => {
     e.preventDefault();
-    const btn = form.querySelector('button[type="submit"]');
-    btn.textContent = 'ЗАЯВКА ОТПРАВЛЕНА';
-    btn.style.background = '#1a6b1a';
-    btn.disabled = true;
-    // Сбросить через 3 секунды
-    setTimeout(() => {
-      btn.textContent = 'ОТПРАВИТЬ ЗАЯВКУ';
-      btn.style.background = '';
-      btn.disabled = false;
-      form.reset();
-    }, 3000);
+    gsap.to(contactForm, {
+      opacity: 0,
+      y: -16,
+      duration: 0.4,
+      onComplete() {
+        contactForm.style.display = 'none';
+        contactSuc.style.display  = 'block';
+        gsap.from(contactSuc, { opacity: 0, y: 20, duration: 0.6 });
+      }
+    });
   });
 }
