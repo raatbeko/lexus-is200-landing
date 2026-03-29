@@ -1,0 +1,28 @@
+# СЕКЦИЯ(position, x229, y1440): Статья 01
+
+ЦЕЛЬ: Первый информационный блок. Текст слева, фото справа.
+
+ВЁРСТКА:
+- Два столбца: 55% текст слева / 45% фото справа
+- Номер секции "01" очень крупно (Bebas Neue, 180px, цвет #2A3230)
+  позиционируется за текстом как фоновый элемент
+
+КОНТЕНТ СЛЕВА: (position, x150, y141)
+- Метка: "— GET STARTED —" (Inter, акцент #D4A853, мелко)
+- Заголовок: "What level of hiker are you?"
+  Playfair Display, белый, крупно
+- Текст описания: [Determining what level of hiker you are can be an important tool when planning future hikes. This hiking level guide will help you plan hikes according to different hike ratings set by various websites like All Trails and Modern Hiker. What type of hiker are you – novice, moderate, advanced moderate, expert, or expert backpacker? ]
+  Inter 300, #8A9190, line-height: 1.8
+- Ссылка "READ MORE →" акцентным цветом
+
+ФОТО СПРАВА:
+- images/01.jpg (position, x896, y0, w566, h720)
+- Лёгкая тень снизу
+
+АНИМАЦИЯ при скролле:
+- Номер "01": fade in первым
+- Текстовый блок: Y: 40px → 0, opacity 0 → 1
+- Фото: появляется чуть позже с задержкой 0.2s
+
+МОБИЛЬНЫЙ:
+- Фото сверху, текст снизу (одна колонка)

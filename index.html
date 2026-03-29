@@ -3,127 +3,257 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>LEXUS IS 200</title>
-  <link rel="stylesheet" href="css/style.css">
+  <title>MNTN — A Hiking Guide</title>
+
+  <!-- Шрифты -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Raleway:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500&family=Bebas+Neue&display=swap" rel="stylesheet">
+
+  <!-- GSAP + ScrollTrigger -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+  <!-- Lenis плавный скролл -->
+  <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-  <!-- Прелоадер -->
-  <div id="preloader">
-    <div class="preloader__title">LEXUS IS 200</div>
-    <div class="preloader__bar">
-      <div class="preloader__fill" id="preloader-fill"></div>
+  <!-- ======================== HEADER ======================== -->
+  <header class="header" id="header">
+
+    <!-- Вертикальный текст слева -->
+    <div class="header-side header-side--left">
+      <span class="header-side__text">Scroll</span>
     </div>
-    <div class="preloader__percent" id="preloader-percent">0%</div>
-  </div>
 
-  <!-- Обёртка canvas — управляет фоном на мобильных -->
-  <div id="canvas-wrapper">
-    <canvas id="canvas"></canvas>
-  </div>
+    <!-- Основная навигация -->
+    <div class="header-inner">
+      <a href="#" class="logo">MNTN</a>
 
-  <!-- Оверлей для финальной секции -->
-  <div id="dark-overlay"></div>
+      <nav class="nav">
+        <a href="#" class="nav__link">Equipment</a>
+        <a href="#" class="nav__link">About Us</a>
+        <a href="#" class="nav__link">Blog</a>
+      </nav>
 
-  <!-- Header -->
-  <header id="header">
-    <div class="header__logo">
-      <img src="prepared/header/images/logo.png" alt="LEXUS IS 200"
-           onerror="this.style.display='none';document.getElementById('logo-text').style.display='block'">
-      <span id="logo-text" class="header__logo-text">LEXUS IS 200</span>
+      <div class="header-account">
+        <svg class="header-account__icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <circle cx="12" cy="8" r="4"/>
+          <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
+        </svg>
+        <span class="header-account__text">Account</span>
+      </div>
     </div>
-    <button class="header__btn" id="header-btn">КУПИТЬ</button>
+
+    <!-- Вертикальные иконки соцсетей справа -->
+    <div class="header-side header-side--right">
+      <a href="#" class="header-social" aria-label="Instagram">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <rect x="2" y="2" width="20" height="20" rx="5"/>
+          <circle cx="12" cy="12" r="4"/>
+          <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+        </svg>
+      </a>
+      <a href="#" class="header-social" aria-label="Twitter">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M4 4l16 16M4 20L20 4"/>
+        </svg>
+      </a>
+      <a href="#" class="header-social" aria-label="Facebook">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+        </svg>
+      </a>
+    </div>
+
   </header>
 
-  <!-- ===== ТЕКСТОВЫЕ ОВЕРЛЕИ ===== -->
+  <!-- ======================== HERO ======================== -->
+  <section class="hero" id="hero">
 
-  <!-- 0–15%: интро -->
-  <div class="text-overlay" id="text-intro">
-    <div class="text-inner">
-      <h1 class="text-title">LEXUS IS 200</h1>
-      <p class="text-sub">2004 — 2006</p>
+    <!-- Слоёные фотографии -->
+    <div class="hero__layers">
+      <div class="hero__layer hero__layer--bg">
+        <img src="prepared/sections/01_hero/image/bg.jpg" alt="Mountain background" loading="eager">
+      </div>
+      <div class="hero__layer hero__layer--hg">
+        <img src="prepared/sections/01_hero/image/hg.png" alt="" loading="eager">
+      </div>
+      <div class="hero__layer hero__layer--mg">
+        <img src="prepared/sections/01_hero/image/mg.png" alt="" loading="eager">
+      </div>
+      <div class="hero__layer hero__layer--vg">
+        <img src="prepared/sections/01_hero/image/vg.png" alt="" loading="eager">
+      </div>
     </div>
-  </div>
 
-  <!-- 15–30%: двигатель (левый нижний) -->
-  <div class="text-overlay text-overlay--bottom-left" id="text-engine">
-    <div class="text-inner">
-      <h2 class="text-title">3.0L INLINE-6</h2>
-      <p class="text-sub">200 л.с. Легендарная надёжность</p>
-    </div>
-  </div>
+    <!-- Оверлей -->
+    <div class="hero__overlay"></div>
 
-  <!-- 30–45%: привод (правый нижний) -->
-  <div class="text-overlay text-overlay--bottom-right" id="text-rwd">
-    <div class="text-inner">
-      <h2 class="text-title">ЗАДНИЙ ПРИВОД</h2>
-      <p class="text-sub">RWD — классика для тех кто понимает</p>
-    </div>
-  </div>
+    <!-- Контент -->
+    <div class="hero__content">
+      <p class="hero__label">
+        <span class="hero__label-line"></span>
+        A HIKING GUIDE
+        <span class="hero__label-line"></span>
+      </p>
 
-  <!-- 45–60%: точность (центр) -->
-  <div class="text-overlay" id="text-japan">
-    <div class="text-inner">
-      <h2 class="text-title">ЯПОНСКАЯ ТОЧНОСТЬ</h2>
-      <p class="text-sub">Каждая деталь создана с целью</p>
-    </div>
-  </div>
+      <h1 class="hero__title">
+        <span class="hero__title-line">Be Prepared For The</span>
+        <span class="hero__title-line">Mountains And Beyond!</span>
+      </h1>
 
-  <!-- 60–75%: разгон (центр, крупно) -->
-  <div class="text-overlay" id="text-speed">
-    <div class="text-inner">
-      <div class="text-speed-number"><span id="speed-counter">0</span><span class="text-speed-unit"> СЕК</span></div>
-      <p class="text-sub">Разгон 0 — 100 км/ч</p>
-    </div>
-  </div>
-
-  <!-- 75–90%: слоган (центр, стаггер) -->
-  <div class="text-overlay" id="text-born">
-    <div class="text-inner">
-      <h2 class="text-title text-stagger">
-        <span>РОЖДЁН</span>&nbsp;<span>ДЛЯ</span>&nbsp;<span>ДОРОГИ</span>
-      </h2>
-    </div>
-  </div>
-
-  <!-- 90–100%: форма связи -->
-  <div class="contact-wrap" id="contact-wrap">
-    <h2 class="contact__title">ГОТОВ СТАТЬ ТВОИМ?</h2>
-    <form class="contact-form" id="contact-form">
-      <input type="text" class="contact-form__input" placeholder="Твоё имя" name="name" autocomplete="off" required>
-      <input type="tel" class="contact-form__input" placeholder="+996 ___ __ __" name="phone" autocomplete="off" required>
-      <button type="submit" class="contact-form__btn">ОТПРАВИТЬ ЗАЯВКУ</button>
-    </form>
-    <div class="contact-success" id="contact-success">СКОРО СВЯЖЕМСЯ С ТОБОЙ</div>
-  </div>
-
-  <!-- Footer -->
-  <footer id="footer">
-    <span class="footer__brand">LEXUS IS 200</span>
-    <span class="footer__location">Бишкек, Кыргызстан</span>
-    <div class="footer__social">
-      <a href="#" class="footer__social-link" aria-label="Instagram">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-          <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
-          <circle cx="12" cy="12" r="4"/>
-          <circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/>
+      <div class="hero__scroll">
+        <svg class="hero__scroll-arrow" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <line x1="12" y1="5" x2="12" y2="19"/>
+          <polyline points="19 12 12 19 5 12"/>
         </svg>
-      </a>
-      <a href="#" class="footer__social-link" aria-label="WhatsApp">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
-        </svg>
-      </a>
+        <span class="hero__scroll-text">scroll</span>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ======================== СТАТЬЯ 01 ======================== -->
+  <section class="article article--right" id="article-01">
+    <div class="container">
+
+      <div class="article__inner">
+        <!-- Текст слева -->
+        <div class="article__text">
+          <span class="article__number" aria-hidden="true">01</span>
+          <p class="article__label">— GET STARTED —</p>
+          <h2 class="article__title">What level of hiker<br>are you?</h2>
+          <p class="article__desc">
+            Determining what level of hiker you are can be an important tool when planning future hikes.
+            This hiking level guide will help you plan hikes according to different hike ratings set by
+            various websites like All Trails and Modern Hiker. What type of hiker are you – novice,
+            moderate, advanced moderate, expert, or expert backpacker?
+          </p>
+          <a href="#" class="article__link">READ MORE →</a>
+        </div>
+
+        <!-- Фото справа -->
+        <div class="article__photo">
+          <img src="prepared/sections/02_article_one/image/01.png" alt="Hiker in mountains" loading="lazy" object-fit="cover">
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ======================== СТАТЬЯ 02 ======================== -->
+  <section class="article article--left" id="article-02">
+    <div class="container">
+
+      <div class="article__inner">
+        <!-- Фото слева -->
+        <div class="article__photo">
+          <img src="prepared/sections/03_article_two/image/01.png" alt="Hiking gear" loading="lazy" object-fit="cover">
+        </div>
+
+        <!-- Текст справа -->
+        <div class="article__text">
+          <span class="article__number" aria-hidden="true">02</span>
+          <p class="article__label">— HIKING ESSENTIALS —</p>
+          <h2 class="article__title">Picking the right<br>Hiking Gear!</h2>
+          <p class="article__desc">
+            The nice thing about beginning hiking is that you don't really need any special gear,
+            you can probably get away with things you already have. Let's start with clothing.
+            A typical mistake hiking beginners make is wearing jeans and regular clothes, which
+            will get heavy and chafe if they get sweaty or wet.
+          </p>
+          <a href="#" class="article__link">READ MORE →</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ======================== СТАТЬЯ 03 ======================== -->
+  <section class="article article--right" id="article-03">
+    <div class="container">
+
+      <div class="article__inner">
+        <!-- Текст слева -->
+        <div class="article__text">
+          <span class="article__number" aria-hidden="true">03</span>
+          <p class="article__label">— WHERE YOU GO IS THE ART —</p>
+          <h2 class="article__title">Understand Your<br>Map &amp; Timing?</h2>
+          <p class="article__desc">
+            Determining what level of hiker you are can be an important tool when planning future hikes.
+            This hiking level guide will help you plan hikes according to different hike ratings set by
+            various websites like All Trails and Modern Hiker. What type of hiker are you – novice,
+            moderate, advanced moderate, expert, or expert backpacker?
+          </p>
+          <a href="#" class="article__link">READ MORE →</a>
+        </div>
+
+        <!-- Фото справа -->
+        <div class="article__photo">
+          <img src="prepared/sections/04_article_three/image/01.png" alt="Map and timing" loading="lazy" object-fit="cover">
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ======================== FOOTER ======================== -->
+  <footer class="footer">
+    <div class="container">
+
+      <div class="footer__grid">
+        <!-- Колонка 1: Бренд -->
+        <div class="footer__col footer__col--brand">
+          <span class="footer__logo">MNTN</span>
+          <p class="footer__brand-desc">
+            Our platform is designed to help you plan, organize &amp; share your outdoor adventures
+          </p>
+        </div>
+
+        <!-- Колонка 2 -->
+        <div class="footer__col">
+          <h4 class="footer__col-title">More on MNTN</h4>
+          <ul class="footer__links">
+            <li><a href="#" class="footer__link">Features</a></li>
+            <li><a href="#" class="footer__link">Our Picks</a></li>
+            <li><a href="#" class="footer__link">Gear</a></li>
+            <li><a href="#" class="footer__link">Updates</a></li>
+          </ul>
+        </div>
+
+        <!-- Колонка 3 -->
+        <div class="footer__col">
+          <h4 class="footer__col-title">More on Blog</h4>
+          <ul class="footer__links">
+            <li><a href="#" class="footer__link">Climbing</a></li>
+            <li><a href="#" class="footer__link">Hiking</a></li>
+            <li><a href="#" class="footer__link">Surfing</a></li>
+            <li><a href="#" class="footer__link">About Us</a></li>
+          </ul>
+        </div>
+
+        <!-- Колонка 4 -->
+        <div class="footer__col">
+          <h4 class="footer__col-title">Links</h4>
+          <ul class="footer__links">
+            <li><a href="#" class="footer__link">Join</a></li>
+            <li><a href="#" class="footer__link">Gear</a></li>
+            <li><a href="#" class="footer__link">Updates</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer__bottom">
+        <p class="footer__copy">Copyright ADITRON. No Sion &amp; Privacy</p>
+      </div>
+
     </div>
   </footer>
 
-  <!-- Библиотеки -->
-  <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
   <script src="js/main.js"></script>
 </body>
 </html>

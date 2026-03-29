@@ -1,21 +1,33 @@
 # FOOTER
 
-Появляется самым последним после формы.
-Минималистичный. Одна строка.
+ВЁРСТКА: 4 колонки
 
-КОНТЕНТ:
-- Слева: "LEXUS IS 200"
-- Центр: "Бишкек, Кыргызстан"
-- Справа: Instagram + WhatsApp иконки
+Колонка 1 — Бренд:
+- Логотип "MNTN" Bebas Neue крупно
+- Подпись: "Our platform is designed to help you plan, organize & share your outdoor adventures"
+- Inter 300, #8A9190, мелко
 
-Фон: #0A0A0A
-Граница сверху: 1px solid #222
+Колонка 2 — More on MNTN:
+- Заголовок колонки: Inter 500, белый
+- Ссылки: Features / Our Picks / Gear / Updates
+- Inter 300, #8A9190, hover: #D4A853
+
+Колонка 3 — More on Blog:
+- Заголовок колонки: Inter 500, белый
+- Ссылки: Climbing / Hiking / Surfing / About Us
+- Inter 300, #8A9190, hover: #D4A853
+
+Колонка 4 — Links:
+- Заголовок колонки: Inter 500, белый
+- Ссылки: Join / Gear / Updates
+- Inter 300, #8A9190
+
+НИЗ FOOTER:
+- Copyright: "Copyright ADITRON. No Sion & Privacy"
+- Inter 300, #556060, очень мелко
+
+МОБИЛЬНЫЙ:
+- 4 колонки → 2 колонки на 768px → 1 колонка на 480px
+
+АНИМАЦИЯ: статичный, без анимаций
 ```
-
----
-
-Когда кадры готовы — в терминале одна команда:
-```
-Прочитай все файлы в папке prepared/ начиная с CLAUDE.md
-и создай сайт с нуля: index.html, css/style.css, js/main.js.
-Это one-scroll canvas сайт как у Apple.

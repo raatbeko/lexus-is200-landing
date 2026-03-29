@@ -1,8 +1,9 @@
-Background:      #F5F5F5
-Surface:         #EEEEEE
-Accent:          #E03030
-Accent Hover:    #FF4444
-Text Primary:    #0A0A0A
-Text Secondary:  #444444
-Border:          #DDDDDD
-Overlay:         rgba(255,255,255,0.7)
+Background:      #1A1E1C
+Surface:         #222725
+Accent:          #D4A853
+Text Primary:    #FFFFFF
+Text Secondary:  #8A9190
+Text Muted:      #556060
+Border:          #2E3533
+Overlay:         rgba(20,26,24,0.6)
+Number Color:    #2A3230
