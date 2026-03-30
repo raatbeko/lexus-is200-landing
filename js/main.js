@@ -194,11 +194,60 @@ blockTabs.forEach(tab => {
 renderApts(1, 0);
 selectApt(1, 0);
 
-// ===== GREEN HALL: плавный скролл к якорю через Lenis =====
-document.querySelectorAll('.gh__nav-item').forEach(link => {
-  link.addEventListener('click', e => {
-    e.preventDefault();
-    lenis.scrollTo(link.getAttribute('href'), { offset: -80 });
+// ===== GREEN HALL: переключение зон =====
+const ghTabs = document.querySelectorAll('.gh__tab');
+const ghCards = document.querySelectorAll('.gh__card');
+let isSwitching = false;
+
+function switchZone(zone) {
+  if (isSwitching) return;
+  isSwitching = true;
+
+  const activeCard = document.querySelector('.gh__card--active');
+
+  if (activeCard) {
+    gsap.to(activeCard, {
+      opacity: 0,
+      x: -30,
+      duration: 0.15,
+      ease: 'power2.in',
+      onComplete: () => {
+        activeCard.classList.remove('gh__card--active');
+        activeCard.style.display = 'none';
+
+        ghTabs.forEach(tab => {
+          tab.classList.toggle('gh__tab--active', tab.dataset.zone === zone);
+        });
+
+        const newCard = document.getElementById(`zone-${zone}`);
+        newCard.style.display = 'grid';
+
+        gsap.fromTo(newCard,
+          { opacity: 0, x: 30 },
+          { opacity: 1, x: 0, duration: 0.35, ease: 'power2.out' }
+        );
+        newCard.classList.add('gh__card--active');
+
+        setTimeout(() => {
+          isSwitching = false;
+        }, 350);
+      }
+    });
+  } else {
+    ghTabs.forEach(tab => {
+      tab.classList.toggle('gh__tab--active', tab.dataset.zone === zone);
+    });
+
+    const newCard = document.getElementById(`zone-${zone}`);
+    newCard.style.display = 'grid';
+    newCard.classList.add('gh__card--active');
+    isSwitching = false;
+  }
+}
+
+ghTabs.forEach(tab => {
+  tab.addEventListener('click', () => {
+    switchZone(tab.dataset.zone);
   });
 });
 
@@ -420,4 +469,26 @@ gsap.from('#borsanPhoto', {
   duration: 1,
   ease: 'power2.out',
   scrollTrigger: { trigger: '#borsanPhoto', start: 'top 80%' },
+});
+
+// ===== ГАЛЕРЕЯ: Swiper =====
+const gallerySwiper = new Swiper('.gallery__slider', {
+  loop: true,
+  autoplay: {
+    delay: 4000,
+    disableOnInteraction: false,
+  },
+  speed: 800,
+  effect: 'fade',
+  fadeEffect: {
+    crossFade: true,
+  },
+  navigation: {
+    nextEl: '.swiper-button-next',
+    prevEl: '.swiper-button-prev',
+  },
+  pagination: {
+    el: '.swiper-pagination',
+    clickable: true,
+  },
 });

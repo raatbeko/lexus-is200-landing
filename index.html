@@ -16,6 +16,10 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
   <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
 
+  <!-- Swiper -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -285,54 +289,54 @@
   <!-- ===== GREEN HALL ===== -->
   <section class="gh" id="green-hall">
 
-    <!-- Верхняя часть: фото + заголовок -->
+    <!-- Верхняя часть: фото + заголовок + табы -->
     <div class="gh__hero">
-      <img src="prepared/sections/07_green_hall/image/green-hall.jpg" alt="GREEN HALL — терраса 19 этажа" loading="lazy" class="gh__hero-img">
-      <div class="gh__hero-overlay"></div>
+      <img src="prepared/sections/07_green_hall/image/green-hall.jpg" alt="GREEN HALL — терраса 19 этажа" loading="eager" class="gh__hero-img">
+
+      <!-- Заголовок в левом верхнем углу -->
       <div class="gh__hero-title">
         <h2 class="gh__title">GREEN HALL</h2>
         <p class="gh__title-sub">Терраса на 19-м этаже</p>
       </div>
+
+      <!-- Табы внизу фото -->
+      <div class="gh__tabs">
+        <button class="gh__tab gh__tab--active" data-zone="winter">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>
+            <circle cx="12" cy="12" r="4"/>
+          </svg>
+          <span>Зимний сад</span>
+        </button>
+        <button class="gh__tab" data-zone="sport">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M6.5 6.5L17.5 17.5M6.5 17.5L17.5 6.5"/>
+            <circle cx="12" cy="12" r="9"/>
+          </svg>
+          <span>Sport room</span>
+        </button>
+        <button class="gh__tab" data-zone="library">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+          </svg>
+          <span>Библиотека</span>
+        </button>
+        <button class="gh__tab" data-zone="coworking">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+            <line x1="8" y1="21" x2="16" y2="21"/>
+            <line x1="12" y1="17" x2="12" y2="21"/>
+          </svg>
+          <span>Коворкинг</span>
+        </button>
+      </div>
     </div>
 
-    <!-- Навигация — якорные ссылки -->
-    <div class="gh__nav">
-      <a class="gh__nav-item" href="#zone-winter">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
-          <path d="M12 2C6 2 4 8 4 12c0 2 1 4 3 5.5L12 22l5-4.5C19 16 20 14 20 12c0-4-2-10-8-10z"/>
-        </svg>
-        <span>Зимний сад</span>
-      </a>
-      <a class="gh__nav-item" href="#zone-sport">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
-          <line x1="6" y1="12" x2="18" y2="12"/>
-          <circle cx="4" cy="12" r="2"/>
-          <circle cx="20" cy="12" r="2"/>
-          <circle cx="12" cy="8" r="2"/>
-        </svg>
-        <span>Спортзал</span>
-      </a>
-      <a class="gh__nav-item" href="#zone-library">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
-          <path d="M2 6h8a2 2 0 0 1 2 2v12a1.5 1.5 0 0 0-1.5-2H2V6z"/>
-          <path d="M22 6h-8a2 2 0 0 0-2 2v12a1.5 1.5 0 0 1 1.5-2H22V6z"/>
-        </svg>
-        <span>Библиотека</span>
-      </a>
-      <a class="gh__nav-item" href="#zone-coworking">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
-          <rect x="2" y="5" width="20" height="13" rx="1"/>
-          <line x1="8" y1="21" x2="16" y2="21"/>
-          <line x1="12" y1="18" x2="12" y2="21"/>
-        </svg>
-        <span>Коворкинг</span>
-      </a>
-    </div>
-
-    <!-- Карточки зон — всегда видны, скролл по якорям -->
+    <!-- Карточки зон -->
     <div class="gh__cards">
 
-      <div class="gh__card" id="zone-winter">
+      <div class="gh__card gh__card--active" id="zone-winter">
         <div class="gh__card-photo-wrap">
           <div class="gh__card-circle">
             <img src="prepared/sections/07_green_hall/image/winter-garden.jpg" alt="Зимний сад" loading="lazy">
@@ -343,19 +347,19 @@
         </div>
         <div class="gh__card-text">
           <h3 class="gh__card-title">Зимний сад</h3>
-          <p class="gh__card-para">Уютное пространство, наполненное светом и тишиной. Здесь легко сосредоточиться на работе, погрузиться в книгу или просто сделать паузу среди насыщенного дня.</p>
+          <p class="gh__card-para">Уютное пространство с библиотекой и коворкинг-зоной, наполненное светом и тишиной. Здесь легко сосредоточиться на работе, погрузиться в книгу или просто сделать паузу среди насыщенного дня.</p>
         </div>
       </div>
 
-      <div class="gh__card gh__card--reverse" id="zone-sport">
+      <div class="gh__card" id="zone-sport">
+        <div class="gh__card-text">
+          <h3 class="gh__card-title">Sport Room</h3>
+          <p class="gh__card-para">Зал для тренировок и практик, где можно перезагрузиться и вернуть внутреннее равновесие. Пространство, где день может начинаться энергией или завершаться спокойствием.</p>
+        </div>
         <div class="gh__card-photo-wrap">
           <div class="gh__card-circle">
-            <img src="prepared/sections/07_green_hall/image/sport-room.jpg" alt="Спортзал" loading="lazy">
+            <img src="prepared/sections/07_green_hall/image/sport-room.jpg" alt="Sport Room" loading="lazy">
           </div>
-        </div>
-        <div class="gh__card-text">
-          <h3 class="gh__card-title">Спортзал</h3>
-          <p class="gh__card-para">Зал для тренировок и практик, где можно перезагрузиться и вернуть внутреннее равновесие. Пространство, где день может начинаться энергией или завершаться спокойствием.</p>
         </div>
       </div>
 
@@ -370,19 +374,19 @@
         </div>
         <div class="gh__card-text">
           <h3 class="gh__card-title">Библиотека</h3>
-          <p class="gh__card-para">Мягкий свет, удобные кресла и атмосфера спокойствия создают место, куда хочется возвращаться. Здесь легко погрузиться в книгу и провести время в уединении.</p>
+          <p class="gh__card-para">Мягкий свет, удобные кресла и атмосфера спокойствия создают место, куда хочется возвращаться. Здесь легко погрузиться в книгу, отвлечься от городской динамики и провести время в уединении.</p>
         </div>
       </div>
 
-      <div class="gh__card gh__card--reverse" id="zone-coworking">
+      <div class="gh__card" id="zone-coworking">
+        <div class="gh__card-text">
+          <h3 class="gh__card-title">Коворкинг-зона</h3>
+          <p class="gh__card-para">Среда для работы и новых идей. Продуманная акустика, комфортные рабочие места и современная инфраструктура позволяют сосредоточиться на важном. Здесь можно провести встречу, поработать над проектом или организовать онлайн-созвон, не покидая комплекса.</p>
+        </div>
         <div class="gh__card-photo-wrap">
           <div class="gh__card-circle">
             <img src="prepared/sections/07_green_hall/image/coworking.jpg" alt="Коворкинг" loading="lazy">
           </div>
-        </div>
-        <div class="gh__card-text">
-          <h3 class="gh__card-title">Коворкинг-зона</h3>
-          <p class="gh__card-para">Среда для работы и новых идей. Продуманная акустика, комфортные рабочие места и современная инфраструктура позволяют сосредоточиться на важном, не покидая комплекса.</p>
         </div>
       </div>
 
@@ -452,6 +456,29 @@
         </div>
       </div>
 
+    </div>
+  </section>
+
+  <!-- ===== ГАЛЕРЕЯ ===== -->
+  <section class="gallery" id="gallery">
+    <div class="gallery__header">
+      <h2 class="gallery__title">ГАЛЕРЕЯ ВАШЕГО ДОМА</h2>
+    </div>
+    <div class="gallery__slider">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide">
+          <img src="prepared/sections/11_gallery/image/gallery-1.jpg" alt="Галерея IVORY" loading="lazy">
+        </div>
+        <div class="swiper-slide">
+          <img src="prepared/sections/11_gallery/image/gallery-2.jpg" alt="Галерея IVORY" loading="lazy">
+        </div>
+        <div class="swiper-slide">
+          <img src="prepared/sections/11_gallery/image/gallery-3.jpg" alt="Галерея IVORY" loading="lazy">
+        </div>
+      </div>
+      <div class="swiper-button-prev"></div>
+      <div class="swiper-button-next"></div>
+      <div class="swiper-pagination"></div>
     </div>
   </section>
 
@@ -542,6 +569,37 @@
 
     </div>
   </section>
+
+  <!-- ===== ФУТЕР ===== -->
+  <footer class="footer">
+    <div class="footer__inner">
+      <div class="footer__top">
+        <div class="footer__col footer__col--brand">
+          <div class="footer__logo">
+            <span class="footer__logo-icon"></span>
+            <span class="footer__logo-name">BORSAN</span>
+          </div>
+          <p class="footer__brand-desc">международная строительная компания</p>
+          <p class="footer__address">г. Бишкек, ул. Нефёрова, 113</p>
+        </div>
+        <nav class="footer__col footer__col--nav">
+          <a href="#about-section" class="footer__nav-link">О проекте</a>
+          <a href="#infrastructure" class="footer__nav-link">Инфраструктура</a>
+          <a href="#plans" class="footer__nav-link">Планировки</a>
+          <a href="#gallery" class="footer__nav-link">Галерея</a>
+          <a href="#contacts" class="footer__nav-link">Контакты</a>
+        </nav>
+        <div class="footer__col footer__col--phones">
+          <a href="tel:+996700880044" class="footer__phone">+996 700 88 00 44</a>
+          <a href="tel:+996777880044" class="footer__phone">+996 777 88 00 44</a>
+          <a href="tel:+996220880044" class="footer__phone">+996 220 88 00 44</a>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p class="footer__copyright">© 2024 IVORY. Все права защищены. BORSAN Group.</p>
+      </div>
+    </div>
+  </footer>
 
   <script src="js/main.js"></script>
 </body>

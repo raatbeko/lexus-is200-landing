@@ -891,19 +891,24 @@ a {
 }
 
 .gh__hero-img {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: center;
 }
 
-.gh__hero-overlay {
+/* Overlay снизу */
+.gh__hero::after {
+  content: '';
   position: absolute;
   inset: 0;
   background: linear-gradient(to bottom, rgba(0,0,0,0.1) 30%, rgba(0,0,0,0.6) 100%);
+  pointer-events: none;
 }
 
-/* Заголовок */
+/* Заголовок в левом верхнем углу */
 .gh__hero-title {
   position: absolute;
   top: 48px;
@@ -928,63 +933,84 @@ a {
   margin-top: 10px;
 }
 
-/* Навигация зон — декоративная */
-.gh__nav {
+/* Табы внизу фото */
+.gh__tabs {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 3;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  background: var(--surface);
-  border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
 }
 
-.gh__nav-item {
+.gh__tab {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 8px;
-  padding: 24px 16px;
-  color: var(--accent);
-  border-right: 1px solid var(--border);
+  gap: 10px;
+  padding: 20px 16px;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: none;
+  border-right: 1px solid rgba(255, 255, 255, 0.25);
+  cursor: pointer;
+  transition: background 0.3s ease, color 0.3s ease;
 }
 
-.gh__nav-item:last-child { border-right: none; }
-.gh__nav-item svg { flex-shrink: 0; }
+.gh__tab:last-child {
+  border-right: none;
+}
 
-.gh__nav-item span {
+.gh__tab svg {
+  color: var(--white);
+  flex-shrink: 0;
+}
+
+.gh__tab span {
   font-family: 'Inter', sans-serif;
   font-weight: 300;
   font-size: 13px;
   letter-spacing: 0.06em;
-  color: var(--text-sec);
+  color: var(--white);
+  transition: color 0.3s ease;
+}
+
+.gh__tab--active {
+  background: var(--white);
+}
+
+.gh__tab--active svg {
+  color: var(--accent);
+}
+
+.gh__tab--active span {
+  color: var(--accent);
+  font-weight: 400;
 }
 
 /* Карточки зон */
 .gh__cards {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 40px 80px;
+  padding: 80px 40px;
 }
 
 .gh__card {
-  display: grid;
+  display: none;
   grid-template-columns: 1fr 1fr;
   align-items: center;
   gap: 80px;
-  padding: 80px 0;
-  border-top: 1px solid var(--border);
+  opacity: 0;
+  transform: translateX(30px);
+  transition: opacity 0.4s ease, transform 0.4s ease;
 }
 
-.gh__card:last-child {
-  border-bottom: 1px solid var(--border);
-}
-
-
-/* Зигзаг — чётные карточки зеркалят фото вправо */
-.gh__card--reverse {
-  direction: rtl;
-}
-.gh__card--reverse > * {
-  direction: ltr;
+.gh__card--active {
+  display: grid;
+  opacity: 1;
+  transform: translateX(0);
 }
 
 /* Фото-обёртка */
@@ -1000,6 +1026,7 @@ a {
   overflow: hidden;
   outline: 5px solid #c3ae98;
   outline-offset: 0;
+  flex-shrink: 0;
 }
 
 .gh__card-circle img {
@@ -1025,9 +1052,8 @@ a {
 }
 
 .gh__card-quote p {
-  font-family: 'Cormorant Garamond', serif;
-  font-style: italic;
-  font-weight: 400;
+  font-family: 'Inter', sans-serif;
+  font-weight: 300;
   font-size: 14px;
   line-height: 1.6;
   color: var(--white);
@@ -1035,6 +1061,11 @@ a {
 }
 
 /* Текст карточки */
+.gh__card-text {
+  display: flex;
+  flex-direction: column;
+}
+
 .gh__card-title {
   font-family: 'Cormorant Garamond', serif;
   font-size: 48px;
@@ -1048,8 +1079,47 @@ a {
   font-family: 'Inter', sans-serif;
   font-weight: 300;
   font-size: 16px;
-  line-height: 1.9;
+  line-height: 1.8;
   color: var(--text-sec);
+}
+
+/* Мобильная адаптация */
+@media (max-width: 768px) {
+  .gh__tabs {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .gh__tab span {
+    font-size: 12px;
+  }
+
+  .gh__cards {
+    padding: 48px 24px;
+  }
+
+  .gh__card {
+    grid-template-columns: 1fr;
+    gap: 32px;
+    text-align: center;
+  }
+
+  .gh__card-circle {
+    width: 280px;
+    height: 280px;
+    margin: 0 auto;
+  }
+
+  .gh__card-quote {
+    display: none;
+  }
+
+  .gh__card-title {
+    font-size: 36px;
+  }
+
+  .gh__card-para {
+    font-size: 15px;
+  }
 }
 
 /* ===== ПЛАНИРОВКИ ===== */
@@ -1468,6 +1538,219 @@ a {
   height: 100%;
   object-fit: cover;
   object-position: center top;
+}
+
+/* ===== ГАЛЕРЕЯ ===== */
+.gallery {
+  background: var(--bg);
+}
+
+.gallery__header {
+  background: var(--accent);
+  padding: 48px 0;
+  text-align: center;
+}
+
+.gallery__title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 42px;
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  color: var(--white);
+  line-height: 1;
+}
+
+.gallery__slider {
+  position: relative;
+  width: 100%;
+  height: 70vh;
+  min-height: 400px;
+  overflow: hidden;
+}
+
+.gallery__slider .swiper-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.gallery__slider .swiper-button-prev,
+.gallery__slider .swiper-button-next {
+  color: var(--white);
+  width: 48px;
+  height: 48px;
+}
+
+.gallery__slider .swiper-button-prev::after,
+.gallery__slider .swiper-button-next::after {
+  font-size: 24px;
+}
+
+.gallery__slider .swiper-pagination {
+  bottom: 24px;
+}
+
+.gallery__slider .swiper-pagination-bullet {
+  background: var(--white);
+  opacity: 0.7;
+  width: 10px;
+  height: 10px;
+}
+
+.gallery__slider .swiper-pagination-bullet-active {
+  opacity: 1;
+  background: var(--white);
+}
+
+@media (max-width: 768px) {
+  .gallery__slider {
+    height: 50vh;
+    min-height: 300px;
+  }
+
+  .gallery__title {
+    font-size: 28px;
+    letter-spacing: 0.15em;
+  }
+
+  .gallery__slider .swiper-button-prev,
+  .gallery__slider .swiper-button-next {
+    display: none;
+  }
+}
+
+/* ===== ФУТЕР ===== */
+.footer {
+  background: var(--dark-bg);
+  color: var(--white);
+}
+
+.footer__inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 100px;
+}
+
+.footer__top {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 60px;
+  padding: 80px 0;
+  border-top: 3px solid var(--accent);
+}
+
+.footer__logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.footer__logo-icon {
+  display: block;
+  width: 24px;
+  height: 24px;
+  background: var(--accent);
+  flex-shrink: 0;
+}
+
+.footer__logo-name {
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--white);
+}
+
+.footer__brand-desc {
+  font-family: 'Inter', sans-serif;
+  font-weight: 300;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.6);
+  margin-bottom: 24px;
+}
+
+.footer__address {
+  font-family: 'Inter', sans-serif;
+  font-weight: 300;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.6;
+}
+
+.footer__col--nav {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding-top: 8px;
+}
+
+.footer__nav-link {
+  font-family: 'Inter', sans-serif;
+  font-weight: 300;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.7);
+  transition: color 0.3s ease;
+}
+
+.footer__nav-link:hover {
+  color: var(--accent-light);
+}
+
+.footer__col--phones {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-top: 8px;
+}
+
+.footer__phone {
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-size: 15px;
+  color: var(--white);
+  transition: color 0.3s ease;
+}
+
+.footer__phone:hover {
+  color: var(--accent-light);
+}
+
+.footer__bottom {
+  padding: 24px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.footer__copyright {
+  font-family: 'Inter', sans-serif;
+  font-weight: 300;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.4);
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .footer__inner {
+    padding: 0 24px;
+  }
+
+  .footer__top {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    padding: 48px 0;
+  }
+
+  .footer__col--nav {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 12px 24px;
+  }
+
+  .footer__copyright {
+    font-size: 11px;
+  }
 }
 
 /* ===== МЕДИА ===== */
