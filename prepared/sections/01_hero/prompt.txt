@@ -1,28 +1,26 @@
 # СЕКЦИЯ: Hero
 
-ЦЕЛЬ: Атмосферное первое впечатление. Горный пейзаж на весь экран.
+ЦЕЛЬ: Первое впечатление — масштаб и премиальность.
+Пользователь должен почувствовать: "это не просто дом".
+
+КОНТЕНТ:
+- Фоновое изображение 1: images/background.jpg
+- Фоновое изображение 3: images/building.jpg
+  в небо. Занимает 100% экрана.
+- Слоган внизу справа: "ВЫШЕ ОЖИДАНИЙ..." — Cormorant Garamond italic,
+  36px, белый
 
 ВЁРСТКА:
-- Фото на весь экран: images/bg.jpg(position, x15, y-25, w1920, h1200)
-- Фото на весь экран: images/hg.png(position, x0, y-400, w1920, h1513)
-- Фото на весь экран: images/mg.png(position, x0, y464, w1920, h1422)
-- Фото на весь экран: images/vg.png(position, x0, y768, w1920, h926)
-- Контент по центру
-
-КОНТЕНТ: (position, x500, y287, w950 hug, h310 hug) {
-- Надпись сверху мелко с линиями по бокам:(position, x0, y0, w316, h22)
-  "— A HIKING GUIDE —"
-  Inter 400, акцент #D4A853, letter-spacing широкий
-
-- Главный заголовок (Playfair Display, белый, крупно):(position, x0, y0, w950 hug, h200 hug)
-  "Be Prepared For The
-   Mountains And Beyond!"
-
-- Стрелка скролла снизу по центру с текстом "scroll" (position, x0, y286, w126, h24)
-}
+- IVORY по центру, вертикально и горизонтально
+- Слоган — position: absolute, bottom: 60px, left: 60px
+- Стрелка вниз — по центру снизу, анимация bounce
 
 АНИМАЦИЯ:
-- Надпись "A HIKING GUIDE": fade in, задержка 0.3s
-- Заголовок: каждая строка появляется снизу, stagger 0.2s
-- Стрелка: bounce анимация вверх-вниз бесконечно
+- IVORY: fade in + scale от 1.05 до 1, duration: 1.5s, ease: power2.out
+- "жилой комплекс": fade in снизу, delay: 0.5s
+- Слоган: fade in слева, delay: 0.8s
 - Лёгкий parallax на фото при скролле: yPercent -20
+
+МОБИЛЬНЫЙ:
+- IVORY: font-size 70px
+- Слоган: bottom: 30px, left: 20px, font-size: 24px

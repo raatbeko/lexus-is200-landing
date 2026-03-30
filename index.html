@@ -3,256 +3,381 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MNTN — A Hiking Guide</title>
+  <title>IVORY — Жилой комплекс премиум класса | BORSAN</title>
+  <meta name="description" content="IVORY — жилой комплекс премиум класса в Бишкеке от застройщика BORSAN. Выше ожиданий.">
 
-  <!-- Шрифты -->
+  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500&family=Bebas+Neue&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 
-  <!-- GSAP + ScrollTrigger -->
+  <!-- GSAP + ScrollTrigger + Lenis -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-
-  <!-- Lenis плавный скролл -->
-  <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/bundled/lenis.min.js"></script>
 
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-  <!-- ======================== HEADER ======================== -->
+  <!-- ===== ХЕДЕР ===== -->
   <header class="header" id="header">
+    <div class="header__inner">
+      <a href="#" class="header__logo">
+        <span class="header__logo-name">IVORY</span>
+        <span class="header__logo-sub">жилой комплекс</span>
+      </a>
 
-    <!-- Вертикальный текст слева -->
-    <div class="header-side header-side--left">
-      <span class="header-side__text">Scroll</span>
-    </div>
-
-    <!-- Основная навигация -->
-    <div class="header-inner">
-      <a href="#" class="logo">MNTN</a>
-
-      <nav class="nav">
-        <a href="#" class="nav__link">Equipment</a>
-        <a href="#" class="nav__link">About Us</a>
-        <a href="#" class="nav__link">Blog</a>
+      <nav class="header__nav" id="nav">
+        <a href="#about" class="header__nav-link">О проекте</a>
+        <a href="#infrastructure" class="header__nav-link">Инфраструктура</a>
+        <a href="#plans" class="header__nav-link">Планировки</a>
+        <a href="#gallery" class="header__nav-link">Галерея</a>
+        <a href="#contacts" class="header__nav-link">Контакты</a>
       </nav>
 
-      <div class="header-account">
-        <svg class="header-account__icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-          <circle cx="12" cy="8" r="4"/>
-          <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
-        </svg>
-        <span class="header-account__text">Account</span>
-      </div>
+      <a href="#contacts" class="header__cta">Получить консультацию</a>
+
+      <!-- Гамбургер -->
+      <button class="header__burger" id="burger" aria-label="Меню">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
     </div>
 
-    <!-- Вертикальные иконки соцсетей справа -->
-    <div class="header-side header-side--right">
-      <a href="#" class="header-social" aria-label="Instagram">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-          <rect x="2" y="2" width="20" height="20" rx="5"/>
-          <circle cx="12" cy="12" r="4"/>
-          <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
-        </svg>
-      </a>
-      <a href="#" class="header-social" aria-label="Twitter">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-          <path d="M4 4l16 16M4 20L20 4"/>
-        </svg>
-      </a>
-      <a href="#" class="header-social" aria-label="Facebook">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-          <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
-        </svg>
-      </a>
+    <!-- Мобильное меню -->
+    <div class="mobile-menu" id="mobileMenu">
+      <nav class="mobile-menu__nav">
+        <a href="#about" class="mobile-menu__link">О проекте</a>
+        <a href="#infrastructure" class="mobile-menu__link">Инфраструктура</a>
+        <a href="#plans" class="mobile-menu__link">Планировки</a>
+        <a href="#gallery" class="mobile-menu__link">Галерея</a>
+        <a href="#contacts" class="mobile-menu__link">Контакты</a>
+        <a href="#contacts" class="mobile-menu__cta">Получить консультацию</a>
+      </nav>
     </div>
-
   </header>
 
-  <!-- ======================== HERO ======================== -->
+  <!-- ===== HERO ===== -->
   <section class="hero" id="hero">
 
-    <!-- Слоёные фотографии -->
-    <div class="hero__layers">
-      <div class="hero__layer hero__layer--bg">
-        <img src="prepared/sections/01_hero/image/bg.jpg" alt="Mountain background" loading="eager">
-      </div>
-      <div class="hero__layer hero__layer--hg">
-        <img src="prepared/sections/01_hero/image/hg.png" alt="" loading="eager">
-      </div>
-      <div class="hero__layer hero__layer--mg">
-        <img src="prepared/sections/01_hero/image/mg.png" alt="" loading="eager">
-      </div>
-      <div class="hero__layer hero__layer--vg">
-        <img src="prepared/sections/01_hero/image/vg.png" alt="" loading="eager">
-      </div>
+    <!-- Слой 1: фон -->
+    <div class="hero__layer" id="layerBg">
+      <img src="prepared/sections/01_hero/image/background.jpg" alt="" loading="eager">
     </div>
 
-    <!-- Оверлей -->
+    <!-- Слой 2: здание — ближний план -->
+    <div class="hero__layer" id="layerTop">
+      <img src="prepared/sections/01_hero/image/building.jpg" alt="IVORY" loading="eager">
+    </div>
+
+    <!-- Затемнение поверх всех слоёв -->
     <div class="hero__overlay"></div>
 
-    <!-- Контент -->
+    <!-- IVORY по центру -->
     <div class="hero__content">
-      <p class="hero__label">
-        <span class="hero__label-line"></span>
-        A HIKING GUIDE
-        <span class="hero__label-line"></span>
-      </p>
-
-      <h1 class="hero__title">
-        <span class="hero__title-line">Be Prepared For The</span>
-        <span class="hero__title-line">Mountains And Beyond!</span>
-      </h1>
-
-      <div class="hero__scroll">
-        <svg class="hero__scroll-arrow" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-          <line x1="12" y1="5" x2="12" y2="19"/>
-          <polyline points="19 12 12 19 5 12"/>
-        </svg>
-        <span class="hero__scroll-text">scroll</span>
-      </div>
+      <h1 class="hero__title" id="heroTitle">IVORY</h1>
+      <p class="hero__subtitle" id="heroSubtitle">ЖИЛОЙ КОМПЛЕКС</p>
     </div>
+
+    <!-- Слоган снизу слева -->
+    <p class="hero__slogan" id="heroSlogan">Выше ожиданий...</p>
+
+    <!-- Стрелка вниз по центру -->
+    <button class="hero__arrow" id="heroArrow" aria-label="Прокрутить вниз">
+      <svg width="20" height="38" viewBox="0 0 20 38" fill="none">
+        <line x1="10" y1="0" x2="10" y2="30" stroke="white" stroke-width="1.2"/>
+        <polyline points="3,22 10,32 17,22" stroke="white" stroke-width="1.2" fill="none"/>
+      </svg>
+    </button>
 
   </section>
 
-  <!-- ======================== СТАТЬЯ 01 ======================== -->
-  <section class="article article--right" id="article-01">
-    <div class="container">
-
-      <div class="article__inner">
-        <!-- Текст слева -->
-        <div class="article__text">
-          <span class="article__number" aria-hidden="true">01</span>
-          <p class="article__label">— GET STARTED —</p>
-          <h2 class="article__title">What level of hiker<br>are you?</h2>
-          <p class="article__desc">
-            Determining what level of hiker you are can be an important tool when planning future hikes.
-            This hiking level guide will help you plan hikes according to different hike ratings set by
-            various websites like All Trails and Modern Hiker. What type of hiker are you – novice,
-            moderate, advanced moderate, expert, or expert backpacker?
-          </p>
-          <a href="#" class="article__link">READ MORE →</a>
-        </div>
-
-        <!-- Фото справа -->
-        <div class="article__photo">
-          <img src="prepared/sections/02_article_one/image/01.png" alt="Hiker in mountains" loading="lazy" object-fit="cover">
-        </div>
+  <!-- ===== ФАКТЫ О ПРОЕКТЕ ===== -->
+  <section class="facts" id="about">
+    <div class="facts__grid">
+      <!-- Фото -->
+      <div class="facts__image" id="factsImage">
+        <img src="prepared/sections/02_facts/image/building-facade.jpg" alt="IVORY — фасад здания" loading="lazy">
       </div>
 
+      <!-- Числа -->
+      <div class="facts__content">
+        <div class="facts__stat">
+          <span class="facts__number" data-target="18" id="num18">18</span>
+          <span class="facts__label">этажей</span>
+          <span class="facts__desc">современной архитектуры<br>с панорамными видами</span>
+        </div>
+
+        <div class="facts__divider"></div>
+
+        <div class="facts__stat">
+          <span class="facts__number" data-target="3" id="num3">3</span>
+          <span class="facts__label">блока</span>
+          <span class="facts__desc">разнообразных планировок<br>от студий до пентхаусов</span>
+        </div>
+
+      </div>
     </div>
   </section>
 
-  <!-- ======================== СТАТЬЯ 02 ======================== -->
-  <section class="article article--left" id="article-02">
-    <div class="container">
+  <!-- ===== О ПРОЕКТЕ ===== -->
+  <section class="about" id="about-section">
+    <div class="about__inner">
 
-      <div class="article__inner">
-        <!-- Фото слева -->
-        <div class="article__photo">
-          <img src="prepared/sections/03_article_two/image/01.png" alt="Hiking gear" loading="lazy" object-fit="cover">
-        </div>
+      <!-- Текст слева -->
+      <div class="about__text">
+        <h2 class="about__title" id="aboutTitle">
+          <span class="about__title-accent">IVORY</span>
+          <span class="about__title-sub">&nbsp;— жилой комплекс премиум класса</span>
+        </h2>
+        <p class="about__para" id="aboutP1">
+          Это проект, который создаёт новый уровень городской жизни.
+          Он продуман для людей, которые привыкли окружать себя качеством,
+          эстетикой и продуманными решениями — без компромиссов и случайных деталей.
+        </p>
+        <p class="about__para" id="aboutP2">
+          Комплекс формирует пространство, где всё работает на ощущение
+          уверенности и гармонии: архитектура с характером, продуманная внутренняя
+          среда и атмосфера, которая чувствуется с первых минут.
+        </p>
+      </div>
 
-        <!-- Текст справа -->
-        <div class="article__text">
-          <span class="article__number" aria-hidden="true">02</span>
-          <p class="article__label">— HIKING ESSENTIALS —</p>
-          <h2 class="article__title">Picking the right<br>Hiking Gear!</h2>
-          <p class="article__desc">
-            The nice thing about beginning hiking is that you don't really need any special gear,
-            you can probably get away with things you already have. Let's start with clothing.
-            A typical mistake hiking beginners make is wearing jeans and regular clothes, which
-            will get heavy and chafe if they get sweaty or wet.
-          </p>
-          <a href="#" class="article__link">READ MORE →</a>
-        </div>
+      <!-- Круглое фото справа -->
+      <div class="about__photo" id="aboutPhoto">
+        <img src="prepared/sections/03_about/image/interior-circle.jpg" alt="IVORY — интерьер" loading="lazy">
       </div>
 
     </div>
   </section>
 
-  <!-- ======================== СТАТЬЯ 03 ======================== -->
-  <section class="article article--right" id="article-03">
-    <div class="container">
+  <!-- ===== ОКРУЖЕНИЕ ===== -->
+  <section class="surroundings" id="infrastructure">
+    <div class="surroundings__inner">
 
-      <div class="article__inner">
-        <!-- Текст слева -->
-        <div class="article__text">
-          <span class="article__number" aria-hidden="true">03</span>
-          <p class="article__label">— WHERE YOU GO IS THE ART —</p>
-          <h2 class="article__title">Understand Your<br>Map &amp; Timing?</h2>
-          <p class="article__desc">
-            Determining what level of hiker you are can be an important tool when planning future hikes.
-            This hiking level guide will help you plan hikes according to different hike ratings set by
-            various websites like All Trails and Modern Hiker. What type of hiker are you – novice,
-            moderate, advanced moderate, expert, or expert backpacker?
-          </p>
-          <a href="#" class="article__link">READ MORE →</a>
+      <!-- Заголовок -->
+      <h2 class="surroundings__title" id="surTitle">
+        <span class="surroundings__title-accent">IVORY</span>
+        <span class="surroundings__title-sub">&nbsp;— окружение, которое задаёт настроение жизни</span>
+      </h2>
+
+      <!-- Две колонки -->
+      <div class="surroundings__grid">
+
+        <!-- Левая: круглое фото + текстовый круг поверх -->
+        <div class="surroundings__left" id="surLeft">
+          <div class="surroundings__photo-wrap">
+            <div class="surroundings__circle">
+              <img src="prepared/sections/04_surroundings/image/facade-circle.jpg" alt="IVORY фасад" loading="lazy">
+            </div>
+            <!-- Текстовый круг в левом углу поверх фото -->
+            <div class="surroundings__quote-circle">
+              <p>Это место, где не нужно подстраивать жизнь под город — город подстраивается под вас...</p>
+            </div>
+          </div>
         </div>
 
-        <!-- Фото справа -->
-        <div class="article__photo">
-          <img src="prepared/sections/04_article_three/image/01.png" alt="Map and timing" loading="lazy" object-fit="cover">
+        <!-- Правая: текст -->
+        <div class="surroundings__right" id="surRight">
+          <p class="surroundings__para">
+            Вокруг — всё, что формирует насыщенную городскую среду: образовательные
+            учреждения, культурные пространства, деловые центры и места для отдыха.
+          </p>
+          <p class="surroundings__para">
+            Район живёт в своём ритме — активном, но не суетливом. Здесь каждый
+            найдёт своё: спокойные прогулки по паркам, деловые встречи в шаговой
+            доступности, вечера в лучших ресторанах города.
+          </p>
+        </div>
+
+      </div>
+
+      <!-- Карта -->
+      <div class="surroundings__map-wrap" id="surMap">
+        <a href="https://2gis.ru/bishkek" target="_blank" rel="noopener" class="surroundings__map-link">
+          <img src="prepared/sections/04_surroundings/image/map.jpg" alt="Расположение IVORY на карте" loading="lazy" class="surroundings__map-img">
+          <img src="prepared/sections/04_surroundings/image/2gis.jpg" alt="Открыть в 2GIS" class="surroundings__map-btn">
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===== АРХИТЕКТУРА ===== -->
+  <section class="arch" id="gallery">
+    <div class="arch__inner">
+
+      <!-- Текст слева -->
+      <div class="arch__text" id="archText">
+        <h2 class="arch__title">Архитектура,<br>которую хочется<br>рассматривать</h2>
+        <p class="arch__para">
+          Фасад комплекса выполнен из широкоформатного керамогранита
+          и премиального материала Laminam.
+        </p>
+        <p class="arch__para">
+          Сдержанная цветовая палитра, выразительная геометрия и продуманные
+          линии создают ощущение архитектуры, которая будет выглядеть достойно
+          и через годы.
+        </p>
+        <!-- Декоративный элемент IVORY -->
+        <div class="arch__deco">IVORY</div>
+      </div>
+
+      <!-- Два перекрывающихся круга справа -->
+      <div class="arch__circles">
+        <!-- Большой круг: фасад -->
+        <div class="arch__circle arch__circle--big" id="archBig">
+          <img src="prepared/sections/05_architecture/image/facade-detail.jpg" alt="Фасад IVORY" loading="lazy">
+        </div>
+        <!-- Маленький круг: вид сверху -->
+        <div class="arch__circle arch__circle--small" id="archSmall">
+          <img src="prepared/sections/05_architecture/image/aerial-view.jpg" alt="Вид сверху IVORY" loading="lazy">
         </div>
       </div>
 
     </div>
   </section>
 
-  <!-- ======================== FOOTER ======================== -->
-  <footer class="footer">
-    <div class="container">
+  <!-- ===== ДВОР И ПЛОЩАДКА ===== -->
+  <section class="courtyard" id="courtyard">
+    <div class="courtyard__inner">
 
-      <div class="footer__grid">
-        <!-- Колонка 1: Бренд -->
-        <div class="footer__col footer__col--brand">
-          <span class="footer__logo">MNTN</span>
-          <p class="footer__brand-desc">
-            Our platform is designed to help you plan, organize &amp; share your outdoor adventures
-          </p>
-        </div>
-
-        <!-- Колонка 2 -->
-        <div class="footer__col">
-          <h4 class="footer__col-title">More on MNTN</h4>
-          <ul class="footer__links">
-            <li><a href="#" class="footer__link">Features</a></li>
-            <li><a href="#" class="footer__link">Our Picks</a></li>
-            <li><a href="#" class="footer__link">Gear</a></li>
-            <li><a href="#" class="footer__link">Updates</a></li>
-          </ul>
-        </div>
-
-        <!-- Колонка 3 -->
-        <div class="footer__col">
-          <h4 class="footer__col-title">More on Blog</h4>
-          <ul class="footer__links">
-            <li><a href="#" class="footer__link">Climbing</a></li>
-            <li><a href="#" class="footer__link">Hiking</a></li>
-            <li><a href="#" class="footer__link">Surfing</a></li>
-            <li><a href="#" class="footer__link">About Us</a></li>
-          </ul>
-        </div>
-
-        <!-- Колонка 4 -->
-        <div class="footer__col">
-          <h4 class="footer__col-title">Links</h4>
-          <ul class="footer__links">
-            <li><a href="#" class="footer__link">Join</a></li>
-            <li><a href="#" class="footer__link">Gear</a></li>
-            <li><a href="#" class="footer__link">Updates</a></li>
-          </ul>
-        </div>
+      <!-- Левая: текст -->
+      <div class="courtyard__text" id="courtyardText">
+        <p class="courtyard__label">Детская площадка на уровне 3-го этажа</p>
+        <p class="courtyard__para">
+          Место, где детство звучит смехом и движением. Площадка продумана
+          так, чтобы дети чувствовали свободу игры, а родители — спокойствие.
+        </p>
+        <h3 class="courtyard__subtitle">Свой парк во дворе</h3>
+        <p class="courtyard__para">
+          Это маленький закрытый мир, спрятанный от городской суеты. Здесь можно
+          гулять, отдыхать, проводить вечера с семьёй или просто замедлиться
+          среди зелени и света. Пространство, где город будто остаётся за
+          пределами территории.
+        </p>
       </div>
 
-      <div class="footer__bottom">
-        <p class="footer__copy">Copyright ADITRON. No Sion &amp; Privacy</p>
+      <!-- Правая: два перекрывающихся круга -->
+      <div class="courtyard__circles" id="courtyardCircles">
+
+        <!-- Круг 1: двор (больший, сверху-слева) -->
+        <div class="courtyard__circle courtyard__circle--big" id="cyard1">
+          <img src="prepared/sections/06_courtyard/image/courtyard-wide.jpg" alt="Двор IVORY" loading="lazy">
+        </div>
+
+        <!-- Круг 2: площадка (меньший, снизу-справа) + цитата -->
+        <div class="courtyard__photo-wrap" id="cyard2">
+          <div class="courtyard__circle courtyard__circle--small">
+            <img src="prepared/sections/06_courtyard/image/playground-aerial.jpg" alt="Детская площадка IVORY" loading="lazy">
+          </div>
+          <div class="courtyard__quote-circle">
+            <p>Безопасность здесь ощущается естественно, без лишних напоминаний.</p>
+          </div>
+        </div>
+
       </div>
 
     </div>
-  </footer>
+  </section>
+
+  <!-- ===== GREEN HALL ===== -->
+  <section class="gh" id="plans">
+
+    <!-- Верхняя часть: фото + заголовок -->
+    <div class="gh__hero">
+      <img src="prepared/sections/07_green_hall/image/green-hall.jpg" alt="GREEN HALL — терраса 19 этажа" loading="lazy" class="gh__hero-img">
+      <div class="gh__hero-overlay"></div>
+      <div class="gh__hero-title">
+        <h2 class="gh__title">GREEN HALL</h2>
+        <p class="gh__title-sub">Терраса на 19-м этаже</p>
+      </div>
+    </div>
+
+    <!-- Табы — вне hero, кликабельны -->
+    <div class="gh__tabs">
+      <button class="gh__tab gh__tab--active" data-zone="zone-winter">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s-8-6-8-12a8 8 0 0 1 16 0c0 6-8 12-8 12z"/><circle cx="12" cy="10" r="2"/></svg>
+        <span>Зимний сад</span>
+      </button>
+      <button class="gh__tab" data-zone="zone-sport">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+        <span>Sport Room</span>
+      </button>
+      <button class="gh__tab" data-zone="zone-library">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+        <span>Библиотека</span>
+      </button>
+      <button class="gh__tab" data-zone="zone-coworking">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
+        <span>Коворкинг</span>
+      </button>
+    </div>
+
+    <!-- Нижняя часть: карточки зон -->
+    <div class="gh__cards">
+
+      <!-- Карточка 1: Зимний сад -->
+      <div class="gh__card" id="zone-winter">
+        <div class="gh__card-photo-wrap">
+          <div class="gh__card-circle">
+            <img src="prepared/sections/07_green_hall/image/winter-garden.jpg" alt="Зимний сад" loading="lazy">
+          </div>
+          <div class="gh__card-quote">
+            <p>Атмосфера, которая вдохновляет без слов.</p>
+          </div>
+        </div>
+        <div class="gh__card-text">
+          <h3 class="gh__card-title">Зимний сад</h3>
+          <p class="gh__card-para">Уютное пространство с библиотекой и коворкинг-зоной, наполненное светом и тишиной. Здесь легко сосредоточиться на работе, погрузиться в книгу или просто сделать паузу среди насыщенного дня.</p>
+        </div>
+      </div>
+
+      <!-- Карточка 2: Sport Room (зеркально) -->
+      <div class="gh__card gh__card--reverse" id="zone-sport">
+        <div class="gh__card-text">
+          <h3 class="gh__card-title">Sport Room</h3>
+          <p class="gh__card-para">Зал для тренировок и практик, где можно перезагрузиться и вернуть внутреннее равновесие. Пространство, где день может начинаться энергией или завершаться спокойствием.</p>
+        </div>
+        <div class="gh__card-photo-wrap">
+          <div class="gh__card-circle">
+            <img src="prepared/sections/07_green_hall/image/sport-room.jpg" alt="Sport Room" loading="lazy">
+          </div>
+        </div>
+      </div>
+
+      <!-- Карточка 3: Библиотека -->
+      <div class="gh__card" id="zone-library">
+        <div class="gh__card-photo-wrap">
+          <div class="gh__card-circle">
+            <img src="prepared/sections/07_green_hall/image/library.jpg" alt="Библиотека" loading="lazy">
+          </div>
+          <div class="gh__card-quote">
+            <p>Пространство тишины и сосредоточенности.</p>
+          </div>
+        </div>
+        <div class="gh__card-text">
+          <h3 class="gh__card-title">Библиотека</h3>
+          <p class="gh__card-para">Мягкий свет, удобные кресла и атмосфера спокойствия создают место, куда хочется возвращаться. Здесь легко погрузиться в книгу, отвлечься от городской динамики и провести время в уединении.</p>
+        </div>
+      </div>
+
+      <!-- Карточка 4: Коворкинг (зеркально) -->
+      <div class="gh__card gh__card--reverse" id="zone-coworking">
+        <div class="gh__card-text">
+          <h3 class="gh__card-title">Коворкинг-зона</h3>
+          <p class="gh__card-para">Среда для работы и новых идей. Продуманная акустика, комфортные рабочие места и современная инфраструктура позволяют сосредоточиться на важном. Здесь можно провести встречу, поработать над проектом или организовать онлайн-созвон, не покидая комплекса.</p>
+        </div>
+        <div class="gh__card-photo-wrap">
+          <div class="gh__card-circle">
+            <img src="prepared/sections/07_green_hall/image/coworking.jpg" alt="Коворкинг" loading="lazy">
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
 
   <script src="js/main.js"></script>
 </body>

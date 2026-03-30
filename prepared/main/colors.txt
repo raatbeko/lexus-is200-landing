@@ -1,9 +1,9 @@
-Background:      #1A1E1C
-Surface:         #222725
-Accent:          #D4A853
-Text Primary:    #FFFFFF
-Text Secondary:  #8A9190
-Text Muted:      #556060
-Border:          #2E3533
-Overlay:         rgba(20,26,24,0.6)
-Number Color:    #2A3230
+Background:      #F5F0E8   ← тёплый кремовый, основной фон
+Surface:         #EDE7D9   ← чуть темнее, карточки и секции
+Accent:          #8B7355   ← золотисто-коричневый, главный акцент
+Accent Light:    #C4A882   ← светлый акцент, hover состояния
+Text Primary:    #1A1A1A   ← почти чёрный для заголовков
+Text Secondary:  #6B6355   ← тёплый серо-коричневый для текста
+White:           #FFFFFF
+Border:          #D9D0C0   ← тёплая граница
+Dark BG:         #2C2416   ← тёмный фон для контрастных секций

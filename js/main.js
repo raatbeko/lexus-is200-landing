@@ -1,88 +1,111 @@
-/* ========================
-   LENIS — плавный скролл
-   ======================== */
+// ===== LENIS — плавный скролл =====
 const lenis = new Lenis({
   duration: 1.4,
   easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
   smooth: true,
 });
 
-// Связываем Lenis с GSAP ticker
-gsap.ticker.add((time) => {
-  lenis.raf(time * 1000);
-});
+function raf(time) {
+  lenis.raf(time);
+  requestAnimationFrame(raf);
+}
+requestAnimationFrame(raf);
 
+// ScrollTrigger знает про Lenis
+lenis.on('scroll', ScrollTrigger.update);
 gsap.ticker.lagSmoothing(0);
 
-// Связываем Lenis с ScrollTrigger
-lenis.on('scroll', ScrollTrigger.update);
-
-/* ========================
-   GSAP — регистрируем плагин
-   ======================== */
+// ===== GSAP + ScrollTrigger =====
 gsap.registerPlugin(ScrollTrigger);
 
-/* ========================
-   HEADER — фон при скролле
-   ======================== */
+// ===== ХЕДЕР: усиление при скролле =====
 const header = document.getElementById('header');
 
-ScrollTrigger.create({
-  start: 80,
-  onEnter: () => header.classList.add('scrolled'),
-  onLeaveBack: () => header.classList.remove('scrolled'),
+lenis.on('scroll', (e) => {
+  if (e.scroll > 60) {
+    header.classList.add('scrolled');
+  } else {
+    header.classList.remove('scrolled');
+  }
 });
 
-/* ========================
-   HEADER — анимация появления
-   ======================== */
-gsap.from(header, {
-  y: -100,
-  opacity: 0,
-  duration: 0.8,
-  ease: 'power2.out',
+// ===== ГАМБУРГЕР МЕНЮ =====
+const burger     = document.getElementById('burger');
+const mobileMenu = document.getElementById('mobileMenu');
+const mobileLinks = document.querySelectorAll('.mobile-menu__link, .mobile-menu__cta');
+
+burger.addEventListener('click', () => {
+  const isOpen = burger.classList.toggle('open');
+  mobileMenu.classList.toggle('open', isOpen);
+  document.body.style.overflow = isOpen ? 'hidden' : '';
 });
 
-/* ========================
-   HERO — анимация при загрузке
-   ======================== */
-
-// Метка "A HIKING GUIDE"
-gsap.to('.hero__label', {
-  opacity: 1,
-  duration: 0.8,
-  delay: 0.3,
-  ease: 'power2.out',
+mobileLinks.forEach(link => {
+  link.addEventListener('click', () => {
+    burger.classList.remove('open');
+    mobileMenu.classList.remove('open');
+    document.body.style.overflow = '';
+  });
 });
 
-// Заголовок — строки появляются снизу с stagger
-gsap.to('.hero__title-line', {
-  opacity: 1,
-  y: 0,
-  duration: 0.9,
-  delay: 0.5,
-  stagger: 0.2,
-  ease: 'power2.out',
+// ===== HERO: анимация входа =====
+gsap.timeline({ delay: 0.2 })
+  // IVORY: fade in + scale 1.05 → 1, duration 1.5s
+  .from('#heroTitle', {
+    opacity: 0,
+    scale: 1.05,
+    duration: 1.5,
+    ease: 'power2.out',
+  })
+  // "жилой комплекс": fade in снизу, delay 0.5s от старта
+  .from('#heroSubtitle', {
+    opacity: 0,
+    y: 24,
+    duration: 0.9,
+    ease: 'power2.out',
+  }, 0.5)
+  // Слоган: fade in справа, delay 0.8s от старта
+  .from('#heroSlogan', {
+    opacity: 0,
+    x: 40,
+    duration: 0.9,
+    ease: 'power2.out',
+  }, 0.8)
+  // Стрелка: fade in последней
+  .from('#heroArrow', {
+    opacity: 0,
+    duration: 0.6,
+    ease: 'power2.out',
+  }, 1.1);
+
+// Баунс стрелки — бесконечно
+gsap.to('#heroArrow', {
+  y: 10,
+  duration: 1,
+  ease: 'power1.inOut',
+  yoyo: true,
+  repeat: -1,
+  delay: 1.8,
 });
 
-/* ========================
-   HERO — parallax при скролле
-   Скорости разные → создают глубину
-   bg (далеко) движется сильнее, vg (близко) — меньше
-   ======================== */
-const heroParallax = [
-  { selector: '.hero__layer--bg', yPercent: -20 },
-  { selector: '.hero__layer--hg', yPercent: -14 },
-  { selector: '.hero__layer--mg', yPercent: -8  },
-  { selector: '.hero__layer--vg', yPercent: -3  },
+// Клик по стрелке → скролл к следующей секции
+document.getElementById('heroArrow').addEventListener('click', () => {
+  lenis.scrollTo('#about');
+});
+
+// ===== HERO: параллакс трёх слоёв =====
+// Каждый слой движется с разной скоростью — создаёт глубину
+const parallaxLayers = [
+  { id: '#layerBg',  yPercent: -8  },  // фон — медленнее
+  { id: '#layerTop', yPercent: -20 },  // здание — быстрее
 ];
 
-heroParallax.forEach(({ selector, yPercent }) => {
-  gsap.to(selector, {
+parallaxLayers.forEach(({ id, yPercent }) => {
+  gsap.to(id, {
     yPercent,
     ease: 'none',
     scrollTrigger: {
-      trigger: '.hero',
+      trigger: '#hero',
       start: 'top top',
       end: 'bottom top',
       scrub: 1,
@@ -90,54 +113,213 @@ heroParallax.forEach(({ selector, yPercent }) => {
   });
 });
 
-/* ========================
-   СТАТЬИ — анимации при скролле
-   Функция принимает идентификатор секции
-   ======================== */
-function animateArticle(sectionId) {
-  const section = document.getElementById(sectionId);
-  if (!section) return;
+// ===== GREEN HALL: табы =====
+const ghTabs  = document.querySelectorAll('.gh__tab');
+const ghCards = document.querySelectorAll('.gh__card');
 
-  // Номер секции
-  gsap.to(section.querySelector('.article__number'), {
-    opacity: 1,
-    duration: 0.6,
-    ease: 'power2.out',
-    scrollTrigger: {
-      trigger: section,
-      start: 'top 80%',
-    },
-  });
+function activateZone(zoneId) {
+  // Скрываем все карточки напрямую через style
+  ghCards.forEach(card => { card.style.display = 'none'; });
 
-  // Текстовые элементы с stagger
-  const textEls = section.querySelectorAll('.article__label, .article__title, .article__desc, .article__link');
+  const target = document.getElementById(zoneId);
+  if (!target) return;
 
-  gsap.to(textEls, {
-    opacity: 1,
-    y: 0,
-    duration: 0.8,
-    stagger: 0.15,
-    ease: 'power2.out',
-    scrollTrigger: {
-      trigger: section,
-      start: 'top 75%',
-    },
-  });
+  // Показываем нужную
+  target.style.display = 'grid';
+  target.style.opacity = '0';
+  target.style.transform = 'translateX(20px)';
 
-  // Фото — появляется чуть позже
-  gsap.to(section.querySelector('.article__photo'), {
-    opacity: 1,
-    y: 0,
-    duration: 0.9,
-    delay: 0.2,
-    ease: 'power2.out',
-    scrollTrigger: {
-      trigger: section,
-      start: 'top 75%',
-    },
+  // Плавное появление через requestAnimationFrame
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      target.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+      target.style.opacity = '1';
+      target.style.transform = 'translateX(0)';
+    });
   });
 }
 
-animateArticle('article-01');
-animateArticle('article-02');
-animateArticle('article-03');
+ghTabs.forEach(tab => {
+  tab.addEventListener('click', () => {
+    ghTabs.forEach(t => t.classList.remove('gh__tab--active'));
+    tab.classList.add('gh__tab--active');
+    activateZone(tab.dataset.zone);
+  });
+});
+
+// Первая карточка сразу видна
+const firstZone = document.getElementById('zone-winter');
+if (firstZone) {
+  firstZone.style.display = 'grid';
+  firstZone.style.opacity = '1';
+}
+
+// ===== ДВОР: анимации =====
+gsap.from('#courtyardText', {
+  opacity: 0,
+  x: -50,
+  duration: 1,
+  ease: 'power2.out',
+  scrollTrigger: { trigger: '#courtyardText', start: 'top 80%' },
+});
+
+gsap.from('#cyard1', {
+  opacity: 0,
+  y: -40,
+  duration: 1,
+  ease: 'power2.out',
+  scrollTrigger: { trigger: '#courtyardCircles', start: 'top 80%' },
+});
+
+gsap.from('#cyard2', {
+  opacity: 0,
+  y: 40,
+  duration: 1,
+  delay: 0.2,
+  ease: 'power2.out',
+  scrollTrigger: { trigger: '#courtyardCircles', start: 'top 80%' },
+});
+
+// ===== АРХИТЕКТУРА: анимация при появлении =====
+
+gsap.from('#archText', {
+  opacity: 0,
+  x: -50,
+  duration: 1,
+  ease: 'power2.out',
+  scrollTrigger: { trigger: '#archText', start: 'top 80%' },
+});
+
+gsap.from('#archBig', {
+  opacity: 0,
+  x: 80,
+  duration: 1,
+  ease: 'power2.out',
+  scrollTrigger: { trigger: '#archBig', start: 'top 80%' },
+});
+
+gsap.from('#archSmall', {
+  opacity: 0,
+  y: 50,
+  duration: 1,
+  delay: 0.3,
+  ease: 'power2.out',
+  scrollTrigger: { trigger: '#archSmall', start: 'top 85%' },
+});
+
+// ===== ОКРУЖЕНИЕ: анимация при появлении =====
+
+gsap.from('#surTitle', {
+  opacity: 0,
+  y: 40,
+  duration: 0.9,
+  ease: 'power2.out',
+  scrollTrigger: { trigger: '#surTitle', start: 'top 80%' },
+});
+
+gsap.from('#surLeft', {
+  opacity: 0,
+  x: -50,
+  duration: 1,
+  ease: 'power2.out',
+  scrollTrigger: { trigger: '#surLeft', start: 'top 80%' },
+});
+
+gsap.from('#surRight', {
+  opacity: 0,
+  x: 50,
+  duration: 1,
+  ease: 'power2.out',
+  scrollTrigger: { trigger: '#surRight', start: 'top 80%' },
+});
+
+gsap.from('#surMap', {
+  opacity: 0,
+  y: 40,
+  duration: 0.9,
+  ease: 'power2.out',
+  scrollTrigger: { trigger: '#surMap', start: 'top 85%' },
+});
+
+// ===== О ПРОЕКТЕ: анимация при появлении =====
+
+// Заголовок fade in снизу
+gsap.from('#aboutTitle', {
+  opacity: 0,
+  y: 40,
+  duration: 0.9,
+  ease: 'power2.out',
+  scrollTrigger: { trigger: '#aboutTitle', start: 'top 80%' },
+});
+
+// Параграфы stagger 0.2s
+gsap.from('#aboutP1, #aboutP2', {
+  opacity: 0,
+  y: 30,
+  duration: 0.8,
+  stagger: 0.2,
+  ease: 'power2.out',
+  scrollTrigger: { trigger: '#aboutP1', start: 'top 80%' },
+});
+
+// Фото scale 0.9 → 1
+gsap.from('#aboutPhoto', {
+  opacity: 0,
+  scale: 0.9,
+  duration: 1,
+  ease: 'power2.out',
+  scrollTrigger: { trigger: '#aboutPhoto', start: 'top 80%' },
+});
+
+// ===== ФАКТЫ: анимация при появлении =====
+
+// Фото слева
+gsap.from('#factsImage', {
+  x: -60,
+  opacity: 0,
+  duration: 1,
+  ease: 'power2.out',
+  scrollTrigger: {
+    trigger: '#factsImage',
+    start: 'top 80%',
+  },
+});
+
+// ScrollTrigger для countUp
+ScrollTrigger.create({
+  trigger: '.facts__content',
+  start: 'top 75%',
+  once: true,
+  onEnter: () => {
+    // Числа считаются через GSAP
+    const num18 = { val: 0 };
+    gsap.to(num18, {
+      val: 18,
+      duration: 1.4,
+      ease: 'power2.out',
+      onUpdate: () => {
+        document.getElementById('num18').textContent = Math.round(num18.val);
+      },
+    });
+
+    const num3 = { val: 0 };
+    gsap.to(num3, {
+      val: 3,
+      duration: 1,
+      ease: 'power2.out',
+      delay: 0.3,
+      onUpdate: () => {
+        document.getElementById('num3').textContent = Math.round(num3.val);
+      },
+    });
+
+    // Плавное появление блоков
+    gsap.from('.facts__stat, .facts__divider', {
+      opacity: 0,
+      y: 30,
+      duration: 0.8,
+      stagger: 0.15,
+      ease: 'power2.out',
+    });
+  },
+});

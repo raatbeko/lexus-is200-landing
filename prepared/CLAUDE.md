@@ -1,39 +1,24 @@
-# MNTN — HIKING GUIDE SITE
+# СТЕК
+HTML5, CSS3, JavaScript + GSAP + ScrollTrigger + Lenis — через CDN
 
-## Концепция
-Редакционный сайт о походах и горах.
-Тёмный стиль. Большие фото. Много воздуха между элементами.
-Текст и фото чередуются — зигзаг паттерн (текст слева/фото справа, потом наоборот).
+# СТРУКТУРА OUTPUT
+index.html / css/style.css / js/main.js / assets/
 
-## Стек
-- HTML5, CSS3, JavaScript (Vanilla)
-- GSAP + ScrollTrigger (анимации появления)
-- Lenis (плавный скролл)
-- Все библиотеки через CDN
-
-## Структура output
-index.html
-css/style.css
-js/main.js
-assets/fonts/
-assets/images/
-
-## Правила кода
-- на какой размер ставлены настройки positions в промптах далее (w1920, h4600) это доска с фигмы, далее будут такие параметры запомни это.
+# ПРАВИЛА КОДА
 - Все цвета через CSS переменные в :root
-- Шрифты: заголовки + основной текст (см. main/prompt.txt)
-- Мобильная адаптация: 768px и 480px
+- Шрифты через Google Fonts CDN
 - Все img: loading="lazy", object-fit: cover
+- Мобильная адаптация: 768px и 480px
 - Комментарии на русском
+- Плавный скролл через Lenis
 
-## Как читать prepared/
-1. CLAUDE.md
+# КАК ЧИТАТЬ prepared/
+1. CLAUDE.md (этот файл)
 2. main/prompt.txt + colors.txt
 3. header/prompt.txt
-4. sections/ по порядку 01_ → 04_
+4. sections/ по порядку (01, 02, 03...)
 5. footer/prompt.txt
 
-## Команда запуска
-Каждый раз когда заканчиваешь одну секцию дай знать и проси продолжать или нет.
-Когда я напишу СТАРТ — прочитай все файлы в prepared/
-и создай index.html, css/style.css, js/main.js с нуля.
+# КОМАНДА
+Когда напишу СТАРТ — прочитай все файлы и создай сайт с нуля
+```
