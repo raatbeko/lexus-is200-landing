@@ -1,6 +1,6 @@
 // ===== LENIS — плавный скролл =====
 const lenis = new Lenis({
-  duration: 1.4,
+  duration: 1.2,
   easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
   smooth: true,
 });
@@ -11,14 +11,13 @@ function raf(time) {
 }
 requestAnimationFrame(raf);
 
-// ScrollTrigger знает про Lenis
 lenis.on('scroll', ScrollTrigger.update);
 gsap.ticker.lagSmoothing(0);
 
 // ===== GSAP + ScrollTrigger =====
 gsap.registerPlugin(ScrollTrigger);
 
-// ===== ХЕДЕР: усиление при скролле =====
+// ===== ХЕДЕР =====
 const header = document.getElementById('header');
 
 lenis.on('scroll', (e) => {
@@ -30,7 +29,7 @@ lenis.on('scroll', (e) => {
 });
 
 // ===== ГАМБУРГЕР МЕНЮ =====
-const burger     = document.getElementById('burger');
+const burger = document.getElementById('burger');
 const mobileMenu = document.getElementById('mobileMenu');
 const mobileLinks = document.querySelectorAll('.mobile-menu__link, .mobile-menu__cta');
 
@@ -50,68 +49,382 @@ mobileLinks.forEach(link => {
 
 // ===== HERO: анимация входа =====
 gsap.timeline({ delay: 0.2 })
-  // IVORY: fade in + scale 1.05 → 1, duration 1.5s
   .from('#heroTitle', {
     opacity: 0,
     scale: 1.05,
-    duration: 1.5,
+    duration: 1.2,
     ease: 'power2.out',
   })
-  // "жилой комплекс": fade in снизу, delay 0.5s от старта
   .from('#heroSubtitle', {
     opacity: 0,
-    y: 24,
-    duration: 0.9,
+    y: 20,
+    duration: 0.8,
     ease: 'power2.out',
-  }, 0.5)
-  // Слоган: fade in справа, delay 0.8s от старта
+  }, 0.4)
   .from('#heroSlogan', {
     opacity: 0,
     x: 40,
-    duration: 0.9,
+    duration: 0.8,
     ease: 'power2.out',
-  }, 0.8)
-  // Стрелка: fade in последней
+  }, 0.6)
   .from('#heroArrow', {
     opacity: 0,
-    duration: 0.6,
-    ease: 'power2.out',
-  }, 1.1);
+    duration: 0.5,
+  }, 0.9);
 
-// Баунс стрелки — бесконечно
+// Баунс стрелки
 gsap.to('#heroArrow', {
   y: 10,
   duration: 1,
   ease: 'power1.inOut',
   yoyo: true,
   repeat: -1,
-  delay: 1.8,
+  delay: 1.5,
 });
 
-// Клик по стрелке → скролл к следующей секции
 document.getElementById('heroArrow').addEventListener('click', () => {
   lenis.scrollTo('#about');
 });
 
-// ===== HERO: параллакс трёх слоёв =====
-// Каждый слой движется с разной скоростью — создаёт глубину
-const parallaxLayers = [
-  { id: '#layerBg',  yPercent: -8  },  // фон — медленнее
-  { id: '#layerTop', yPercent: -20 },  // здание — быстрее
-];
+// ===== HERO: параллакс =====
+gsap.to('#layerBg', {
+  yPercent: -8,
+  ease: 'none',
+  scrollTrigger: {
+    trigger: '#hero',
+    start: 'top top',
+    end: 'bottom top',
+    scrub: 1,
+  },
+});
 
-parallaxLayers.forEach(({ id, yPercent }) => {
-  gsap.to(id, {
-    yPercent,
-    ease: 'none',
+gsap.to('#layerTop', {
+  yPercent: -20,
+  ease: 'none',
+  scrollTrigger: {
+    trigger: '#hero',
+    start: 'top top',
+    end: 'bottom top',
+    scrub: 1,
+  },
+});
+
+// ===== SLIDE-IN АНИМАЦИИ (слева и справа) =====
+
+// Универсальная функция для slide-in
+function createSlideInAnimations() {
+  // ФАКТЫ: фото слева, числа справа
+  gsap.from('#factsImage', {
+    opacity: 0,
+    x: -80,
+    duration: 1,
+    ease: 'power3.out',
     scrollTrigger: {
-      trigger: '#hero',
-      start: 'top top',
-      end: 'bottom top',
-      scrub: 1,
+      trigger: '#facts',
+      start: 'top 75%',
     },
   });
-});
+
+  gsap.from('.facts__stat', {
+    opacity: 0,
+    x: 60,
+    duration: 0.8,
+    stagger: 0.15,
+    ease: 'power3.out',
+    scrollTrigger: {
+      trigger: '.facts__content',
+      start: 'top 80%',
+    },
+  });
+
+  // CountUp для чисел
+  ScrollTrigger.create({
+    trigger: '.facts__content',
+    start: 'top 75%',
+    once: true,
+    onEnter: () => {
+      gsap.to({ val: 0 }, {
+        val: 18,
+        duration: 1.4,
+        ease: 'power2.out',
+        onUpdate: function() {
+          document.getElementById('num18').textContent = Math.round(this.targets()[0].val);
+        },
+      });
+
+      gsap.to({ val: 0 }, {
+        val: 3,
+        duration: 1,
+        ease: 'power2.out',
+        delay: 0.3,
+        onUpdate: function() {
+          document.getElementById('num3').textContent = Math.round(this.targets()[0].val);
+        },
+      });
+    },
+  });
+
+  // О ПРОЕКТЕ: текст слева, фото справа
+  gsap.from('#aboutTitle', {
+    opacity: 0,
+    x: -60,
+    duration: 0.8,
+    ease: 'power3.out',
+    scrollTrigger: {
+      trigger: '#about-section',
+      start: 'top 75%',
+    },
+  });
+
+  gsap.from('#aboutP1, #aboutP2', {
+    opacity: 0,
+    x: -40,
+    duration: 0.8,
+    stagger: 0.2,
+    ease: 'power3.out',
+    scrollTrigger: {
+      trigger: '#aboutP1',
+      start: 'top 80%',
+    },
+  });
+
+  gsap.from('#aboutPhoto', {
+    opacity: 0,
+    x: 80,
+    duration: 1,
+    ease: 'power3.out',
+    scrollTrigger: {
+      trigger: '#about-section',
+      start: 'top 70%',
+    },
+  });
+
+  // ОКРУЖЕНИЕ: заголовок сверху
+  gsap.from('#surTitle', {
+    opacity: 0,
+    y: 40,
+    duration: 0.8,
+    ease: 'power3.out',
+    scrollTrigger: {
+      trigger: '#surroundings',
+      start: 'top 80%',
+    },
+  });
+
+  // Фото слева
+  gsap.from('#surLeft', {
+    opacity: 0,
+    x: -80,
+    duration: 1,
+    ease: 'power3.out',
+    scrollTrigger: {
+      trigger: '#surLeft',
+      start: 'top 75%',
+    },
+  });
+
+  // Текст справа
+  gsap.from('#surRight', {
+    opacity: 0,
+    x: 60,
+    duration: 0.9,
+    ease: 'power3.out',
+    scrollTrigger: {
+      trigger: '#surRight',
+      start: 'top 75%',
+    },
+  });
+
+  // Карта снизу
+  gsap.from('#surMap', {
+    opacity: 0,
+    y: 50,
+    duration: 0.9,
+    ease: 'power3.out',
+    scrollTrigger: {
+      trigger: '#surMap',
+      start: 'top 85%',
+    },
+  });
+
+  // АРХИТЕКТУРА: текст слева, круги справа
+  gsap.from('#archText', {
+    opacity: 0,
+    x: -60,
+    duration: 0.9,
+    ease: 'power3.out',
+    scrollTrigger: {
+      trigger: '#gallery',
+      start: 'top 75%',
+    },
+  });
+
+  gsap.from('#archBig', {
+    opacity: 0,
+    x: 100,
+    duration: 1,
+    ease: 'power3.out',
+    scrollTrigger: {
+      trigger: '#archBig',
+      start: 'top 80%',
+    },
+  });
+
+  gsap.from('#archSmall', {
+    opacity: 0,
+    x: 60,
+    y: 40,
+    duration: 0.8,
+    delay: 0.2,
+    ease: 'power3.out',
+    scrollTrigger: {
+      trigger: '#archSmall',
+      start: 'top 80%',
+    },
+  });
+
+  // ДВОР: текст слева, фото справа
+  gsap.from('#courtyardText', {
+    opacity: 0,
+    x: -60,
+    duration: 0.9,
+    ease: 'power3.out',
+    scrollTrigger: {
+      trigger: '#courtyard',
+      start: 'top 75%',
+    },
+  });
+
+  gsap.from('#cyard1', {
+    opacity: 0,
+    x: 80,
+    duration: 1,
+    ease: 'power3.out',
+    scrollTrigger: {
+      trigger: '#courtyardCircles',
+      start: 'top 80%',
+    },
+  });
+
+  gsap.from('#cyard2', {
+    opacity: 0,
+    x: 50,
+    y: 30,
+    duration: 0.8,
+    delay: 0.2,
+    ease: 'power3.out',
+    scrollTrigger: {
+      trigger: '#courtyardCircles',
+      start: 'top 80%',
+    },
+  });
+
+  // ТЕХНИЧЕСКИЕ РЕШЕНИЯ
+  gsap.from('.tech__mother-circle', {
+    opacity: 0,
+    x: -80,
+    duration: 1,
+    ease: 'power3.out',
+    scrollTrigger: {
+      trigger: '.tech__mother',
+      start: 'top 75%',
+    },
+  });
+
+  gsap.from('.tech__mother-text', {
+    opacity: 0,
+    x: 60,
+    duration: 0.9,
+    ease: 'power3.out',
+    scrollTrigger: {
+      trigger: '.tech__mother',
+      start: 'top 75%',
+    },
+  });
+
+  gsap.from('.tech__title', {
+    opacity: 0,
+    y: 40,
+    duration: 0.8,
+    ease: 'power3.out',
+    scrollTrigger: {
+      trigger: '.tech__main',
+      start: 'top 80%',
+    },
+  });
+
+  gsap.from('.tech__image-wrap', {
+    opacity: 0,
+    y: 50,
+    duration: 0.9,
+    ease: 'power3.out',
+    scrollTrigger: {
+      trigger: '.tech__image-wrap',
+      start: 'top 85%',
+    },
+  });
+
+  // ПЛАНИРОВКИ
+  gsap.from('.plans__header', {
+    opacity: 0,
+    y: 40,
+    duration: 0.8,
+    ease: 'power3.out',
+    scrollTrigger: {
+      trigger: '#plans',
+      start: 'top 80%',
+    },
+  });
+
+  gsap.from('.plans__blocks', {
+    opacity: 0,
+    y: 30,
+    duration: 0.7,
+    delay: 0.1,
+    ease: 'power3.out',
+    scrollTrigger: {
+      trigger: '.plans__blocks',
+      start: 'top 85%',
+    },
+  });
+
+  gsap.from('.plans__apts', {
+    opacity: 0,
+    y: 20,
+    duration: 0.6,
+    delay: 0.2,
+    ease: 'power3.out',
+    scrollTrigger: {
+      trigger: '.plans__apts',
+      start: 'top 85%',
+    },
+  });
+
+  // BORSAN SERVICE
+  gsap.from('#borsanLeft', {
+    opacity: 0,
+    x: -80,
+    duration: 1,
+    ease: 'power3.out',
+    scrollTrigger: {
+      trigger: '#contacts',
+      start: 'top 75%',
+    },
+  });
+
+  gsap.from('#borsanPhoto', {
+    opacity: 0,
+    x: 80,
+    duration: 1,
+    ease: 'power3.out',
+    scrollTrigger: {
+      trigger: '#contacts',
+      start: 'top 75%',
+    },
+  });
+}
+
+createSlideInAnimations();
 
 // ===== ПЛАНИРОВКИ =====
 const plansBase = 'prepared/sections/10_plans/images';
@@ -143,13 +456,12 @@ const plansData = {
   ],
 };
 
-const plansApts    = document.getElementById('plansApts');
+const plansApts = document.getElementById('plansApts');
 const plansDisplay = document.getElementById('plansDisplay');
-const planImage    = document.getElementById('planImage');
-const planSize     = document.getElementById('planSize');
-const planRooms    = document.getElementById('planRooms');
-const blockTabs    = document.querySelectorAll('.plans__block-tab');
-let currentBlock   = 1;
+const planImage = document.getElementById('planImage');
+const planSize = document.getElementById('planSize');
+const planRooms = document.getElementById('planRooms');
+const blockTabs = document.querySelectorAll('.plans__block-tab');
 
 function renderApts(block, activeIndex = 0) {
   plansApts.innerHTML = '';
@@ -175,8 +487,8 @@ function selectApt(block, index) {
   planRooms.textContent = apt.rooms;
   
   gsap.fromTo(plansDisplay, 
-    { opacity: 0, y: 15 },
-    { opacity: 1, y: 0, duration: 0.4, ease: 'power2.out' }
+    { opacity: 0, y: 20, scale: 0.98 },
+    { opacity: 1, y: 0, scale: 1, duration: 0.4, ease: 'power2.out' }
   );
 }
 
@@ -184,13 +496,12 @@ blockTabs.forEach(tab => {
   tab.addEventListener('click', () => {
     blockTabs.forEach(t => t.classList.remove('plans__block-tab--active'));
     tab.classList.add('plans__block-tab--active');
-    currentBlock = +tab.dataset.block;
-    renderApts(currentBlock, 0);
-    selectApt(currentBlock, 0);
+    const block = +tab.dataset.block;
+    renderApts(block, 0);
+    selectApt(block, 0);
   });
 });
 
-// Инициализация — сразу показываем первую планировку
 renderApts(1, 0);
 selectApt(1, 0);
 
@@ -205,6 +516,10 @@ function switchZone(zone) {
 
   const activeCard = document.querySelector('.gh__card--active');
 
+  ghTabs.forEach(tab => {
+    tab.classList.toggle('gh__tab--active', tab.dataset.zone === zone);
+  });
+
   if (activeCard) {
     gsap.to(activeCard, {
       opacity: 0,
@@ -215,29 +530,19 @@ function switchZone(zone) {
         activeCard.classList.remove('gh__card--active');
         activeCard.style.display = 'none';
 
-        ghTabs.forEach(tab => {
-          tab.classList.toggle('gh__tab--active', tab.dataset.zone === zone);
-        });
-
         const newCard = document.getElementById(`zone-${zone}`);
         newCard.style.display = 'grid';
 
         gsap.fromTo(newCard,
-          { opacity: 0, x: 30 },
+          { opacity: 0, x: 40 },
           { opacity: 1, x: 0, duration: 0.35, ease: 'power2.out' }
         );
         newCard.classList.add('gh__card--active');
 
-        setTimeout(() => {
-          isSwitching = false;
-        }, 350);
+        setTimeout(() => { isSwitching = false; }, 350);
       }
     });
   } else {
-    ghTabs.forEach(tab => {
-      tab.classList.toggle('gh__tab--active', tab.dataset.zone === zone);
-    });
-
     const newCard = document.getElementById(`zone-${zone}`);
     newCard.style.display = 'grid';
     newCard.classList.add('gh__card--active');
@@ -251,244 +556,26 @@ ghTabs.forEach(tab => {
   });
 });
 
-// ===== ДВОР: анимации =====
-gsap.from('#courtyardText', {
-  opacity: 0,
-  x: -50,
-  duration: 1,
-  ease: 'power2.out',
-  scrollTrigger: { trigger: '#courtyardText', start: 'top 80%' },
-});
-
-gsap.from('#cyard1', {
-  opacity: 0,
-  y: -40,
-  duration: 1,
-  ease: 'power2.out',
-  scrollTrigger: { trigger: '#courtyardCircles', start: 'top 80%' },
-});
-
-gsap.from('#cyard2', {
-  opacity: 0,
-  y: 40,
-  duration: 1,
-  delay: 0.2,
-  ease: 'power2.out',
-  scrollTrigger: { trigger: '#courtyardCircles', start: 'top 80%' },
-});
-
-// ===== АРХИТЕКТУРА: анимация при появлении =====
-
-gsap.from('#archText', {
-  opacity: 0,
-  x: -50,
-  duration: 1,
-  ease: 'power2.out',
-  scrollTrigger: { trigger: '#archText', start: 'top 80%' },
-});
-
-gsap.from('#archBig', {
-  opacity: 0,
-  x: 80,
-  duration: 1,
-  ease: 'power2.out',
-  scrollTrigger: { trigger: '#archBig', start: 'top 80%' },
-});
-
-gsap.from('#archSmall', {
+// ===== ГАЛЕРЕЯ: анимация карточек =====
+gsap.from('.gallery__card', {
   opacity: 0,
   y: 50,
-  duration: 1,
-  delay: 0.3,
-  ease: 'power2.out',
-  scrollTrigger: { trigger: '#archSmall', start: 'top 85%' },
-});
-
-// ===== ОКРУЖЕНИЕ: анимация при появлении =====
-
-gsap.from('#surTitle', {
-  opacity: 0,
-  y: 40,
-  duration: 0.9,
-  ease: 'power2.out',
-  scrollTrigger: { trigger: '#surTitle', start: 'top 80%' },
-});
-
-gsap.from('#surLeft', {
-  opacity: 0,
-  x: -50,
-  duration: 1,
-  ease: 'power2.out',
-  scrollTrigger: { trigger: '#surLeft', start: 'top 80%' },
-});
-
-gsap.from('#surRight', {
-  opacity: 0,
-  x: 50,
-  duration: 1,
-  ease: 'power2.out',
-  scrollTrigger: { trigger: '#surRight', start: 'top 80%' },
-});
-
-gsap.from('#surMap', {
-  opacity: 0,
-  y: 40,
-  duration: 0.9,
-  ease: 'power2.out',
-  scrollTrigger: { trigger: '#surMap', start: 'top 85%' },
-});
-
-// ===== О ПРОЕКТЕ: анимация при появлении =====
-
-// Заголовок fade in снизу
-gsap.from('#aboutTitle', {
-  opacity: 0,
-  y: 40,
-  duration: 0.9,
-  ease: 'power2.out',
-  scrollTrigger: { trigger: '#aboutTitle', start: 'top 80%' },
-});
-
-// Параграфы stagger 0.2s
-gsap.from('#aboutP1, #aboutP2', {
-  opacity: 0,
-  y: 30,
   duration: 0.8,
-  stagger: 0.2,
-  ease: 'power2.out',
-  scrollTrigger: { trigger: '#aboutP1', start: 'top 80%' },
-});
-
-// Фото scale 0.9 → 1
-gsap.from('#aboutPhoto', {
-  opacity: 0,
-  scale: 0.9,
-  duration: 1,
-  ease: 'power2.out',
-  scrollTrigger: { trigger: '#aboutPhoto', start: 'top 80%' },
-});
-
-// ===== ФАКТЫ: анимация при появлении =====
-
-// Фото слева
-gsap.from('#factsImage', {
-  x: -60,
-  opacity: 0,
-  duration: 1,
-  ease: 'power2.out',
+  stagger: 0.15,
+  ease: 'power3.out',
   scrollTrigger: {
-    trigger: '#factsImage',
+    trigger: '.gallery__grid',
     start: 'top 80%',
   },
 });
 
-// ScrollTrigger для countUp
-ScrollTrigger.create({
-  trigger: '.facts__content',
-  start: 'top 75%',
-  once: true,
-  onEnter: () => {
-    // Числа считаются через GSAP
-    const num18 = { val: 0 };
-    gsap.to(num18, {
-      val: 18,
-      duration: 1.4,
-      ease: 'power2.out',
-      onUpdate: () => {
-        document.getElementById('num18').textContent = Math.round(num18.val);
-      },
-    });
-
-    const num3 = { val: 0 };
-    gsap.to(num3, {
-      val: 3,
-      duration: 1,
-      ease: 'power2.out',
-      delay: 0.3,
-      onUpdate: () => {
-        document.getElementById('num3').textContent = Math.round(num3.val);
-      },
-    });
-
-    // Плавное появление блоков
-    gsap.from('.facts__stat, .facts__divider', {
-      opacity: 0,
-      y: 30,
-      duration: 0.8,
-      stagger: 0.15,
-      ease: 'power2.out',
-    });
-  },
-});
-
-// ===== ТЕХНИЧЕСКИЕ РЕШЕНИЯ: анимации =====
-gsap.from('.tech__mother-circle', {
-  opacity: 0,
-  x: -60,
-  duration: 1,
-  ease: 'power2.out',
-  scrollTrigger: { trigger: '.tech__mother', start: 'top 80%' },
-});
-
-gsap.from('.tech__mother-text', {
-  opacity: 0,
-  x: 40,
-  duration: 1,
-  ease: 'power2.out',
-  scrollTrigger: { trigger: '.tech__mother', start: 'top 80%' },
-});
-
-gsap.from('.tech__title', {
-  opacity: 0,
-  y: 30,
-  duration: 0.9,
-  ease: 'power2.out',
-  scrollTrigger: { trigger: '.tech__title', start: 'top 82%' },
-});
-
-gsap.from('.tech__image-wrap', {
-  opacity: 0,
-  y: 40,
-  duration: 1,
-  ease: 'power2.out',
-  scrollTrigger: { trigger: '.tech__image-wrap', start: 'top 82%' },
-});
-
-// ===== BORSAN SERVICE: анимации =====
-gsap.from('#borsanLeft', {
-  opacity: 0,
-  x: -50,
-  duration: 1,
-  ease: 'power2.out',
-  scrollTrigger: { trigger: '#borsanLeft', start: 'top 80%' },
-});
-
-gsap.from('#borsanPhoto', {
-  opacity: 0,
-  x: 60,
-  duration: 1,
-  ease: 'power2.out',
-  scrollTrigger: { trigger: '#borsanPhoto', start: 'top 80%' },
-});
-
-// ===== ГАЛЕРЕЯ: Swiper =====
-const gallerySwiper = new Swiper('.gallery__slider', {
-  loop: true,
-  autoplay: {
-    delay: 4000,
-    disableOnInteraction: false,
-  },
-  speed: 800,
-  effect: 'fade',
-  fadeEffect: {
-    crossFade: true,
-  },
-  navigation: {
-    nextEl: '.swiper-button-next',
-    prevEl: '.swiper-button-prev',
-  },
-  pagination: {
-    el: '.swiper-pagination',
-    clickable: true,
-  },
+// ===== ПЛАВНЫЙ СКРОЛЛ К ЯКОРЯМ =====
+document.querySelectorAll('a[href^="#"]').forEach(link => {
+  link.addEventListener('click', (e) => {
+    const href = link.getAttribute('href');
+    if (href !== '#') {
+      e.preventDefault();
+      lenis.scrollTo(href, { offset: -80 });
+    }
+  });
 });

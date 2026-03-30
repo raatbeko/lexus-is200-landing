@@ -35,11 +35,26 @@ img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 a {
   text-decoration: none;
   color: inherit;
+}
+
+/* Hover-эффект для фотографий */
+.facts__image:hover img,
+.about__photo:hover img,
+.surroundings__circle:hover img,
+.arch__circle:hover img,
+.courtyard__circle:hover img,
+.tech__mother-circle:hover img,
+.borsan__photo-circle:hover img,
+.gh__card-circle:hover img,
+.plans__image-wrap:hover img,
+.gallery__slider .swiper-slide:hover img {
+  transform: scale(1.08);
 }
 
 /* ===== ХЕДЕР ===== */
@@ -49,16 +64,19 @@ a {
   left: 0;
   right: 0;
   z-index: 100;
-  background: rgba(255, 255, 255, 0.72);
-  backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
-  transition: background 0.4s ease, box-shadow 0.4s ease;
+  background: transparent;
+  backdrop-filter: blur(0px);
+  -webkit-backdrop-filter: blur(0px);
+  border-bottom: 1px solid transparent;
+  transition: background 0.4s ease, backdrop-filter 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
 }
 
 .header.scrolled {
-  background: rgba(255, 255, 255, 0.88);
-  box-shadow: 0 2px 24px rgba(0, 0, 0, 0.08);
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(30px) saturate(200%) brightness(1.1);
+  -webkit-backdrop-filter: blur(30px) saturate(200%) brightness(1.1);
+  border-bottom-color: rgba(255, 255, 255, 0.4);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.08);
 }
 
 .header__inner {
@@ -84,7 +102,8 @@ a {
   font-weight: 600;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: var(--text-primary);
+  color: var(--white);
+  transition: color 0.4s ease;
 }
 
 .header__logo-sub {
@@ -92,7 +111,8 @@ a {
   font-weight: 300;
   font-size: 11px;
   letter-spacing: 0.08em;
-  color: var(--text-sec);
+  color: rgba(255, 255, 255, 0.7);
+  transition: color 0.4s ease;
 }
 
 /* Навигация */
@@ -104,12 +124,27 @@ a {
 .header__nav-link {
   font-size: 14px;
   font-weight: 400;
-  color: var(--text-sec);
+  color: rgba(255, 255, 255, 0.85);
   letter-spacing: 0.03em;
   transition: color 0.3s ease;
 }
 
 .header__nav-link:hover {
+  color: var(--white);
+}
+
+/* При скролле — темный текст */
+.header.scrolled .header__logo-name,
+.header.scrolled .header__logo-sub,
+.header.scrolled .header__nav-link {
+  color: var(--text-primary);
+}
+
+.header.scrolled .header__logo-sub {
+  color: var(--text-sec);
+}
+
+.header.scrolled .header__nav-link:hover {
   color: var(--accent);
 }
 
@@ -146,8 +181,12 @@ a {
   display: block;
   width: 24px;
   height: 1.5px;
+  background: var(--white);
+  transition: transform 0.3s ease, opacity 0.3s ease, background 0.4s ease;
+}
+
+.header.scrolled .header__burger span {
   background: var(--text-primary);
-  transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
 .header__burger.open span:nth-child(1) {
@@ -350,6 +389,7 @@ a {
   align-items: center;
   justify-content: center;
   padding: 40px;
+  overflow: hidden;
 }
 
 .facts__image img {
@@ -1560,63 +1600,44 @@ a {
   line-height: 1;
 }
 
-.gallery__slider {
-  position: relative;
-  width: 100%;
-  height: 70vh;
-  min-height: 400px;
-  overflow: hidden;
+.gallery__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  padding: 40px;
+  max-width: 1400px;
+  margin: 0 auto;
 }
 
-.gallery__slider .swiper-slide img {
+.gallery__card {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  border-radius: 8px;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.gallery__card img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center;
+  transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
-.gallery__slider .swiper-button-prev,
-.gallery__slider .swiper-button-next {
-  color: var(--white);
-  width: 48px;
-  height: 48px;
-}
-
-.gallery__slider .swiper-button-prev::after,
-.gallery__slider .swiper-button-next::after {
-  font-size: 24px;
-}
-
-.gallery__slider .swiper-pagination {
-  bottom: 24px;
-}
-
-.gallery__slider .swiper-pagination-bullet {
-  background: var(--white);
-  opacity: 0.7;
-  width: 10px;
-  height: 10px;
-}
-
-.gallery__slider .swiper-pagination-bullet-active {
-  opacity: 1;
-  background: var(--white);
+.gallery__card:hover img {
+  transform: scale(1.1);
 }
 
 @media (max-width: 768px) {
-  .gallery__slider {
-    height: 50vh;
-    min-height: 300px;
+  .gallery__grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    padding: 24px;
   }
 
   .gallery__title {
     font-size: 28px;
     letter-spacing: 0.15em;
-  }
-
-  .gallery__slider .swiper-button-prev,
-  .gallery__slider .swiper-button-next {
-    display: none;
   }
 }
 
