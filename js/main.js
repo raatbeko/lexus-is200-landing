@@ -113,46 +113,17 @@ parallaxLayers.forEach(({ id, yPercent }) => {
   });
 });
 
-// ===== GREEN HALL: табы =====
-const ghTabs  = document.querySelectorAll('.gh__tab');
-const ghCards = document.querySelectorAll('.gh__card');
-
-function activateZone(zoneId) {
-  // Скрываем все карточки напрямую через style
-  ghCards.forEach(card => { card.style.display = 'none'; });
-
-  const target = document.getElementById(zoneId);
-  if (!target) return;
-
-  // Показываем нужную
-  target.style.display = 'grid';
-  target.style.opacity = '0';
-  target.style.transform = 'translateX(20px)';
-
-  // Плавное появление через requestAnimationFrame
-  requestAnimationFrame(() => {
-    requestAnimationFrame(() => {
-      target.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
-      target.style.opacity = '1';
-      target.style.transform = 'translateX(0)';
-    });
-  });
-}
-
-ghTabs.forEach(tab => {
-  tab.addEventListener('click', () => {
-    ghTabs.forEach(t => t.classList.remove('gh__tab--active'));
-    tab.classList.add('gh__tab--active');
-    activateZone(tab.dataset.zone);
+// ===== GREEN HALL: анимации при скролле =====
+document.querySelectorAll('.gh__card').forEach((card, i) => {
+  gsap.from(card, {
+    opacity: 0,
+    y: 40,
+    duration: 0.9,
+    ease: 'power2.out',
+    delay: i * 0.1,
+    scrollTrigger: { trigger: card, start: 'top 82%' },
   });
 });
-
-// Первая карточка сразу видна
-const firstZone = document.getElementById('zone-winter');
-if (firstZone) {
-  firstZone.style.display = 'grid';
-  firstZone.style.opacity = '1';
-}
 
 // ===== ДВОР: анимации =====
 gsap.from('#courtyardText', {

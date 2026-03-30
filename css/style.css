@@ -928,45 +928,34 @@ a {
   margin-top: 10px;
 }
 
-/* Табы — вне hero, всегда кликабельны */
-.gh__tabs {
+/* Навигация зон — декоративная */
+.gh__nav {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  background: var(--dark-bg);
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
 }
 
-.gh__tab {
+.gh__nav-item {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 8px;
-  padding: 22px 16px;
-  background: none;
-  border: none;
-  border-right: 1px solid rgba(255,255,255,0.1);
-  cursor: pointer;
-  color: rgba(255,255,255,0.6);
-  transition: background 0.3s ease, color 0.3s ease;
+  padding: 24px 16px;
+  color: var(--accent);
+  border-right: 1px solid var(--border);
 }
 
-.gh__tab:last-child { border-right: none; }
-.gh__tab svg { flex-shrink: 0; }
+.gh__nav-item:last-child { border-right: none; }
+.gh__nav-item svg { flex-shrink: 0; }
 
-.gh__tab span {
+.gh__nav-item span {
   font-family: 'Inter', sans-serif;
-  font-weight: 400;
-  font-size: 14px;
-  letter-spacing: 0.03em;
-}
-
-.gh__tab--active {
-  background: var(--accent);
-  color: var(--white);
-}
-
-.gh__tab:not(.gh__tab--active):hover {
-  background: rgba(255,255,255,0.08);
-  color: var(--white);
+  font-weight: 300;
+  font-size: 13px;
+  letter-spacing: 0.06em;
+  color: var(--text-sec);
 }
 
 /* Карточки */
@@ -974,10 +963,13 @@ a {
   max-width: 1200px;
   margin: 0 auto;
   padding: 80px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
 }
 
 .gh__card {
-  display: none;
+  display: grid;
   grid-template-columns: 1fr 1fr;
   align-items: center;
   gap: 80px;
@@ -985,10 +977,6 @@ a {
   border-radius: 16px;
   padding: 60px;
   box-shadow: 0 8px 48px rgba(0, 0, 0, 0.10);
-}
-
-.gh__card--active {
-  display: grid;
 }
 
 
@@ -1095,16 +1083,16 @@ a {
   .hero__subtitle { font-size: 12px; letter-spacing: 0.2em; }
 
   /* Green Hall мобильный */
-  .gh__tabs { grid-template-columns: repeat(2, 1fr); }
-  .gh__tab { border-bottom: 1px solid rgba(255,255,255,0.2); }
-  .gh__tab span { font-size: 12px; }
+  .gh__nav { grid-template-columns: repeat(2, 1fr); }
+  .gh__nav-item { border-bottom: 1px solid var(--border); padding: 18px 12px; }
+  .gh__nav-item span { font-size: 11px; }
   .gh__hero { height: 55vh; }
   .gh__title { font-size: 40px; }
-  .gh__card--active { grid-template-columns: 1fr; }
+  .gh__card { grid-template-columns: 1fr; }
   .gh__card--reverse { direction: ltr; }
   .gh__card-circle { width: 280px; height: 280px; }
   .gh__card-quote { display: none; }
-  .gh__cards { padding: 48px 24px; }
+  .gh__cards { padding: 48px 24px; gap: 40px; }
 
   /* Двор мобильный */
   .courtyard__inner {

@@ -295,24 +295,38 @@
       </div>
     </div>
 
-    <!-- Табы — вне hero, кликабельны -->
-    <div class="gh__tabs">
-      <button class="gh__tab gh__tab--active" data-zone="zone-winter">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s-8-6-8-12a8 8 0 0 1 16 0c0 6-8 12-8 12z"/><circle cx="12" cy="10" r="2"/></svg>
+    <!-- Навигация зон — декоративная -->
+    <div class="gh__nav">
+      <div class="gh__nav-item">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+          <path d="M12 2C6 2 4 8 4 12c0 2 1 4 3 5.5L12 22l5-4.5C19 16 20 14 20 12c0-4-2-10-8-10z"/>
+        </svg>
         <span>Зимний сад</span>
-      </button>
-      <button class="gh__tab" data-zone="zone-sport">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
-        <span>Sport Room</span>
-      </button>
-      <button class="gh__tab" data-zone="zone-library">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+      </div>
+      <div class="gh__nav-item">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+          <line x1="6" y1="12" x2="18" y2="12"/>
+          <circle cx="4" cy="12" r="2"/>
+          <circle cx="20" cy="12" r="2"/>
+          <circle cx="12" cy="8" r="2"/>
+        </svg>
+        <span>Спортзал</span>
+      </div>
+      <div class="gh__nav-item">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+          <path d="M2 6h8a2 2 0 0 1 2 2v12a1.5 1.5 0 0 0-1.5-2H2V6z"/>
+          <path d="M22 6h-8a2 2 0 0 0-2 2v12a1.5 1.5 0 0 1 1.5-2H22V6z"/>
+        </svg>
         <span>Библиотека</span>
-      </button>
-      <button class="gh__tab" data-zone="zone-coworking">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
+      </div>
+      <div class="gh__nav-item">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+          <rect x="2" y="5" width="20" height="13" rx="1"/>
+          <line x1="8" y1="21" x2="16" y2="21"/>
+          <line x1="12" y1="18" x2="12" y2="21"/>
+        </svg>
         <span>Коворкинг</span>
-      </button>
+      </div>
     </div>
 
     <!-- Нижняя часть: карточки зон -->
@@ -337,7 +351,7 @@
       <!-- Карточка 2: Sport Room (зеркально) -->
       <div class="gh__card gh__card--reverse" id="zone-sport">
         <div class="gh__card-text">
-          <h3 class="gh__card-title">Sport Room</h3>
+          <h3 class="gh__card-title">Спортзал</h3>
           <p class="gh__card-para">Зал для тренировок и практик, где можно перезагрузиться и вернуть внутреннее равновесие. Пространство, где день может начинаться энергией или завершаться спокойствием.</p>
         </div>
         <div class="gh__card-photo-wrap">
