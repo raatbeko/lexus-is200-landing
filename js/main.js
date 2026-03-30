@@ -164,19 +164,20 @@ function renderApts(block, activeIndex = 0) {
 
 function selectApt(block, index) {
   const apt = plansData[block][index];
+  
   document.querySelectorAll('.plans__apt-tab').forEach((b, i) =>
     b.classList.toggle('plans__apt-tab--active', i === index)
   );
-  gsap.to(plansDisplay, {
-    opacity: 0, y: 10, duration: 0.2, ease: 'power2.in',
-    onComplete: () => {
-      planImage.src = apt.img;
-      planImage.alt = apt.size;
-      planSize.textContent  = apt.size;
-      planRooms.textContent = apt.rooms;
-      gsap.to(plansDisplay, { opacity: 1, y: 0, duration: 0.35, ease: 'power2.out' });
-    },
-  });
+  
+  planImage.src = apt.img;
+  planImage.alt = apt.size;
+  planSize.textContent = apt.size;
+  planRooms.textContent = apt.rooms;
+  
+  gsap.fromTo(plansDisplay, 
+    { opacity: 0, y: 15 },
+    { opacity: 1, y: 0, duration: 0.4, ease: 'power2.out' }
+  );
 }
 
 blockTabs.forEach(tab => {
@@ -189,15 +190,9 @@ blockTabs.forEach(tab => {
   });
 });
 
-// Инициализация — сразу показываем первую планировку без анимации
+// Инициализация — сразу показываем первую планировку
 renderApts(1, 0);
-(function () {
-  const apt = plansData[1][0];
-  planImage.src = apt.img;
-  planImage.alt = apt.size;
-  planSize.textContent  = apt.size;
-  planRooms.textContent = apt.rooms;
-}());
+selectApt(1, 0);
 
 // ===== GREEN HALL: плавный скролл к якорю через Lenis =====
 document.querySelectorAll('.gh__nav-item').forEach(link => {
