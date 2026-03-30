@@ -283,7 +283,7 @@
   </section>
 
   <!-- ===== GREEN HALL ===== -->
-  <section class="gh" id="plans">
+  <section class="gh" id="green-hall">
 
     <!-- Верхняя часть: фото + заголовок -->
     <div class="gh__hero">
@@ -295,15 +295,15 @@
       </div>
     </div>
 
-    <!-- Навигация зон — декоративная -->
+    <!-- Навигация — якорные ссылки -->
     <div class="gh__nav">
-      <div class="gh__nav-item">
+      <a class="gh__nav-item" href="#zone-winter">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
           <path d="M12 2C6 2 4 8 4 12c0 2 1 4 3 5.5L12 22l5-4.5C19 16 20 14 20 12c0-4-2-10-8-10z"/>
         </svg>
         <span>Зимний сад</span>
-      </div>
-      <div class="gh__nav-item">
+      </a>
+      <a class="gh__nav-item" href="#zone-sport">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
           <line x1="6" y1="12" x2="18" y2="12"/>
           <circle cx="4" cy="12" r="2"/>
@@ -311,28 +311,27 @@
           <circle cx="12" cy="8" r="2"/>
         </svg>
         <span>Спортзал</span>
-      </div>
-      <div class="gh__nav-item">
+      </a>
+      <a class="gh__nav-item" href="#zone-library">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
           <path d="M2 6h8a2 2 0 0 1 2 2v12a1.5 1.5 0 0 0-1.5-2H2V6z"/>
           <path d="M22 6h-8a2 2 0 0 0-2 2v12a1.5 1.5 0 0 1 1.5-2H22V6z"/>
         </svg>
         <span>Библиотека</span>
-      </div>
-      <div class="gh__nav-item">
+      </a>
+      <a class="gh__nav-item" href="#zone-coworking">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
           <rect x="2" y="5" width="20" height="13" rx="1"/>
           <line x1="8" y1="21" x2="16" y2="21"/>
           <line x1="12" y1="18" x2="12" y2="21"/>
         </svg>
         <span>Коворкинг</span>
-      </div>
+      </a>
     </div>
 
-    <!-- Нижняя часть: карточки зон -->
+    <!-- Карточки зон — всегда видны, скролл по якорям -->
     <div class="gh__cards">
 
-      <!-- Карточка 1: Зимний сад -->
       <div class="gh__card" id="zone-winter">
         <div class="gh__card-photo-wrap">
           <div class="gh__card-circle">
@@ -344,24 +343,22 @@
         </div>
         <div class="gh__card-text">
           <h3 class="gh__card-title">Зимний сад</h3>
-          <p class="gh__card-para">Уютное пространство с библиотекой и коворкинг-зоной, наполненное светом и тишиной. Здесь легко сосредоточиться на работе, погрузиться в книгу или просто сделать паузу среди насыщенного дня.</p>
+          <p class="gh__card-para">Уютное пространство, наполненное светом и тишиной. Здесь легко сосредоточиться на работе, погрузиться в книгу или просто сделать паузу среди насыщенного дня.</p>
         </div>
       </div>
 
-      <!-- Карточка 2: Sport Room (зеркально) -->
       <div class="gh__card gh__card--reverse" id="zone-sport">
+        <div class="gh__card-photo-wrap">
+          <div class="gh__card-circle">
+            <img src="prepared/sections/07_green_hall/image/sport-room.jpg" alt="Спортзал" loading="lazy">
+          </div>
+        </div>
         <div class="gh__card-text">
           <h3 class="gh__card-title">Спортзал</h3>
           <p class="gh__card-para">Зал для тренировок и практик, где можно перезагрузиться и вернуть внутреннее равновесие. Пространство, где день может начинаться энергией или завершаться спокойствием.</p>
         </div>
-        <div class="gh__card-photo-wrap">
-          <div class="gh__card-circle">
-            <img src="prepared/sections/07_green_hall/image/sport-room.jpg" alt="Sport Room" loading="lazy">
-          </div>
-        </div>
       </div>
 
-      <!-- Карточка 3: Библиотека -->
       <div class="gh__card" id="zone-library">
         <div class="gh__card-photo-wrap">
           <div class="gh__card-circle">
@@ -373,20 +370,173 @@
         </div>
         <div class="gh__card-text">
           <h3 class="gh__card-title">Библиотека</h3>
-          <p class="gh__card-para">Мягкий свет, удобные кресла и атмосфера спокойствия создают место, куда хочется возвращаться. Здесь легко погрузиться в книгу, отвлечься от городской динамики и провести время в уединении.</p>
+          <p class="gh__card-para">Мягкий свет, удобные кресла и атмосфера спокойствия создают место, куда хочется возвращаться. Здесь легко погрузиться в книгу и провести время в уединении.</p>
         </div>
       </div>
 
-      <!-- Карточка 4: Коворкинг (зеркально) -->
       <div class="gh__card gh__card--reverse" id="zone-coworking">
-        <div class="gh__card-text">
-          <h3 class="gh__card-title">Коворкинг-зона</h3>
-          <p class="gh__card-para">Среда для работы и новых идей. Продуманная акустика, комфортные рабочие места и современная инфраструктура позволяют сосредоточиться на важном. Здесь можно провести встречу, поработать над проектом или организовать онлайн-созвон, не покидая комплекса.</p>
-        </div>
         <div class="gh__card-photo-wrap">
           <div class="gh__card-circle">
             <img src="prepared/sections/07_green_hall/image/coworking.jpg" alt="Коворкинг" loading="lazy">
           </div>
+        </div>
+        <div class="gh__card-text">
+          <h3 class="gh__card-title">Коворкинг-зона</h3>
+          <p class="gh__card-para">Среда для работы и новых идей. Продуманная акустика, комфортные рабочие места и современная инфраструктура позволяют сосредоточиться на важном, не покидая комплекса.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===== ТЕХНИЧЕСКИЕ РЕШЕНИЯ ===== -->
+  <section class="tech" id="tech">
+    <div class="tech__inner">
+
+      <!-- Комната матери и ребёнка -->
+      <div class="tech__mother">
+        <div class="tech__mother-photo-wrap">
+          <div class="tech__mother-circle">
+            <img src="prepared/sections/08_technical/image/mother-room.jpg" alt="Комната матери и ребёнка" loading="lazy">
+          </div>
+          <div class="tech__mother-quote">
+            <p>Здесь всё сделано с продуманием.</p>
+          </div>
+        </div>
+        <div class="tech__mother-text">
+          <h3 class="tech__mother-title">Комната матери и ребёнка</h3>
+          <p class="tech__mother-para">Небольшое, но очень важное пространство на первом этаже. Продумано так, чтобы родители могли чувствовать уверенность и заботу в любой момент.</p>
+        </div>
+      </div>
+
+      <!-- Основные технические решения -->
+      <div class="tech__main">
+        <h2 class="tech__title">Основные технические решения</h2>
+        <p class="tech__para">Каждый элемент проекта продуман до деталей — от инженерных систем до отделки общих пространств. Всё, что скрыто за стенами, работает на ваш комфорт.</p>
+        <div class="tech__image-wrap">
+          <img src="prepared/sections/08_technical/image/technicals.jpg" alt="Технические решения IVORY" loading="lazy">
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===== ПЛАНИРОВКИ ===== -->
+  <section class="plans" id="plans">
+    <div class="plans__inner">
+
+      <!-- Заголовок -->
+      <div class="plans__header">
+        <p class="plans__label">Планировки</p>
+        <h2 class="plans__title">Выберите свою квартиру</h2>
+      </div>
+
+      <!-- Уровень 1: блоки -->
+      <div class="plans__blocks">
+        <button class="plans__block-tab plans__block-tab--active" data-block="1">1 Блок</button>
+        <button class="plans__block-tab" data-block="2">2 Блок</button>
+        <button class="plans__block-tab" data-block="3">3 Блок</button>
+      </div>
+
+      <!-- Уровень 2: квартиры -->
+      <div class="plans__apts" id="plansApts"></div>
+
+      <!-- Отображение планировки -->
+      <div class="plans__display" id="plansDisplay">
+        <div class="plans__image-wrap">
+          <img id="planImage" src="" alt="Планировка">
+        </div>
+        <div class="plans__info">
+          <p class="plans__info-size" id="planSize"></p>
+          <p class="plans__info-rooms" id="planRooms"></p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===== BORSAN SERVICE ===== -->
+  <section class="borsan" id="contacts">
+    <div class="borsan__inner">
+
+      <!-- Левая: текст -->
+      <div class="borsan__left" id="borsanLeft">
+
+        <!-- Логотип -->
+        <div class="borsan__logo">
+          <span class="borsan__logo-icon"></span>
+          <span class="borsan__logo-name">BORSAN SERVICE</span>
+        </div>
+
+        <h2 class="borsan__title">Управляющая компания</h2>
+
+        <p class="borsan__para">Команда профессионалов берёт на себя все вопросы: от технического обслуживания до решения любых бытовых задач.</p>
+        <p class="borsan__para">Наша команда всегда рядом — обеспечивает безопасный подъезд, надёжное хранение и решение всех вопросов.</p>
+
+        <!-- Иконки услуг -->
+        <div class="borsan__icons">
+
+          <div class="borsan__icon-item">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+              <path d="M12 2L4 6v6c0 5 3.5 9 8 10 4.5-1 8-5 8-10V6L12 2z"/>
+            </svg>
+            <span>Охрана</span>
+          </div>
+
+          <div class="borsan__icon-item">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+              <rect x="2" y="6" width="20" height="12" rx="1"/>
+              <path d="M6 10h4M6 14h2"/>
+              <circle cx="17" cy="12" r="2"/>
+            </svg>
+            <span>Рецепция</span>
+          </div>
+
+          <div class="borsan__icon-item">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+              <path d="M8 2h8l1 6H7L8 2z"/>
+              <path d="M7 8v10a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V8"/>
+              <line x1="10" y1="12" x2="14" y2="12"/>
+            </svg>
+            <span>Клининг</span>
+          </div>
+
+          <div class="borsan__icon-item">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+              <path d="M18 8a6 6 0 0 0-12 0c0 3 1.5 5 3 7h6c1.5-2 3-4 3-7z"/>
+              <line x1="12" y1="15" x2="12" y2="19"/>
+              <line x1="9" y1="19" x2="15" y2="19"/>
+            </svg>
+            <span>Консьерж</span>
+          </div>
+
+          <div class="borsan__icon-item">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+              <path d="M12 3a9 9 0 0 1 9 9H3a9 9 0 0 1 9-9z"/>
+              <line x1="12" y1="12" x2="12" y2="17"/>
+              <line x1="8" y1="21" x2="16" y2="21"/>
+            </svg>
+            <span>Парковка</span>
+          </div>
+
+          <div class="borsan__icon-item">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+              <path d="M4 20l4-4"/>
+              <path d="M8 16l2-8 4 2-4 6"/>
+              <circle cx="17" cy="5" r="3"/>
+              <path d="M14 7l-2 9"/>
+            </svg>
+            <span>Уборка двора</span>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- Правая: фото -->
+      <div class="borsan__photo" id="borsanPhoto">
+        <div class="borsan__photo-circle">
+          <img src="prepared/sections/09_borsan/image/borsan-team.jpg" alt="Команда Borsan Service" loading="lazy">
         </div>
       </div>
 

@@ -113,15 +113,97 @@ parallaxLayers.forEach(({ id, yPercent }) => {
   });
 });
 
-// ===== GREEN HALL: анимации при скролле =====
-document.querySelectorAll('.gh__card').forEach((card, i) => {
-  gsap.from(card, {
-    opacity: 0,
-    y: 40,
-    duration: 0.9,
-    ease: 'power2.out',
-    delay: i * 0.1,
-    scrollTrigger: { trigger: card, start: 'top 82%' },
+// ===== ПЛАНИРОВКИ =====
+const plansBase = 'prepared/sections/10_plans/images';
+const plansData = {
+  1: [
+    { size: '48 м²', rooms: '1-комнатная', img: `${plansBase}/plan-block1/22.jpg` },
+    { size: '63 м²', rooms: '2-комнатная', img: `${plansBase}/plan-block1/23.jpg` },
+    { size: '64 м²', rooms: '2-комнатная', img: `${plansBase}/plan-block1/24.jpg` },
+    { size: '68 м²', rooms: '2-комнатная', img: `${plansBase}/plan-block1/25.jpg` },
+    { size: '82 м²', rooms: '3-комнатная', img: `${plansBase}/plan-block1/26.jpg` },
+    { size: '92 м²', rooms: '3-комнатная', img: `${plansBase}/plan-block1/27.jpg` },
+  ],
+  2: [
+    { size: '48 м²', rooms: '1-комнатная', img: `${plansBase}/plan-block2/28.jpg` },
+    { size: '49 м²', rooms: '1-комнатная', img: `${plansBase}/plan-block2/29.jpg` },
+    { size: '58 м²', rooms: '2-комнатная', img: `${plansBase}/plan-block2/30.jpg` },
+    { size: '80 м²', rooms: '3-комнатная', img: `${plansBase}/plan-block2/31.jpg` },
+    { size: '89 м²', rooms: '3-комнатная', img: `${plansBase}/plan-block2/32.jpg` },
+    { size: '98 м²', rooms: '3-комнатная', img: `${plansBase}/plan-block2/33.jpg` },
+    { size: '108 м²', rooms: '4-комнатная', img: `${plansBase}/plan-block2/34.jpg` },
+    { size: '120 м²', rooms: '4-комнатная', img: `${plansBase}/plan-block2/35.jpg` },
+  ],
+  3: [
+    { size: '51 м²', rooms: '1-комнатная', img: `${plansBase}/plan-block3/36.jpg` },
+    { size: '64 м²', rooms: '2-комнатная', img: `${plansBase}/plan-block3/37.jpg` },
+    { size: '68 м²', rooms: '2-комнатная', img: `${plansBase}/plan-block3/38.jpg` },
+    { size: '98 м²', rooms: '3-комнатная', img: `${plansBase}/plan-block3/39.jpg` },
+    { size: '110 м²', rooms: '4-комнатная', img: `${plansBase}/plan-block3/40.jpg` },
+  ],
+};
+
+const plansApts    = document.getElementById('plansApts');
+const plansDisplay = document.getElementById('plansDisplay');
+const planImage    = document.getElementById('planImage');
+const planSize     = document.getElementById('planSize');
+const planRooms    = document.getElementById('planRooms');
+const blockTabs    = document.querySelectorAll('.plans__block-tab');
+let currentBlock   = 1;
+
+function renderApts(block, activeIndex = 0) {
+  plansApts.innerHTML = '';
+  plansData[block].forEach((apt, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'plans__apt-tab' + (i === activeIndex ? ' plans__apt-tab--active' : '');
+    btn.textContent = apt.size;
+    btn.addEventListener('click', () => selectApt(block, i));
+    plansApts.appendChild(btn);
+  });
+}
+
+function selectApt(block, index) {
+  const apt = plansData[block][index];
+  document.querySelectorAll('.plans__apt-tab').forEach((b, i) =>
+    b.classList.toggle('plans__apt-tab--active', i === index)
+  );
+  gsap.to(plansDisplay, {
+    opacity: 0, y: 10, duration: 0.2, ease: 'power2.in',
+    onComplete: () => {
+      planImage.src = apt.img;
+      planImage.alt = apt.size;
+      planSize.textContent  = apt.size;
+      planRooms.textContent = apt.rooms;
+      gsap.to(plansDisplay, { opacity: 1, y: 0, duration: 0.35, ease: 'power2.out' });
+    },
+  });
+}
+
+blockTabs.forEach(tab => {
+  tab.addEventListener('click', () => {
+    blockTabs.forEach(t => t.classList.remove('plans__block-tab--active'));
+    tab.classList.add('plans__block-tab--active');
+    currentBlock = +tab.dataset.block;
+    renderApts(currentBlock, 0);
+    selectApt(currentBlock, 0);
+  });
+});
+
+// Инициализация — сразу показываем первую планировку без анимации
+renderApts(1, 0);
+(function () {
+  const apt = plansData[1][0];
+  planImage.src = apt.img;
+  planImage.alt = apt.size;
+  planSize.textContent  = apt.size;
+  planRooms.textContent = apt.rooms;
+}());
+
+// ===== GREEN HALL: плавный скролл к якорю через Lenis =====
+document.querySelectorAll('.gh__nav-item').forEach(link => {
+  link.addEventListener('click', e => {
+    e.preventDefault();
+    lenis.scrollTo(link.getAttribute('href'), { offset: -80 });
   });
 });
 
@@ -293,4 +375,54 @@ ScrollTrigger.create({
       ease: 'power2.out',
     });
   },
+});
+
+// ===== ТЕХНИЧЕСКИЕ РЕШЕНИЯ: анимации =====
+gsap.from('.tech__mother-circle', {
+  opacity: 0,
+  x: -60,
+  duration: 1,
+  ease: 'power2.out',
+  scrollTrigger: { trigger: '.tech__mother', start: 'top 80%' },
+});
+
+gsap.from('.tech__mother-text', {
+  opacity: 0,
+  x: 40,
+  duration: 1,
+  ease: 'power2.out',
+  scrollTrigger: { trigger: '.tech__mother', start: 'top 80%' },
+});
+
+gsap.from('.tech__title', {
+  opacity: 0,
+  y: 30,
+  duration: 0.9,
+  ease: 'power2.out',
+  scrollTrigger: { trigger: '.tech__title', start: 'top 82%' },
+});
+
+gsap.from('.tech__image-wrap', {
+  opacity: 0,
+  y: 40,
+  duration: 1,
+  ease: 'power2.out',
+  scrollTrigger: { trigger: '.tech__image-wrap', start: 'top 82%' },
+});
+
+// ===== BORSAN SERVICE: анимации =====
+gsap.from('#borsanLeft', {
+  opacity: 0,
+  x: -50,
+  duration: 1,
+  ease: 'power2.out',
+  scrollTrigger: { trigger: '#borsanLeft', start: 'top 80%' },
+});
+
+gsap.from('#borsanPhoto', {
+  opacity: 0,
+  x: 60,
+  duration: 1,
+  ease: 'power2.out',
+  scrollTrigger: { trigger: '#borsanPhoto', start: 'top 80%' },
 });
