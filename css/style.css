@@ -1944,12 +1944,10 @@ a {
     color: var(--text-sec) !important;
   }
 
-  .header__burger span {
-    background: var(--white) !important;
-  }
-
+  /* Гамбургер — всегда статичный, не меняет цвет при скролле */
+  .header__burger span,
   .header.scrolled .header__burger span {
-    background: var(--text-primary) !important;
+    background: var(--accent) !important;
   }
 
   .header__nav,
@@ -2153,12 +2151,10 @@ a {
     color: var(--text-sec) !important;
   }
 
-  .header__burger span {
-    background: var(--white) !important;
-  }
-
+  /* Гамбургер — статичный */
+  .header__burger span,
   .header.scrolled .header__burger span {
-    background: var(--text-primary) !important;
+    background: var(--accent) !important;
   }
 
   .hero__desc {
@@ -2735,33 +2731,70 @@ a {
 
   /* ===== FOOTER MOBILE ===== */
   .footer {
-    padding: 32px 0 20px;
+    padding: 0;
   }
 
   .footer__inner {
-    padding: 0 16px;
+    padding: 0 20px;
   }
 
   .footer__top {
     grid-template-columns: 1fr;
-    gap: 24px;
-    padding: 32px 0;
+    gap: 0;
+    padding: 40px 0 0;
+    border-top: 2px solid var(--accent);
     text-align: center;
+  }
+
+  /* Логотип + описание */
+  .footer__col--brand {
+    padding-bottom: 28px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   }
 
   .footer__logo {
     justify-content: center;
+    margin-bottom: 8px;
   }
 
-  .footer__nav {
+  .footer__brand-desc {
+    margin-bottom: 8px;
+  }
+
+  .footer__address {
+    font-size: 13px;
+  }
+
+  /* Навигация */
+  .footer__col--nav {
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 16px;
+    gap: 10px 20px;
+    padding: 24px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   }
 
-  .footer__phones {
+  .footer__nav-link {
+    font-size: 13px;
+  }
+
+  /* Телефоны */
+  .footer__col--phones {
+    display: flex;
+    flex-direction: column;
     align-items: center;
+    gap: 10px;
+    padding: 24px 0;
+  }
+
+  .footer__phone {
+    font-size: 16px;
+    letter-spacing: 0.02em;
+  }
+
+  .footer__bottom {
+    padding: 16px 0;
   }
 
   .footer__copyright {
@@ -2800,12 +2833,10 @@ a {
     color: var(--text-sec) !important;
   }
 
-  .header__burger span {
-    background: var(--white) !important;
-  }
-
+  /* Гамбургер — статичный */
+  .header__burger span,
   .header.scrolled .header__burger span {
-    background: var(--text-primary) !important;
+    background: var(--accent) !important;
   }
 
   .hero__title {
