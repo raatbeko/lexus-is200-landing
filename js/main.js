@@ -5,14 +5,51 @@ window.addEventListener('resize', () => {
   isMobile = window.innerWidth <= 768;
 });
 
+console.log('Initial isMobile:', isMobile, 'width:', window.innerWidth);
+
 // If mobile, skip all JS animations and scripts
 if (isMobile) {
-  // Add simple no-scroll class for reference
   document.documentElement.classList.add('is-mobile');
 }
 
 // ===== GSAP + ScrollTrigger =====
 gsap.registerPlugin(ScrollTrigger);
+
+// ===== Parallax - enable on screens > 480px =====
+const enableParallax = window.innerWidth > 480;
+console.log('Parallax enableParallax:', enableParallax, 'width:', window.innerWidth);
+
+if (enableParallax) {
+  // Test if GSAP works
+  gsap.to('#layerTop', {
+    y: -50,
+    duration: 1,
+    ease: 'none',
+  });
+  
+  // Full parallax
+  gsap.to('#layerBg', {
+    yPercent: -8,
+    ease: 'none',
+    scrollTrigger: {
+      trigger: '#hero',
+      start: 'top top',
+      end: 'bottom top',
+      scrub: 1,
+    },
+  });
+
+  gsap.to('#layerTop', {
+    yPercent: -20,
+    ease: 'none',
+    scrollTrigger: {
+      trigger: '#hero',
+      start: 'top top',
+      end: 'bottom top',
+      scrub: 1,
+    },
+  });
+}
 
 // ===== ХЕДЕР =====
 const header = document.getElementById('header');
@@ -101,34 +138,7 @@ document.getElementById('heroArrow').addEventListener('click', () => {
   document.querySelector('#about-section, .about').scrollIntoView({ behavior: 'smooth' });
 });
 
-// ===== HERO: параллакс (desktop only) =====
-if (!isMobile) {
-  gsap.to('#layerBg', {
-    yPercent: -8,
-    ease: 'none',
-    scrollTrigger: {
-      trigger: '#hero',
-      start: 'top top',
-      end: 'bottom top',
-      scrub: 1,
-    },
-  });
-
-  gsap.to('#layerTop', {
-    yPercent: -20,
-    ease: 'none',
-    scrollTrigger: {
-      trigger: '#hero',
-      start: 'top top',
-      end: 'bottom top',
-      scrub: 1,
-    },
-  });
-}
-
-// ===== SLIDE-IN АНИМАЦИИ (слева и справа) =====
-
-// Универсальная функция для slide-in
+// ===== SLIDE-IN АНИМАЦИИ =====
 function createSlideInAnimations() {
   // О ПРОЕКТЕ: текст слева, фото справа
   gsap.from('#aboutTitle', {
