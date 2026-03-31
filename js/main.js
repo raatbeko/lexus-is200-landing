@@ -67,6 +67,24 @@ gsap.timeline({ delay: 0.2 })
     duration: 0.8,
     ease: 'power2.out',
   }, 0.6)
+  .from('#heroDesc', {
+    opacity: 0,
+    x: -40,
+    duration: 0.8,
+    ease: 'power2.out',
+  }, 0.7)
+  .from('#heroDesc .hero__desc-card', {
+    opacity: 0,
+    y: 20,
+    duration: 0.6,
+    stagger: 0.15,
+    ease: 'power2.out',
+  }, 0.9)
+  .from('#heroDesc .hero__desc-divider', {
+    scaleY: 0,
+    duration: 0.5,
+    ease: 'power2.out',
+  }, 1.1)
   .from('#heroArrow', {
     opacity: 0,
     duration: 0.5,
@@ -113,57 +131,6 @@ gsap.to('#layerTop', {
 
 // Универсальная функция для slide-in
 function createSlideInAnimations() {
-  // ФАКТЫ: фото слева, числа справа
-  gsap.from('#factsImage', {
-    opacity: 0,
-    x: -80,
-    duration: 1,
-    ease: 'power3.out',
-    scrollTrigger: {
-      trigger: '#facts',
-      start: 'top 75%',
-    },
-  });
-
-  gsap.from('.facts__stat', {
-    opacity: 0,
-    x: 60,
-    duration: 0.8,
-    stagger: 0.15,
-    ease: 'power3.out',
-    scrollTrigger: {
-      trigger: '.facts__content',
-      start: 'top 80%',
-    },
-  });
-
-  // CountUp для чисел
-  ScrollTrigger.create({
-    trigger: '.facts__content',
-    start: 'top 75%',
-    once: true,
-    onEnter: () => {
-      gsap.to({ val: 0 }, {
-        val: 18,
-        duration: 1.4,
-        ease: 'power2.out',
-        onUpdate: function() {
-          document.getElementById('num18').textContent = Math.round(this.targets()[0].val);
-        },
-      });
-
-      gsap.to({ val: 0 }, {
-        val: 3,
-        duration: 1,
-        ease: 'power2.out',
-        delay: 0.3,
-        onUpdate: function() {
-          document.getElementById('num3').textContent = Math.round(this.targets()[0].val);
-        },
-      });
-    },
-  });
-
   // О ПРОЕКТЕ: текст слева, фото справа
   gsap.from('#aboutTitle', {
     opacity: 0,
