@@ -323,7 +323,6 @@ a {
   left: 0;
   right: 0;
   top: -20%;
-  bottom: -20%;
   will-change: transform;
 }
 
@@ -2207,8 +2206,7 @@ a {
   }
 
   .hero__layer {
-    top: -10%;
-    bottom: -10%;
+    bottom: -25%;
   }
 
   .hero__content {
