@@ -1,11 +1,18 @@
-// ===== Mobile detection =====
-const isMobile = window.innerWidth <= 768;
+// ===== Immediate mobile detection =====
+let isMobile = window.innerWidth <= 768;
+
+window.addEventListener('resize', () => {
+  isMobile = window.innerWidth <= 768;
+});
+
+// If mobile, skip all JS animations and scripts
+if (isMobile) {
+  // Add simple no-scroll class for reference
+  document.documentElement.classList.add('is-mobile');
+}
 
 // ===== GSAP + ScrollTrigger =====
 gsap.registerPlugin(ScrollTrigger);
-
-// ===== LENIS — полностью убираем (вызывает лаги) =====
-// Используем нативный smooth scroll браузера
 
 // ===== ХЕДЕР =====
 const header = document.getElementById('header');
@@ -17,13 +24,6 @@ window.addEventListener('scroll', () => {
     header.classList.remove('scrolled');
   }
 }, { passive: true });
-
-// ===== Mobile: полностью отключаем GSAP =====
-if (isMobile) {
-  // Отключаем все ScrollTrigger
-  ScrollTrigger.getAll().forEach(st => st.kill());
-  gsap.globalTimeline.timeScale(0);
-}
 
 // ===== ГАМБУРГЕР МЕНЮ =====
 const burger = document.getElementById('burger');
