@@ -27,7 +27,7 @@ body {
   font-weight: 400;
   background: var(--bg);
   color: var(--text-primary);
-  overflow-x: visible;
+  overflow-x: hidden;
   line-height: 1.5;
 }
 
@@ -371,7 +371,7 @@ a {
 
 .hero__subtitle {
   font-family: 'Inter', sans-serif;
-  font-weight: 300;
+  font-weight: 500;
   font-size: 14px;
   letter-spacing: 0.3em;
   text-transform: uppercase;
@@ -1959,10 +1959,10 @@ a {
   /* Hero мобильный */
   .hero    { height: 100vh; min-height: -webkit-fill-available; }
   .hero__title    { font-size: 70px; }
-  .hero__slogan   { bottom: 30px; right: 20px; font-size: 24px; }
+  .hero__slogan   { display: none; }
   .hero__subtitle { font-size: 12px; letter-spacing: 0.2em; }
-  .hero__desc     { 
-    bottom: 30px; 
+  .hero__desc     {
+    bottom: 68px;
     left: 20px;
     right: 20px;
     padding: 12px 16px;
@@ -1970,13 +1970,13 @@ a {
     flex-direction: column;
     align-items: stretch;
   }
-  .hero__desc-card { 
-    flex-direction: row; 
+  .hero__desc-card {
+    flex-direction: row;
     align-items: baseline;
     gap: 12px;
   }
-  .hero__desc-divider { 
-    height: 1px; 
+  .hero__desc-divider {
+    height: 1px;
     width: 100%;
   }
   .hero__desc-num { font-size: 36px; }
@@ -2225,13 +2225,11 @@ a {
   }
 
   .hero__slogan {
-    bottom: 16px;
-    right: 16px;
-    font-size: 16px;
+    display: none;
   }
 
   .hero__desc {
-    bottom: 16px;
+    bottom: 56px;
     left: 16px;
     right: 16px;
     padding: 10px 12px;
@@ -2712,13 +2710,8 @@ a {
   }
 
   .borsan__icons {
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 20px;
-  }
-
-  .borsan__icon-item {
-    flex: 0 0 calc(50% - 10px);
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
   }
 
   .borsan__photo {

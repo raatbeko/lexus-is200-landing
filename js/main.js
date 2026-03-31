@@ -86,52 +86,53 @@ gsap.timeline({ delay: 0.3 })
   .from('#heroTitle', {
     opacity: 0,
     scale: 1.05,
-    duration: 2,
+    duration: isMobile ? 1.4 : 2,
     ease: 'power3.out',
   })
   .from('#heroSubtitle', {
     opacity: 0,
-    y: 20,
-    duration: 1.2,
+    y: 16,
+    duration: isMobile ? 0.9 : 1.2,
     ease: 'power3.out',
-  }, 0.6)
+  }, isMobile ? 0.4 : 0.6)
   .from('#heroSlogan', {
     opacity: 0,
-    x: 40,
+    x: isMobile ? 0 : 40,
     duration: 1.2,
     ease: 'power3.out',
   }, 1)
   .from('#heroDesc', {
     opacity: 0,
-    x: -40,
-    duration: 1.2,
+    x: isMobile ? 0 : -40,
+    y: isMobile ? 16 : 0,
+    duration: isMobile ? 0.9 : 1.2,
     ease: 'power3.out',
-  }, 1.2)
+  }, isMobile ? 0.8 : 1.2)
   .from('#heroDesc .hero__desc-card', {
     opacity: 0,
-    y: 20,
-    duration: 0.8,
-    stagger: 0.2,
+    y: 16,
+    duration: isMobile ? 0.6 : 0.8,
+    stagger: 0.15,
     ease: 'power3.out',
-  }, 1.5)
+  }, isMobile ? 1.1 : 1.5)
   .from('#heroDesc .hero__desc-divider', {
     scaleY: 0,
-    duration: 0.6,
+    duration: 0.5,
     ease: 'power3.out',
-  }, 1.8)
+  }, isMobile ? 1.4 : 1.8)
   .from('#heroArrow', {
     opacity: 0,
     duration: 0.8,
-  }, 1.6);
+  }, isMobile ? 1.2 : 1.6);
 
 // Баунс стрелки
 gsap.to('#heroArrow', {
-  y: 10,
-  duration: 2.5,
-  ease: 'power1.inOut',
+  y: 8,
+  duration: 1.6,
+  ease: 'sine.inOut',
   yoyo: true,
   repeat: -1,
-  delay: 2.5,
+  delay: isMobile ? 1.8 : 2.5,
 });
 
 document.getElementById('heroArrow').addEventListener('click', () => {
@@ -140,10 +141,19 @@ document.getElementById('heroArrow').addEventListener('click', () => {
 
 // ===== SLIDE-IN АНИМАЦИИ =====
 function createSlideInAnimations() {
+  // На мобильных x-анимации вызывают горизонтальный скролл — используем только y
+  const xL = isMobile ? 0 : -60;
+  const xR = isMobile ? 0 : 60;
+  const xLg = isMobile ? 0 : 80;
+  const xRg = isMobile ? 0 : 80;
+  const xXl = isMobile ? 0 : 100;
+  const yBase = isMobile ? 30 : 40;
+
   // О ПРОЕКТЕ: текст слева, фото справа
   gsap.from('#aboutTitle', {
     opacity: 0,
-    x: -60,
+    x: xL,
+    y: isMobile ? yBase : 0,
     duration: 0.8,
     ease: 'power3.out',
     scrollTrigger: {
@@ -154,7 +164,8 @@ function createSlideInAnimations() {
 
   gsap.from('#aboutP1, #aboutP2', {
     opacity: 0,
-    x: -40,
+    x: isMobile ? 0 : -40,
+    y: isMobile ? yBase : 0,
     duration: 0.8,
     stagger: 0.2,
     ease: 'power3.out',
@@ -166,7 +177,8 @@ function createSlideInAnimations() {
 
   gsap.from('#aboutPhoto', {
     opacity: 0,
-    x: 80,
+    x: xRg,
+    y: isMobile ? yBase : 0,
     duration: 1,
     ease: 'power3.out',
     scrollTrigger: {
@@ -178,11 +190,11 @@ function createSlideInAnimations() {
   // ОКРУЖЕНИЕ: заголовок сверху
   gsap.from('#surTitle', {
     opacity: 0,
-    y: 40,
+    y: yBase,
     duration: 0.8,
     ease: 'power3.out',
     scrollTrigger: {
-      trigger: '#surroundings',
+      trigger: '#infrastructure',
       start: 'top 80%',
     },
   });
@@ -190,7 +202,8 @@ function createSlideInAnimations() {
   // Фото слева
   gsap.from('#surLeft', {
     opacity: 0,
-    x: -80,
+    x: isMobile ? 0 : -80,
+    y: isMobile ? yBase : 0,
     duration: 1,
     ease: 'power3.out',
     scrollTrigger: {
@@ -202,7 +215,8 @@ function createSlideInAnimations() {
   // Текст справа
   gsap.from('#surRight', {
     opacity: 0,
-    x: 60,
+    x: xR,
+    y: isMobile ? yBase : 0,
     duration: 0.9,
     ease: 'power3.out',
     scrollTrigger: {
@@ -214,7 +228,7 @@ function createSlideInAnimations() {
   // Карта снизу
   gsap.from('#surMap', {
     opacity: 0,
-    y: 50,
+    y: yBase,
     duration: 0.9,
     ease: 'power3.out',
     scrollTrigger: {
@@ -226,7 +240,8 @@ function createSlideInAnimations() {
   // АРХИТЕКТУРА: текст слева, круги справа
   gsap.from('#archText', {
     opacity: 0,
-    x: -60,
+    x: xL,
+    y: isMobile ? yBase : 0,
     duration: 0.9,
     ease: 'power3.out',
     scrollTrigger: {
@@ -237,7 +252,8 @@ function createSlideInAnimations() {
 
   gsap.from('#archBig', {
     opacity: 0,
-    x: 100,
+    x: xXl,
+    y: isMobile ? yBase : 0,
     duration: 1,
     ease: 'power3.out',
     scrollTrigger: {
@@ -248,8 +264,8 @@ function createSlideInAnimations() {
 
   gsap.from('#archSmall', {
     opacity: 0,
-    x: 60,
-    y: 40,
+    x: isMobile ? 0 : 60,
+    y: isMobile ? yBase : 40,
     duration: 0.8,
     delay: 0.2,
     ease: 'power3.out',
@@ -262,7 +278,8 @@ function createSlideInAnimations() {
   // ДВОР: текст слева, фото справа
   gsap.from('#courtyardText', {
     opacity: 0,
-    x: -60,
+    x: xL,
+    y: isMobile ? yBase : 0,
     duration: 0.9,
     ease: 'power3.out',
     scrollTrigger: {
@@ -273,7 +290,8 @@ function createSlideInAnimations() {
 
   gsap.from('#cyard1', {
     opacity: 0,
-    x: 80,
+    x: xRg,
+    y: isMobile ? yBase : 0,
     duration: 1,
     ease: 'power3.out',
     scrollTrigger: {
@@ -284,8 +302,8 @@ function createSlideInAnimations() {
 
   gsap.from('#cyard2', {
     opacity: 0,
-    x: 50,
-    y: 30,
+    x: isMobile ? 0 : 50,
+    y: isMobile ? yBase : 30,
     duration: 0.8,
     delay: 0.2,
     ease: 'power3.out',
@@ -298,7 +316,8 @@ function createSlideInAnimations() {
   // ТЕХНИЧЕСКИЕ РЕШЕНИЯ
   gsap.from('.tech__mother-circle', {
     opacity: 0,
-    x: -80,
+    x: isMobile ? 0 : -80,
+    y: isMobile ? yBase : 0,
     duration: 1,
     ease: 'power3.out',
     scrollTrigger: {
@@ -309,7 +328,8 @@ function createSlideInAnimations() {
 
   gsap.from('.tech__mother-text', {
     opacity: 0,
-    x: 60,
+    x: xR,
+    y: isMobile ? yBase : 0,
     duration: 0.9,
     ease: 'power3.out',
     scrollTrigger: {
@@ -320,7 +340,7 @@ function createSlideInAnimations() {
 
   gsap.from('.tech__title', {
     opacity: 0,
-    y: 40,
+    y: yBase,
     duration: 0.8,
     ease: 'power3.out',
     scrollTrigger: {
@@ -331,7 +351,7 @@ function createSlideInAnimations() {
 
   gsap.from('.tech__image-wrap', {
     opacity: 0,
-    y: 50,
+    y: yBase,
     duration: 0.9,
     ease: 'power3.out',
     scrollTrigger: {
@@ -343,7 +363,7 @@ function createSlideInAnimations() {
   // ПЛАНИРОВКИ
   gsap.from('.plans__header', {
     opacity: 0,
-    y: 40,
+    y: yBase,
     duration: 0.8,
     ease: 'power3.out',
     scrollTrigger: {
@@ -354,7 +374,7 @@ function createSlideInAnimations() {
 
   gsap.from('.plans__blocks', {
     opacity: 0,
-    y: 30,
+    y: isMobile ? 20 : 30,
     duration: 0.7,
     delay: 0.1,
     ease: 'power3.out',
@@ -379,7 +399,8 @@ function createSlideInAnimations() {
   // BORSAN SERVICE
   gsap.from('#borsanLeft', {
     opacity: 0,
-    x: -80,
+    x: isMobile ? 0 : -80,
+    y: isMobile ? yBase : 0,
     duration: 1,
     ease: 'power3.out',
     scrollTrigger: {
@@ -390,7 +411,8 @@ function createSlideInAnimations() {
 
   gsap.from('#borsanPhoto', {
     opacity: 0,
-    x: 80,
+    x: xRg,
+    y: isMobile ? yBase : 0,
     duration: 1,
     ease: 'power3.out',
     scrollTrigger: {
