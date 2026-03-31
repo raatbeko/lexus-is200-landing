@@ -23,7 +23,7 @@ if (enableParallax) {
   // Test if GSAP works
   gsap.to('#layerTop', {
     y: -50,
-    duration: 1,
+    duration: 3,
     ease: 'none',
   });
   
@@ -35,7 +35,7 @@ if (enableParallax) {
       trigger: '#hero',
       start: 'top top',
       end: 'bottom top',
-      scrub: 1,
+      scrub: 2,
     },
   });
 
@@ -46,7 +46,7 @@ if (enableParallax) {
       trigger: '#hero',
       start: 'top top',
       end: 'bottom top',
-      scrub: 1,
+      scrub: 2,
     },
   });
 }
@@ -82,56 +82,56 @@ mobileLinks.forEach(link => {
 });
 
 // ===== HERO: анимация входа =====
-gsap.timeline({ delay: 0.2 })
+gsap.timeline({ delay: 0.3 })
   .from('#heroTitle', {
     opacity: 0,
     scale: 1.05,
-    duration: 1.2,
-    ease: 'power2.out',
+    duration: 2,
+    ease: 'power3.out',
   })
   .from('#heroSubtitle', {
     opacity: 0,
     y: 20,
-    duration: 0.8,
-    ease: 'power2.out',
-  }, 0.4)
+    duration: 1.2,
+    ease: 'power3.out',
+  }, 0.6)
   .from('#heroSlogan', {
     opacity: 0,
     x: 40,
-    duration: 0.8,
-    ease: 'power2.out',
-  }, 0.6)
+    duration: 1.2,
+    ease: 'power3.out',
+  }, 1)
   .from('#heroDesc', {
     opacity: 0,
     x: -40,
-    duration: 0.8,
-    ease: 'power2.out',
-  }, 0.7)
+    duration: 1.2,
+    ease: 'power3.out',
+  }, 1.2)
   .from('#heroDesc .hero__desc-card', {
     opacity: 0,
     y: 20,
-    duration: 0.6,
-    stagger: 0.15,
-    ease: 'power2.out',
-  }, 0.9)
+    duration: 0.8,
+    stagger: 0.2,
+    ease: 'power3.out',
+  }, 1.5)
   .from('#heroDesc .hero__desc-divider', {
     scaleY: 0,
-    duration: 0.5,
-    ease: 'power2.out',
-  }, 1.1)
+    duration: 0.6,
+    ease: 'power3.out',
+  }, 1.8)
   .from('#heroArrow', {
     opacity: 0,
-    duration: 0.5,
-  }, 0.9);
+    duration: 0.8,
+  }, 1.6);
 
 // Баунс стрелки
 gsap.to('#heroArrow', {
   y: 10,
-  duration: 1,
+  duration: 2.5,
   ease: 'power1.inOut',
   yoyo: true,
   repeat: -1,
-  delay: 1.5,
+  delay: 2.5,
 });
 
 document.getElementById('heroArrow').addEventListener('click', () => {
