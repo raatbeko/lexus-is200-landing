@@ -323,6 +323,7 @@ a {
   left: 0;
   right: 0;
   top: -20%;
+  bottom: -25%;
   will-change: transform;
 }
 
@@ -354,7 +355,7 @@ a {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 14px;
+  gap: 10px;
   pointer-events: none;
 }
 
