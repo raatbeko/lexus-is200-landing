@@ -146,6 +146,7 @@ a {
 /* Навигация */
 .header__nav {
   display: flex;
+  align-items: center;
   gap: 36px;
 }
 
@@ -155,6 +156,8 @@ a {
   color: rgba(255, 255, 255, 0.85);
   letter-spacing: 0.03em;
   transition: color 0.3s ease;
+  min-height: 0;
+  line-height: 1;
 }
 
 .header__nav-link:hover {
@@ -188,6 +191,10 @@ a {
   border-radius: 2px;
   transition: background 0.3s ease;
   white-space: nowrap;
+  min-height: 0;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
 }
 
 .header__cta:hover {
@@ -203,6 +210,8 @@ a {
   border: none;
   cursor: pointer;
   padding: 4px;
+  position: relative;
+  z-index: 100;
 }
 
 .header__burger span {
@@ -322,8 +331,8 @@ a {
   position: absolute;
   left: 0;
   right: 0;
-  top: -20%;
-  bottom: -25%;
+  top: -10%;
+  bottom: -31%;
   will-change: transform;
 }
 
@@ -2207,7 +2216,8 @@ a {
   }
 
   .hero__layer {
-    bottom: -25%;
+    top: -28%;
+    bottom: -30%;
   }
 
   .hero__content {
