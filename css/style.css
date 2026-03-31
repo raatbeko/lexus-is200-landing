@@ -371,7 +371,7 @@ a {
 
 .hero__subtitle {
   font-family: 'Inter', sans-serif;
-  font-weight: 500;
+  font-weight: 300;
   font-size: 14px;
   letter-spacing: 0.3em;
   text-transform: uppercase;
@@ -432,7 +432,7 @@ a {
   font-family: 'Cormorant Garamond', serif;
   font-size: 56px;
   font-weight: 400;
-  color: var(--accent);
+  color: var(--white);
   line-height: 1;
 }
 
@@ -462,7 +462,7 @@ a {
   font-family: 'Cormorant Garamond', serif;
   font-size: 56px;
   font-weight: 400;
-  color: var(--accent);
+  color: var(--white);
   line-height: 1;
 }
 
