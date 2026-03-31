@@ -11,15 +11,15 @@
   --dark-bg:      #2C2416;
 }
 
-/* ===== RESET & BASE ===== */
+/* ===== MOBILE FIRST BASE ===== */
 *, *::before, *::after {
   box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+  -webkit-tap-highlight-color: transparent;
 }
 
 html {
-  scroll-behavior: auto; /* Lenis управляет скроллом */
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
 }
 
 body {
@@ -27,7 +27,35 @@ body {
   font-weight: 400;
   background: var(--bg);
   color: var(--text-primary);
-  overflow-x: hidden;
+  overflow-x: visible;
+  line-height: 1.5;
+}
+
+/* Touch-friendly: minimum tap target 44px */
+a, button {
+  min-height: 44px;
+  min-width: 44px;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+button {
+  cursor: pointer;
+  font-family: inherit;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+ul {
+  list-style: none;
 }
 
 img {
@@ -2021,36 +2049,769 @@ a {
   .tech__title { font-size: 32px; }
 }
 
+/* ===== MOBILE FIRST STYLES ===== */
+
+/* Base mobile styles - 375px default */
 @media (max-width: 480px) {
-  .hero__title  { font-size: 56px; }
-  .hero__slogan { font-size: 20px; }
-  .hero__desc { 
-    bottom: 24px; 
-    left: 16px; 
-    right: 16px; 
-    padding: 10px 14px;
-    gap: 10px;
+  /* Reset for mobile */
+  html {
+    font-size: 14px;
+  }
+  
+  body {
+    -webkit-text-size-adjust: 100%;
+    overscroll-behavior: contain;
+  }
+
+  /* Убираем тяжёлые эффекты на мобильном */
+  .header {
+    background: var(--bg) !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+  }
+
+  .header.scrolled {
+    background: var(--bg) !important;
+  }
+
+  .hero__desc {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background: rgba(0, 0, 0, 0.3) !important;
+  }
+
+  .mobile-menu {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background: rgba(245, 240, 232, 0.95) !important;
+  }
+
+  .gh__tab {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+
+  .container {
+    padding: 0 16px;
+  }
+
+  /* ===== HEADER MOBILE ===== */
+  .header {
+    padding: 12px 0;
+  }
+
+  .header__inner {
+    padding: 0 16px;
+  }
+
+  .header__logo-name {
+    font-size: 20px;
+  }
+
+  .header__logo-sub {
+    font-size: 9px;
+  }
+
+  .header__nav,
+  .header__cta {
+    display: none;
+  }
+
+  .header__burger {
+    display: flex;
+    padding: 8px;
+  }
+
+  /* ===== HERO MOBILE ===== */
+  .hero {
+    height: 100vh;
+    min-height: 500px;
+  }
+
+  .hero__layer {
+    top: -10%;
+    bottom: -10%;
+  }
+
+  .hero__content {
+    gap: 8px;
+  }
+
+  .hero__title {
+    font-size: 48px;
+  }
+
+  .hero__subtitle {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+  }
+
+  .hero__slogan {
+    bottom: 16px;
+    right: 16px;
+    font-size: 16px;
+  }
+
+  .hero__desc {
+    bottom: 16px;
+    left: 16px;
+    right: 16px;
+    padding: 10px 12px;
+    gap: 8px;
     flex-direction: column;
     align-items: stretch;
   }
-  .hero__desc-card { 
-    flex-direction: row; 
+
+  .hero__desc-card {
+    flex-direction: row;
     align-items: baseline;
-    gap: 10px;
+    justify-content: space-between;
+    gap: 8px;
   }
-  .hero__desc-divider { 
-    height: 1px; 
+
+  .hero__desc-divider {
+    height: 1px;
     width: 100%;
   }
-  .hero__desc-num { font-size: 28px; }
-  .hero__desc-label { font-size: 12px; }
-  .hero__desc-card-text { font-size: 10px; }
 
-  .facts__number {
+  .hero__desc-num {
+    font-size: 24px;
+  }
+
+  .hero__desc-label {
+    font-size: 12px;
+  }
+
+  .hero__desc-card-text {
+    font-size: 9px;
+  }
+
+  .hero__arrow {
+    bottom: 20px;
+  }
+
+  .hero__arrow svg {
+    width: 16px;
+    height: 30px;
+  }
+
+  /* ===== ABOUT MOBILE ===== */
+  .about {
+    padding: 48px 0;
+  }
+
+  .about__inner {
+    grid-template-columns: 1fr;
+    padding: 0 16px;
+    gap: 32px;
+  }
+
+  .about__title {
+    font-size: 28px;
+  }
+
+  .about__title-accent {
+    font-size: 36px;
+  }
+
+  .about__title-sub {
+    font-size: 14px;
+  }
+
+  .about__para {
+    font-size: 14px;
+    line-height: 1.7;
+  }
+
+  .about__photo {
+    width: 240px;
+    height: 240px;
+    margin: 0 auto;
+  }
+
+  /* ===== SURROUNDINGS MOBILE ===== */
+  .surroundings {
+    padding: 48px 0;
+  }
+
+  .surroundings__inner {
+    padding: 0 16px;
+  }
+
+  .surroundings__title {
+    margin-bottom: 32px;
+  }
+
+  .surroundings__title-accent {
+    font-size: 28px;
+  }
+
+  .surroundings__title-sub {
+    font-size: 14px;
+  }
+
+  .surroundings__grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .surroundings__left {
+    padding: 0;
+    justify-content: center;
+  }
+
+  .surroundings__circle {
+    width: 260px;
+    height: 260px;
+  }
+
+  .surroundings__quote-circle {
+    width: 140px;
+    height: 140px;
+    bottom: -30px;
+    left: -20px;
+    padding: 14px;
+  }
+
+  .surroundings__quote-circle p {
+    font-size: 10px;
+  }
+
+  .surroundings__right {
+    padding: 0;
+  }
+
+  .surroundings__para {
+    font-size: 14px;
+    line-height: 1.7;
+  }
+
+  .surroundings__map-wrap {
+    margin-top: 24px;
+  }
+
+  /* ===== ARCHITECTURE MOBILE ===== */
+  .arch {
+    padding: 48px 0;
+  }
+
+  .arch__inner {
+    grid-template-columns: 1fr;
+    padding: 0 16px;
+    gap: 32px;
+  }
+
+  .arch__text {
+    order: 2;
+  }
+
+  .arch__title {
+    font-size: 28px;
+  }
+
+  .arch__para {
+    font-size: 14px;
+    line-height: 1.7;
+  }
+
+  .arch__deco {
+    font-size: 48px;
+  }
+
+  .arch__circles {
+    height: 340px;
+    order: 1;
+  }
+
+  .arch__circle--big {
+    width: 200px;
+    height: 200px;
+    left: 0;
+    top: 0;
+  }
+
+  .arch__circle--small {
+    width: 140px;
+    height: 140px;
+    left: 120px;
+    bottom: 0;
+  }
+
+  /* ===== COURTYARD MOBILE ===== */
+  .courtyard {
+    padding: 48px 0;
+  }
+
+  .courtyard__inner {
+    grid-template-columns: 1fr;
+    padding: 0 16px;
+    gap: 32px;
+  }
+
+  .courtyard__label {
+    font-size: 28px;
+  }
+
+  .courtyard__subtitle {
+    font-size: 28px;
+  }
+
+  .courtyard__para {
+    font-size: 14px;
+    line-height: 1.7;
+  }
+
+  .courtyard__circles {
+    height: 280px;
+  }
+
+  .courtyard__circle--big {
+    width: 180px;
+    height: 180px;
+    left: 0;
+    top: 0;
+  }
+
+  .courtyard__photo-wrap {
+    bottom: 0;
+    right: 0;
+  }
+
+  .courtyard__circle--small {
+    width: 140px;
+    height: 140px;
+  }
+
+  .courtyard__quote-circle {
+    width: 100px;
+    height: 100px;
+    bottom: -15px;
+    right: -15px;
+    padding: 12px;
+  }
+
+  .courtyard__quote-circle p {
+    font-size: 9px;
+  }
+
+  /* ===== GREEN HALL MOBILE ===== */
+  .gh__hero {
+    height: 50vh;
+    min-height: 350px;
+  }
+
+  .gh__title {
+    font-size: 32px;
+  }
+
+  .gh__title-sub {
+    font-size: 14px;
+  }
+
+  .gh__hero-title {
+    top: 20px;
+    left: 16px;
+  }
+
+  .gh__tabs {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .gh__tab {
+    padding: 12px 8px;
+    gap: 6px;
+  }
+
+  .gh__tab svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .gh__tab span {
+    font-size: 10px;
+  }
+
+  .gh__cards {
+    padding: 32px 16px;
+  }
+
+  .gh__card {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    padding: 24px 0;
+  }
+
+  .gh__card--active {
+    display: grid;
+  }
+
+  .gh__card-circle {
+    width: 220px;
+    height: 220px;
+    margin: 0 auto;
+  }
+
+  .gh__card-quote {
+    display: none;
+  }
+
+  .gh__card-title {
+    font-size: 28px;
+    text-align: center;
+  }
+
+  .gh__card-para {
+    font-size: 14px;
+    line-height: 1.7;
+    text-align: center;
+  }
+
+  /* ===== TECHNICAL MOBILE ===== */
+  .tech {
+    padding: 48px 0;
+  }
+
+  .tech__inner {
+    padding: 0 16px;
+    gap: 32px;
+  }
+
+  .tech__mother {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .tech__mother-circle {
+    width: 200px;
+    height: 200px;
+    margin: 0 auto;
+  }
+
+  .tech__mother-quote {
+    display: none;
+  }
+
+  .tech__mother-title {
+    font-size: 24px;
+    text-align: center;
+  }
+
+  .tech__mother-para {
+    font-size: 14px;
+    text-align: center;
+  }
+
+  .tech__title {
+    font-size: 28px;
+    text-align: center;
+  }
+
+  .tech__para {
+    font-size: 14px;
+    text-align: center;
+  }
+
+  .tech__image-wrap {
+    margin-top: 24px;
+  }
+
+  /* ===== PLANS MOBILE ===== */
+  .plans {
+    padding: 48px 0;
+  }
+
+  .plans__inner {
+    padding: 0 16px;
+  }
+
+  .plans__header {
+    margin-bottom: 24px;
+  }
+
+  .plans__label {
+    font-size: 14px;
+  }
+
+  .plans__title {
+    font-size: 28px;
+  }
+
+  .plans__blocks {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    padding-bottom: 12px;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .plans__block-tab {
+    padding: 12px 20px;
+    font-size: 13px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .plans__apts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 24px;
+  }
+
+  .plans__apt-btn {
+    padding: 10px 16px;
+    font-size: 12px;
+  }
+
+  .plans__display {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .plans__image-wrap {
+    padding: 12px;
+  }
+
+  .plans__info-size {
+    font-size: 24px;
+  }
+
+  .plans__info-rooms {
+    font-size: 14px;
+  }
+
+  .plans__cta {
+    width: 100%;
+    text-align: center;
+  }
+
+  /* ===== GALLERY MOBILE ===== */
+  .gallery {
+    padding: 0;
+  }
+
+  .gallery__header {
+    padding: 24px 16px;
+  }
+
+  .gallery__title {
+    font-size: 24px;
+    letter-spacing: 0.1em;
+  }
+
+  .gallery__grid {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .gallery__card {
+    aspect-ratio: 4/3;
+  }
+
+  /* ===== BORSAN MOBILE ===== */
+  .borsan {
+    padding: 48px 0;
+  }
+
+  .borsan__inner {
+    padding: 0 16px;
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .borsan__logo {
+    justify-content: center;
+  }
+
+  .borsan__title {
+    font-size: 28px;
+    text-align: center;
+  }
+
+  .borsan__para {
+    font-size: 14px;
+    text-align: center;
+  }
+
+  .borsan__icons {
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  .borsan__icon-item {
+    flex: 0 0 calc(50% - 10px);
+  }
+
+  .borsan__photo {
+    display: flex;
+    justify-content: center;
+  }
+
+  .borsan__photo-circle {
+    width: 220px;
+    height: 220px;
+  }
+
+  /* ===== FOOTER MOBILE ===== */
+  .footer {
+    padding: 32px 0 20px;
+  }
+
+  .footer__inner {
+    padding: 0 16px;
+  }
+
+  .footer__top {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    padding: 32px 0;
+    text-align: center;
+  }
+
+  .footer__logo {
+    justify-content: center;
+  }
+
+  .footer__nav {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 16px;
+  }
+
+  .footer__phones {
+    align-items: center;
+  }
+
+  .footer__copyright {
+    font-size: 11px;
+  }
+}
+
+/* Tablet styles - 768px */
+@media (min-width: 481px) and (max-width: 768px) {
+  .container {
+    padding: 0 24px;
+  }
+
+  .hero__title {
     font-size: 64px;
   }
 
-  .facts__content {
-    padding: 40px 24px 72px;
+  .hero__desc {
+    bottom: 24px;
+    left: 24px;
+    right: 24px;
+    padding: 12px 16px;
+  }
+
+  .hero__desc-card {
+    flex-direction: row;
+    gap: 12px;
+  }
+
+  .hero__desc-num {
+    font-size: 32px;
+  }
+
+  .about__inner {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    padding: 0 24px;
+  }
+
+  .about__photo {
+    width: 300px;
+    height: 300px;
+    margin: 0 auto;
+  }
+
+  .surroundings__inner,
+  .arch__inner,
+  .courtyard__inner {
+    padding: 0 24px;
+  }
+
+  .surroundings__grid,
+  .arch__inner,
+  .courtyard__inner {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .gh__hero {
+    height: 55vh;
+  }
+
+  .gh__title {
+    font-size: 40px;
+  }
+
+  .gh__cards {
+    padding: 40px 24px;
+  }
+
+  .gh__card {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .gh__card-circle {
+    width: 280px;
+    height: 280px;
+    margin: 0 auto;
+  }
+
+  .borsan__inner {
+    grid-template-columns: 1fr;
+    padding: 0 24px;
+    gap: 40px;
+  }
+
+  .borsan__photo {
+    order: -1;
+    justify-content: center;
+  }
+
+  .borsan__photo-circle {
+    width: 280px;
+    height: 280px;
+  }
+
+  .footer__inner {
+    padding: 0 24px;
+  }
+
+  .footer__top {
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+  }
+}
+
+/* Large tablet - 1024px */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .container {
+    padding: 0 40px;
+  }
+
+  .hero__title {
+    font-size: 90px;
+  }
+
+  .about__inner,
+  .surroundings__inner {
+    padding: 0 40px;
+  }
+
+  .about__inner {
+    gap: 60px;
+  }
+
+  .surroundings__grid,
+  .arch__inner,
+  .courtyard__inner {
+    gap: 40px;
   }
 }

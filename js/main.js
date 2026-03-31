@@ -1,32 +1,29 @@
-// ===== LENIS — плавный скролл =====
-const lenis = new Lenis({
-  duration: 1.2,
-  easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-  smooth: true,
-});
-
-function raf(time) {
-  lenis.raf(time);
-  requestAnimationFrame(raf);
-}
-requestAnimationFrame(raf);
-
-lenis.on('scroll', ScrollTrigger.update);
-gsap.ticker.lagSmoothing(0);
+// ===== Mobile detection =====
+const isMobile = window.innerWidth <= 768;
 
 // ===== GSAP + ScrollTrigger =====
 gsap.registerPlugin(ScrollTrigger);
 
+// ===== LENIS — полностью убираем (вызывает лаги) =====
+// Используем нативный smooth scroll браузера
+
 // ===== ХЕДЕР =====
 const header = document.getElementById('header');
 
-lenis.on('scroll', (e) => {
-  if (e.scroll > 60) {
+window.addEventListener('scroll', () => {
+  if (window.scrollY > 60) {
     header.classList.add('scrolled');
   } else {
     header.classList.remove('scrolled');
   }
-});
+}, { passive: true });
+
+// ===== Mobile: полностью отключаем GSAP =====
+if (isMobile) {
+  // Отключаем все ScrollTrigger
+  ScrollTrigger.getAll().forEach(st => st.kill());
+  gsap.globalTimeline.timeScale(0);
+}
 
 // ===== ГАМБУРГЕР МЕНЮ =====
 const burger = document.getElementById('burger');
@@ -101,31 +98,33 @@ gsap.to('#heroArrow', {
 });
 
 document.getElementById('heroArrow').addEventListener('click', () => {
-  lenis.scrollTo('#about');
+  document.querySelector('#about-section, .about').scrollIntoView({ behavior: 'smooth' });
 });
 
-// ===== HERO: параллакс =====
-gsap.to('#layerBg', {
-  yPercent: -8,
-  ease: 'none',
-  scrollTrigger: {
-    trigger: '#hero',
-    start: 'top top',
-    end: 'bottom top',
-    scrub: 1,
-  },
-});
+// ===== HERO: параллакс (desktop only) =====
+if (!isMobile) {
+  gsap.to('#layerBg', {
+    yPercent: -8,
+    ease: 'none',
+    scrollTrigger: {
+      trigger: '#hero',
+      start: 'top top',
+      end: 'bottom top',
+      scrub: 1,
+    },
+  });
 
-gsap.to('#layerTop', {
-  yPercent: -20,
-  ease: 'none',
-  scrollTrigger: {
-    trigger: '#hero',
-    start: 'top top',
-    end: 'bottom top',
-    scrub: 1,
-  },
-});
+  gsap.to('#layerTop', {
+    yPercent: -20,
+    ease: 'none',
+    scrollTrigger: {
+      trigger: '#hero',
+      start: 'top top',
+      end: 'bottom top',
+      scrub: 1,
+    },
+  });
+}
 
 // ===== SLIDE-IN АНИМАЦИИ (слева и справа) =====
 
@@ -542,7 +541,14 @@ document.querySelectorAll('a[href^="#"]').forEach(link => {
     const href = link.getAttribute('href');
     if (href !== '#') {
       e.preventDefault();
-      lenis.scrollTo(href, { offset: -80 });
+      document.querySelector(href).scrollIntoView({ behavior: 'smooth' });
     }
   });
 });
+
+// ===== Respect prefers-reduced-motion =====
+const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+if (prefersReducedMotion) {
+  gsap.globalTimeline.timeScale(0);
+}
