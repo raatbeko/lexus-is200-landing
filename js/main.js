@@ -503,6 +503,12 @@ blockTabs.forEach(tab => {
 renderApts(1, 0);
 selectApt(1, 0);
 
+// Preload всех картинок планировок при загрузке страницы
+Object.values(plansData).flat().forEach(apt => {
+  const img = new Image();
+  img.src = apt.img;
+});
+
 // ===== GREEN HALL: переключение зон =====
 const ghTabs = document.querySelectorAll('.gh__tab');
 const ghCards = document.querySelectorAll('.gh__card');

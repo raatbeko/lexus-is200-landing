@@ -2350,7 +2350,7 @@ a {
     width: 140px;
     height: 140px;
     bottom: -30px;
-    left: -20px;
+    left: -40px;
     padding: 14px;
   }
 
@@ -2405,16 +2405,16 @@ a {
   }
 
   .arch__circle--big {
-    width: 200px;
-    height: 200px;
+    width: 250px;
+    height: 250px;
     left: 0;
     top: 0;
   }
 
   .arch__circle--small {
-    width: 140px;
-    height: 140px;
-    left: 120px;
+    width: 150px;
+    height: 150px;
+    left: 150px;
     bottom: 0;
   }
 
@@ -2461,13 +2461,14 @@ a {
   .courtyard__circle--small {
     width: 140px;
     height: 140px;
+    left: -60px;
   }
 
   .courtyard__quote-circle {
     width: 100px;
     height: 100px;
-    bottom: -15px;
-    right: -15px;
+    bottom: -30px;
+    right: -5px;
     padding: 12px;
   }
 
