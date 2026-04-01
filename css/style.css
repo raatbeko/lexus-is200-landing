@@ -256,6 +256,11 @@ a {
   transform: translateY(-6.5px) rotate(-45deg);
 }
 
+/* Открытое меню — фон светлый, бургер должен быть тёмным */
+.header__burger.open span {
+  background: var(--text-primary) !important;
+}
+
 /* ===== МОБИЛЬНОЕ МЕНЮ ===== */
 .mobile-menu {
   position: fixed;
@@ -282,16 +287,18 @@ a {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 32px;
+  gap: 28px;
 }
 
 .mobile-menu__link {
   font-family: 'Cormorant Garamond', serif;
-  font-size: 32px;
+  font-size: clamp(24px, 8vw, 32px);
   font-weight: 400;
   color: var(--text-primary);
   letter-spacing: 0.05em;
   transition: color 0.3s ease;
+  min-height: unset;
+  line-height: 1.2;
 }
 
 .mobile-menu__link:hover {
@@ -301,12 +308,14 @@ a {
 .mobile-menu__cta {
   font-size: 14px;
   font-weight: 500;
-  padding: 14px 32px;
+  padding: 14px 40px;
   background: var(--accent);
   color: var(--white);
   border-radius: 2px;
-  margin-top: 8px;
+  margin-top: 12px;
   transition: background 0.3s ease;
+  letter-spacing: 0.04em;
+  min-height: unset;
 }
 
 .mobile-menu__cta:hover {
@@ -1990,6 +1999,12 @@ a {
 
   .header__burger {
     display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .header__logo {
+    justify-content: center;
   }
 
   .header__inner {
@@ -2266,12 +2281,9 @@ a {
   }
 
   /* ===== HEADER MOBILE ===== */
-  .header {
-    padding: 12px 0;
-  }
-
+  /* Safe-area aware: padding moves to inner to not override env() on header */
   .header__inner {
-    padding: 0 16px;
+    padding: 12px 16px;
   }
 
   .header__logo-name {
@@ -2290,6 +2302,8 @@ a {
   .header__burger {
     display: flex;
     padding: 8px;
+    justify-content: center;
+    align-items: center;
   }
 
   /* ===== HERO MOBILE ===== */
@@ -2351,7 +2365,7 @@ a {
   }
 
   .hero__desc-card-text {
-    font-size: 9px;
+    font-size: 11px;
   }
 
   .hero__arrow {
@@ -2777,6 +2791,7 @@ a {
     flex-wrap: wrap;
     gap: 8px;
     margin-bottom: 24px;
+    justify-content: flex-start;
   }
 
   .plans__apt-btn {
@@ -2790,11 +2805,12 @@ a {
   }
 
   .plans__image-wrap {
-    padding: 12px;
+    padding: 16px;
+    min-height: 260px;
   }
 
   .plans__info-size {
-    font-size: 24px;
+    font-size: 40px;
   }
 
   .plans__info-rooms {
@@ -2889,7 +2905,7 @@ a {
   /* Логотип + описание */
   .footer__col--brand {
     padding-bottom: 28px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
   }
 
   .footer__logo {
@@ -2912,7 +2928,7 @@ a {
     justify-content: center;
     gap: 10px 20px;
     padding: 24px 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
   }
 
   .footer__nav-link {
