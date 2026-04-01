@@ -3,6 +3,7 @@ let isMobile = window.innerWidth <= 768;
 
 window.addEventListener('resize', () => {
   isMobile = window.innerWidth <= 768;
+  ScrollTrigger.refresh();
 });
 
 console.log('Initial isMobile:', isMobile, 'width:', window.innerWidth);
@@ -442,10 +443,14 @@ function switchZone(zone) {
       ease: 'power2.in',
       onComplete: () => {
         activeCard.classList.remove('gh__card--active');
-        activeCard.style.display = 'none';
+        activeCard.style.visibility = 'hidden';
+        activeCard.style.position = 'absolute';
+        activeCard.style.pointerEvents = 'none';
 
         const newCard = document.getElementById(`zone-${zone}`);
-        newCard.style.display = 'grid';
+        newCard.style.visibility = 'visible';
+        newCard.style.position = 'relative';
+        newCard.style.pointerEvents = 'auto';
 
         gsap.fromTo(newCard,
           { opacity: 0, x: 40 },
@@ -458,7 +463,9 @@ function switchZone(zone) {
     });
   } else {
     const newCard = document.getElementById(`zone-${zone}`);
-    newCard.style.display = 'grid';
+    newCard.style.visibility = 'visible';
+    newCard.style.position = 'relative';
+    newCard.style.pointerEvents = 'auto';
     newCard.classList.add('gh__card--active');
     isSwitching = false;
   }
@@ -498,5 +505,5 @@ document.querySelectorAll('a[href^="#"]').forEach(link => {
 const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 if (prefersReducedMotion) {
-  gsap.globalTimeline.timeScale(0);
+  gsap.globalTimeline.pause();
 }

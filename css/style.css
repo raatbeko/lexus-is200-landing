@@ -1189,17 +1189,22 @@ a {
 }
 
 .gh__card {
-  display: none;
+  display: grid;
   grid-template-columns: 1fr 1fr;
   align-items: center;
   gap: 80px;
   opacity: 0;
   transform: translateX(30px);
   transition: opacity 0.4s ease, transform 0.4s ease;
+  visibility: hidden;
+  position: absolute;
+  pointer-events: none;
 }
 
 .gh__card--active {
-  display: grid;
+  visibility: visible;
+  position: relative;
+  pointer-events: auto;
   opacity: 1;
   transform: translateX(0);
 }
@@ -2656,7 +2661,9 @@ a {
   }
 
   .gh__card--active {
-    display: grid;
+    visibility: visible;
+    position: relative;
+    pointer-events: auto;
   }
 
   .gh__card-circle {
