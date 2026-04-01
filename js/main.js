@@ -15,42 +15,6 @@ if (isMobile) {
 // ===== GSAP + ScrollTrigger =====
 gsap.registerPlugin(ScrollTrigger);
 
-// ===== Parallax - enable on screens > 480px =====
-const enableParallax = window.innerWidth > 480;
-console.log('Parallax enableParallax:', enableParallax, 'width:', window.innerWidth);
-
-if (enableParallax) {
-  // Test if GSAP works
-  gsap.to('#layerTop', {
-    y: -50,
-    duration: 3,
-    ease: 'none',
-  });
-  
-  // Full parallax
-  gsap.to('#layerBg', {
-    yPercent: -8,
-    ease: 'none',
-    scrollTrigger: {
-      trigger: '#hero',
-      start: 'top top',
-      end: 'bottom top',
-      scrub: 2,
-    },
-  });
-
-  gsap.to('#layerTop', {
-    yPercent: -20,
-    ease: 'none',
-    scrollTrigger: {
-      trigger: '#hero',
-      start: 'top top',
-      end: 'bottom top',
-      scrub: 2,
-    },
-  });
-}
-
 // ===== ХЕДЕР =====
 const header = document.getElementById('header');
 
@@ -79,60 +43,6 @@ mobileLinks.forEach(link => {
     mobileMenu.classList.remove('open');
     document.body.style.overflow = '';
   });
-});
-
-// ===== HERO: анимация входа =====
-gsap.timeline({ delay: 0.3 })
-  .from('#heroTitle', {
-    opacity: 0,
-    scale: 1.05,
-    duration: isMobile ? 1.4 : 2,
-    ease: 'power3.out',
-  })
-  .from('#heroSubtitle', {
-    opacity: 0,
-    y: 16,
-    duration: isMobile ? 0.9 : 1.2,
-    ease: 'power3.out',
-  }, isMobile ? 0.4 : 0.6)
-  .from('#heroSlogan', {
-    opacity: 0,
-    x: isMobile ? 0 : 40,
-    duration: 1.2,
-    ease: 'power3.out',
-  }, 1)
-  .from('#heroDesc', {
-    opacity: 0,
-    x: isMobile ? 0 : -40,
-    y: isMobile ? 16 : 0,
-    duration: isMobile ? 0.9 : 1.2,
-    ease: 'power3.out',
-  }, isMobile ? 0.8 : 1.2)
-  .from('#heroDesc .hero__desc-card', {
-    opacity: 0,
-    y: 16,
-    duration: isMobile ? 0.6 : 0.8,
-    stagger: 0.15,
-    ease: 'power3.out',
-  }, isMobile ? 1.1 : 1.5)
-  .from('#heroDesc .hero__desc-divider', {
-    scaleY: 0,
-    duration: 0.5,
-    ease: 'power3.out',
-  }, isMobile ? 1.4 : 1.8)
-  .from('#heroArrow', {
-    opacity: 0,
-    duration: 0.8,
-  }, isMobile ? 1.2 : 1.6);
-
-// Баунс стрелки
-gsap.to('#heroArrow', {
-  y: 8,
-  duration: 1.6,
-  ease: 'sine.inOut',
-  yoyo: true,
-  repeat: -1,
-  delay: isMobile ? 1.8 : 2.5,
 });
 
 document.getElementById('heroArrow').addEventListener('click', () => {

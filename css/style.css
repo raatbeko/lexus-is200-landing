@@ -1,3 +1,23 @@
+/* ===== GLOBAL RESET ===== */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+main, .wrapper {
+  margin: 0;
+  padding: 0;
+}
+
 /* ===== CSS ПЕРЕМЕННЫЕ ===== */
 :root {
   --bg:           #F5F0E8;
@@ -295,7 +315,7 @@ a {
 
 /* ===== HERO ===== */
 .hero {
-  position: static;
+  position: relative;
   width: 100%;
   height: 100vh;
   min-height: 600px;
@@ -306,6 +326,7 @@ a {
   justify-content: center;
   padding-top: env(safe-area-inset-top);
   padding-bottom: env(safe-area-inset-bottom);
+  margin-bottom: 0;
 }
 
 /* Safe area for header */
@@ -326,13 +347,12 @@ a {
 }
 
 /* ------- Слои изображений ------- */
-/* Запас top/bottom для параллакса — чтобы края не были видны при движении */
 .hero__layer {
   position: absolute;
+  top: 0;
+  bottom: 0;
   left: 0;
   right: 0;
-  top: -10%;
-  bottom: -31%;
   will-change: transform;
 }
 
@@ -770,6 +790,7 @@ a {
   padding: 140px 0;
   position: relative;
   z-index: 2;
+  margin-top: 0;
 }
 
 .about__inner {
@@ -2129,6 +2150,57 @@ a {
     overscroll-behavior: contain;
   }
 
+  /* Hero */
+  .hero {
+    position: relative;
+    width: 100%;
+  }
+
+  /* Следующая секция после hero */
+  .about {
+    position: relative;
+    z-index: 2;
+    background-color: var(--bg);
+    margin-top: 0;
+    padding-top: 60px;
+  }
+
+  .about, .surroundings {
+    background: var(--bg) !important;
+    position: relative;
+    z-index: 2;
+  }
+
+  .arch {
+    background: var(--surface) !important;
+    position: relative;
+    z-index: 2;
+  }
+
+  .courtyard, .gh, .plans {
+    background: var(--bg) !important;
+    position: relative;
+    z-index: 2;
+  }
+
+  .tech {
+    background: var(--surface) !important;
+    position: relative;
+    z-index: 2;
+  }
+
+  .gallery {
+    background: var(--accent) !important;
+    position: relative;
+    z-index: 2;
+  }
+
+  .borsan {
+    background: var(--dark-bg) !important;
+    position: relative;
+    z-index: 2;
+  }
+
   /* Header - прозрачный как в десктопе */
   .header {
     background: transparent !important;
@@ -2222,8 +2294,8 @@ a {
   }
 
   .hero__layer {
-    top: -28%;
-    bottom: -30%;
+    top: 0;
+    bottom: 0;
   }
 
   .hero__content {
@@ -2289,6 +2361,56 @@ a {
   /* ===== ABOUT MOBILE ===== */
   .about {
     padding: 48px 0;
+    position: relative;
+    z-index: 10;
+    background: var(--bg);
+  }
+
+  .surroundings {
+    position: relative;
+    z-index: 10;
+    background: var(--bg);
+  }
+
+  .arch {
+    position: relative;
+    z-index: 10;
+    background: var(--surface);
+  }
+
+  .courtyard {
+    position: relative;
+    z-index: 10;
+    background: var(--bg);
+  }
+
+  .gh {
+    position: relative;
+    z-index: 10;
+    background: var(--bg);
+  }
+
+  .tech {
+    position: relative;
+    z-index: 10;
+    background: var(--surface);
+  }
+
+  .plans {
+    position: relative;
+    z-index: 10;
+    background: var(--bg);
+  }
+
+  .gallery {
+    position: relative;
+    z-index: 10;
+  }
+
+  .borsan {
+    position: relative;
+    z-index: 10;
+    background: var(--dark-bg);
   }
 
   .about__inner {
