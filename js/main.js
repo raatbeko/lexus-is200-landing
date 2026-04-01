@@ -1,3 +1,10 @@
+// ===== WebP support detection =====
+const supportsWebP = (() => {
+  const canvas = document.createElement('canvas');
+  canvas.width = 1; canvas.height = 1;
+  return canvas.toDataURL('image/webp').indexOf('data:image/webp') === 0;
+})();
+
 // ===== Immediate mobile detection =====
 let isMobile = window.innerWidth <= 768;
 
@@ -5,8 +12,6 @@ window.addEventListener('resize', () => {
   isMobile = window.innerWidth <= 768;
   ScrollTrigger.refresh();
 });
-
-console.log('Initial isMobile:', isMobile, 'width:', window.innerWidth);
 
 // If mobile, skip all JS animations and scripts
 if (isMobile) {
@@ -385,12 +390,12 @@ function renderApts(block, activeIndex = 0) {
 
 function selectApt(block, index) {
   const apt = plansData[block][index];
-  
+
   document.querySelectorAll('.plans__apt-tab').forEach((b, i) =>
     b.classList.toggle('plans__apt-tab--active', i === index)
   );
-  
-  planImage.src = apt.img;
+
+  planImage.src = supportsWebP ? apt.img.replace('.jpg', '.webp') : apt.img;
   planImage.alt = apt.size;
   planSize.textContent = apt.size;
   planRooms.textContent = apt.rooms;
@@ -414,10 +419,15 @@ blockTabs.forEach(tab => {
 renderApts(1, 0);
 selectApt(1, 0);
 
-// Preload всех картинок планировок при загрузке страницы
-Object.values(plansData).flat().forEach(apt => {
-  const img = new Image();
-  img.src = apt.img;
+// Preload next plan image on hover for instant switching
+plansApts.addEventListener('mouseover', (e) => {
+  const btn = e.target.closest('.plans__apt-tab');
+  if (btn) {
+    const block = +document.querySelector('.plans__block-tab--active').dataset.block;
+    const idx = [...plansApts.children].indexOf(btn);
+    const apt = plansData[block][idx];
+    if (apt) { const img = new Image(); img.src = apt.img; }
+  }
 });
 
 // ===== GREEN HALL: переключение зон =====

@@ -10,18 +10,19 @@
   <meta name="theme-color" content="#F5F0E8">
   <meta name="format-detection" content="telephone=no">
 
-  <!-- Google Fonts -->
+  <!-- Preload critical hero images (LCP) -->
+  <link rel="preload" href="prepared/sections/01_hero/image/building.webp" as="image" type="image/webp">
+  <link rel="preload" href="prepared/sections/01_hero/image/background.webp" as="image" type="image/webp">
+
+  <!-- Google Fonts: non-blocking load -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Inter:wght@300;400;500&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet"></noscript>
 
-  <!-- GSAP + ScrollTrigger -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-
-  <!-- Swiper -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
-  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <!-- Swiper CSS (non-blocking) -->
+  <link rel="preload" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"></noscript>
 
   <link rel="stylesheet" href="css/style.css">
 </head>
@@ -71,12 +72,18 @@
 
     <!-- Слой 1: фон -->
     <div class="hero__layer" id="layerBg">
-      <img src="prepared/sections/01_hero/image/background.jpg" alt="" loading="eager">
+      <picture>
+        <source srcset="prepared/sections/01_hero/image/background.webp" type="image/webp">
+        <img src="prepared/sections/01_hero/image/background.jpg" alt="" loading="eager" fetchpriority="low" decoding="async">
+      </picture>
     </div>
 
     <!-- Слой 2: здание — ближний план -->
     <div class="hero__layer" id="layerTop">
-      <img src="prepared/sections/01_hero/image/building.jpg" alt="IVORY" loading="eager">
+      <picture>
+        <source srcset="prepared/sections/01_hero/image/building.webp" type="image/webp">
+        <img src="prepared/sections/01_hero/image/building.jpg" alt="IVORY" loading="eager" fetchpriority="high" decoding="async">
+      </picture>
     </div>
 
     <!-- Затемнение поверх всех слоёв -->
@@ -144,7 +151,10 @@
 
       <!-- Круглое фото справа -->
       <div class="about__photo" id="aboutPhoto">
-        <img src="prepared/sections/03_about/image/interior-circle.jpg" alt="IVORY — интерьер" loading="lazy">
+        <picture>
+          <source srcset="prepared/sections/03_about/image/interior-circle.webp" type="image/webp">
+          <img src="prepared/sections/03_about/image/interior-circle.jpg" alt="IVORY — интерьер" loading="lazy" decoding="async">
+        </picture>
       </div>
 
     </div>
@@ -167,7 +177,10 @@
         <div class="surroundings__left" id="surLeft">
           <div class="surroundings__photo-wrap">
             <div class="surroundings__circle">
-              <img src="prepared/sections/04_surroundings/image/facade-circle.jpg" alt="IVORY фасад" loading="lazy">
+              <picture>
+                <source srcset="prepared/sections/04_surroundings/image/facade-circle.webp" type="image/webp">
+                <img src="prepared/sections/04_surroundings/image/facade-circle.jpg" alt="IVORY фасад" loading="lazy" decoding="async">
+              </picture>
             </div>
             <!-- Текстовый круг в левом углу поверх фото -->
             <div class="surroundings__quote-circle">
@@ -194,7 +207,10 @@
       <!-- Карта -->
       <div class="surroundings__map-wrap" id="surMap">
         <a href="https://2gis.ru/bishkek" target="_blank" rel="noopener" class="surroundings__map-link">
-          <img src="prepared/sections/04_surroundings/image/map.jpg" alt="Расположение IVORY на карте" loading="lazy" class="surroundings__map-img">
+          <picture>
+            <source srcset="prepared/sections/04_surroundings/image/map.webp" type="image/webp">
+            <img src="prepared/sections/04_surroundings/image/map.jpg" alt="Расположение IVORY на карте" loading="lazy" decoding="async" class="surroundings__map-img">
+          </picture>
           <img src="prepared/sections/04_surroundings/image/2gis.jpg" alt="Открыть в 2GIS" class="surroundings__map-btn">
         </a>
       </div>
@@ -226,11 +242,17 @@
       <div class="arch__circles">
         <!-- Большой круг: фасад -->
         <div class="arch__circle arch__circle--big" id="archBig">
-          <img src="prepared/sections/05_architecture/image/facade-detail.jpg" alt="Фасад IVORY" loading="lazy">
+          <picture>
+            <source srcset="prepared/sections/05_architecture/image/facade-detail.webp" type="image/webp">
+            <img src="prepared/sections/05_architecture/image/facade-detail.jpg" alt="Фасад IVORY" loading="lazy" decoding="async">
+          </picture>
         </div>
         <!-- Маленький круг: вид сверху -->
         <div class="arch__circle arch__circle--small" id="archSmall">
-          <img src="prepared/sections/05_architecture/image/aerial-view.jpg" alt="Вид сверху IVORY" loading="lazy">
+          <picture>
+            <source srcset="prepared/sections/05_architecture/image/aerial-view.webp" type="image/webp">
+            <img src="prepared/sections/05_architecture/image/aerial-view.jpg" alt="Вид сверху IVORY" loading="lazy" decoding="async">
+          </picture>
         </div>
       </div>
 
@@ -262,13 +284,19 @@
 
         <!-- Круг 1: двор (больший, сверху-слева) -->
         <div class="courtyard__circle courtyard__circle--big" id="cyard1">
-          <img src="prepared/sections/06_courtyard/image/courtyard-wide.jpg" alt="Двор IVORY" loading="lazy">
+          <picture>
+            <source srcset="prepared/sections/06_courtyard/image/courtyard-wide.webp" type="image/webp">
+            <img src="prepared/sections/06_courtyard/image/courtyard-wide.jpg" alt="Двор IVORY" loading="lazy" decoding="async">
+          </picture>
         </div>
 
         <!-- Круг 2: площадка (меньший, снизу-справа) + цитата -->
         <div class="courtyard__photo-wrap" id="cyard2">
           <div class="courtyard__circle courtyard__circle--small">
-            <img src="prepared/sections/06_courtyard/image/playground-aerial.jpg" alt="Детская площадка IVORY" loading="lazy">
+            <picture>
+              <source srcset="prepared/sections/06_courtyard/image/playground-aerial.webp" type="image/webp">
+              <img src="prepared/sections/06_courtyard/image/playground-aerial.jpg" alt="Детская площадка IVORY" loading="lazy" decoding="async">
+            </picture>
           </div>
           <div class="courtyard__quote-circle">
             <p>Безопасность здесь ощущается естественно, без лишних напоминаний.</p>
@@ -285,7 +313,10 @@
 
     <!-- Верхняя часть: фото + заголовок + табы -->
     <div class="gh__hero">
-      <img src="prepared/sections/07_green_hall/image/green-hall.jpg" alt="GREEN HALL — терраса 19 этажа" loading="eager" class="gh__hero-img">
+      <picture>
+        <source srcset="prepared/sections/07_green_hall/image/green-hall.webp" type="image/webp">
+        <img src="prepared/sections/07_green_hall/image/green-hall.jpg" alt="GREEN HALL — терраса 19 этажа" loading="lazy" decoding="async" class="gh__hero-img">
+      </picture>
 
       <!-- Заголовок в левом верхнем углу -->
       <div class="gh__hero-title">
@@ -333,7 +364,10 @@
       <div class="gh__card gh__card--active" id="zone-winter">
         <div class="gh__card-photo-wrap">
           <div class="gh__card-circle">
-            <img src="prepared/sections/07_green_hall/image/winter-garden.jpg" alt="Зимний сад" loading="lazy">
+            <picture>
+              <source srcset="prepared/sections/07_green_hall/image/winter-garden.webp" type="image/webp">
+              <img src="prepared/sections/07_green_hall/image/winter-garden.jpg" alt="Зимний сад" loading="lazy" decoding="async">
+            </picture>
           </div>
           <div class="gh__card-quote">
             <p>Атмосфера, которая вдохновляет без слов.</p>
@@ -352,7 +386,10 @@
         </div>
         <div class="gh__card-photo-wrap">
           <div class="gh__card-circle">
-            <img src="prepared/sections/07_green_hall/image/sport-room.jpg" alt="Sport Room" loading="lazy">
+            <picture>
+              <source srcset="prepared/sections/07_green_hall/image/sport-room.webp" type="image/webp">
+              <img src="prepared/sections/07_green_hall/image/sport-room.jpg" alt="Sport Room" loading="lazy" decoding="async">
+            </picture>
           </div>
         </div>
       </div>
@@ -360,7 +397,10 @@
       <div class="gh__card" id="zone-library">
         <div class="gh__card-photo-wrap">
           <div class="gh__card-circle">
-            <img src="prepared/sections/07_green_hall/image/library.jpg" alt="Библиотека" loading="lazy">
+            <picture>
+              <source srcset="prepared/sections/07_green_hall/image/library.webp" type="image/webp">
+              <img src="prepared/sections/07_green_hall/image/library.jpg" alt="Библиотека" loading="lazy" decoding="async">
+            </picture>
           </div>
           <div class="gh__card-quote">
             <p>Пространство тишины и сосредоточенности.</p>
@@ -379,7 +419,10 @@
         </div>
         <div class="gh__card-photo-wrap">
           <div class="gh__card-circle">
-            <img src="prepared/sections/07_green_hall/image/coworking.jpg" alt="Коворкинг" loading="lazy">
+            <picture>
+              <source srcset="prepared/sections/07_green_hall/image/coworking.webp" type="image/webp">
+              <img src="prepared/sections/07_green_hall/image/coworking.jpg" alt="Коворкинг" loading="lazy" decoding="async">
+            </picture>
           </div>
         </div>
       </div>
@@ -395,7 +438,10 @@
       <div class="tech__mother">
         <div class="tech__mother-photo-wrap">
           <div class="tech__mother-circle">
-            <img src="prepared/sections/08_technical/image/mother-room.jpg" alt="Комната матери и ребёнка" loading="lazy">
+            <picture>
+              <source srcset="prepared/sections/08_technical/image/mother-room.webp" type="image/webp">
+              <img src="prepared/sections/08_technical/image/mother-room.jpg" alt="Комната матери и ребёнка" loading="lazy" decoding="async">
+            </picture>
           </div>
           <div class="tech__mother-quote">
             <p>Здесь всё сделано с продуманием.</p>
@@ -460,13 +506,22 @@
     </div>
     <div class="gallery__grid">
       <div class="gallery__card">
-        <img src="prepared/sections/11_gallery/image/gallery-1.jpg" alt="Галерея IVORY" loading="lazy">
+        <picture>
+          <source srcset="prepared/sections/11_gallery/image/gallery-1.webp" type="image/webp">
+          <img src="prepared/sections/11_gallery/image/gallery-1.jpg" alt="Галерея IVORY" loading="lazy" decoding="async">
+        </picture>
       </div>
       <div class="gallery__card">
-        <img src="prepared/sections/11_gallery/image/gallery-2.jpg" alt="Галерея IVORY" loading="lazy">
+        <picture>
+          <source srcset="prepared/sections/11_gallery/image/gallery-2.webp" type="image/webp">
+          <img src="prepared/sections/11_gallery/image/gallery-2.jpg" alt="Галерея IVORY" loading="lazy" decoding="async">
+        </picture>
       </div>
       <div class="gallery__card">
-        <img src="prepared/sections/11_gallery/image/gallery-3.jpg" alt="Галерея IVORY" loading="lazy">
+        <picture>
+          <source srcset="prepared/sections/11_gallery/image/gallery-3.webp" type="image/webp">
+          <img src="prepared/sections/11_gallery/image/gallery-3.jpg" alt="Галерея IVORY" loading="lazy" decoding="async">
+        </picture>
       </div>
     </div>
   </section>
@@ -552,7 +607,10 @@
       <!-- Правая: фото -->
       <div class="borsan__photo" id="borsanPhoto">
         <div class="borsan__photo-circle">
-          <img src="prepared/sections/09_borsan/image/borsan-team.jpg" alt="Команда Borsan Service" loading="lazy">
+          <picture>
+          <source srcset="prepared/sections/09_borsan/image/borsan-team.webp" type="image/webp">
+          <img src="prepared/sections/09_borsan/image/borsan-team.jpg" alt="Команда Borsan Service" loading="lazy" decoding="async">
+        </picture>
         </div>
       </div>
 
@@ -590,6 +648,11 @@
     </div>
   </footer>
 
+  <!-- GSAP + ScrollTrigger (deferred to body end for non-blocking render) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <!-- Swiper JS -->
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
   <script src="js/main.js"></script>
 </body>
 </html>

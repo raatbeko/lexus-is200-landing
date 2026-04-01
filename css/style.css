@@ -3101,3 +3101,26 @@ a {
     gap: 40px;
   }
 }
+
+/* ===== MOBILE PERFORMANCE: content-visibility for off-screen sections ===== */
+@media (max-width: 768px) {
+  .about,
+  .surroundings,
+  .arch,
+  .courtyard,
+  .gh,
+  .tech,
+  .plans,
+  .gallery,
+  .borsan {
+    content-visibility: auto;
+    contain-intrinsic-size: 0 600px;
+  }
+}
+
+/* ===== MOBILE: disable unnecessary GPU layers ===== */
+@media (max-width: 768px) {
+  .hero__layer {
+    will-change: auto;
+  }
+}
