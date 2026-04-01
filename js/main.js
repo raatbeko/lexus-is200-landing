@@ -156,7 +156,7 @@ function createSlideInAnimations() {
     duration: 0.9,
     ease: 'power3.out',
     scrollTrigger: {
-      trigger: '#gallery',
+      trigger: '#architecture',
       start: 'top 75%',
     },
   });
@@ -339,29 +339,29 @@ createSlideInAnimations();
 const plansBase = 'prepared/sections/10_plans/images';
 const plansData = {
   1: [
-    { size: '48 м²', rooms: '1-комнатная', img: `${plansBase}/plan-block1/22.jpg` },
+    { size: 'Планировка', rooms: ' ', img: `${plansBase}/plan-block1/22.jpg` },
+    { size: '48 м²', rooms: '1-комнатная', img: `${plansBase}/plan-block1/26.jpg` },
     { size: '63 м²', rooms: '2-комнатная', img: `${plansBase}/plan-block1/23.jpg` },
-    { size: '64 м²', rooms: '2-комнатная', img: `${plansBase}/plan-block1/24.jpg` },
-    { size: '68 м²', rooms: '2-комнатная', img: `${plansBase}/plan-block1/25.jpg` },
-    { size: '82 м²', rooms: '3-комнатная', img: `${plansBase}/plan-block1/26.jpg` },
-    { size: '92 м²', rooms: '3-комнатная', img: `${plansBase}/plan-block1/27.jpg` },
+    { size: '64 м²', rooms: '2-комнатная', img: `${plansBase}/plan-block1/27.jpg` },
+    { size: '68 м²', rooms: '2-комнатная', img: `${plansBase}/plan-block1/24.jpg` },
+    { size: '82 м²', rooms: '3-комнатная', img: `${plansBase}/plan-block1/25.jpg` },
   ],
   2: [
-    { size: '48 м²', rooms: '1-комнатная', img: `${plansBase}/plan-block2/28.jpg` },
-    { size: '49 м²', rooms: '1-комнатная', img: `${plansBase}/plan-block2/29.jpg` },
-    { size: '58 м²', rooms: '2-комнатная', img: `${plansBase}/plan-block2/30.jpg` },
-    { size: '80 м²', rooms: '3-комнатная', img: `${plansBase}/plan-block2/31.jpg` },
-    { size: '89 м²', rooms: '3-комнатная', img: `${plansBase}/plan-block2/32.jpg` },
-    { size: '98 м²', rooms: '3-комнатная', img: `${plansBase}/plan-block2/33.jpg` },
-    { size: '108 м²', rooms: '4-комнатная', img: `${plansBase}/plan-block2/34.jpg` },
-    { size: '120 м²', rooms: '4-комнатная', img: `${plansBase}/plan-block2/35.jpg` },
+    { size: 'Планировка', rooms: ' ', img: `${plansBase}/plan-block2/28.jpg` },
+    { size: '48,48 м²', rooms: '2-комнатная', img: `${plansBase}/plan-block2/30.jpg` },
+    { size: '48,52 м²', rooms: '1-комнатная', img: `${plansBase}/plan-block2/31.jpg` },
+    { size: '49 м²', rooms: '2-комнатная', img: `${plansBase}/plan-block2/33.jpg` },
+    { size: '58 м²', rooms: '2-комнатная', img: `${plansBase}/plan-block2/32.jpg` },
+    { size: '80 м²', rooms: '3-комнатная', img: `${plansBase}/plan-block2/34.jpg` },
+    { size: '89 м²', rooms: '3-комнатная', img: `${plansBase}/plan-block2/29.jpg` },
+    { size: '108 м²', rooms: '4-комнатная', img: `${plansBase}/plan-block2/35.jpg` },
   ],
   3: [
-    { size: '51 м²', rooms: '1-комнатная', img: `${plansBase}/plan-block3/36.jpg` },
-    { size: '64 м²', rooms: '2-комнатная', img: `${plansBase}/plan-block3/37.jpg` },
-    { size: '68 м²', rooms: '2-комнатная', img: `${plansBase}/plan-block3/38.jpg` },
+    { size: 'Планировка', rooms: ' ', img: `${plansBase}/plan-block3/36.jpg` },
+    { size: '51 м²', rooms: '2-комнатная', img: `${plansBase}/plan-block3/38.jpg` },
+    { size: '64,69 м²', rooms: '2-комнатная', img: `${plansBase}/plan-block3/40.jpg` },
+    { size: '68,91, м²', rooms: '2-комнатная', img: `${plansBase}/plan-block3/37.jpg` },
     { size: '98 м²', rooms: '3-комнатная', img: `${plansBase}/plan-block3/39.jpg` },
-    { size: '110 м²', rooms: '4-комнатная', img: `${plansBase}/plan-block3/40.jpg` },
   ],
 };
 
