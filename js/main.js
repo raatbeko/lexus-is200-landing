@@ -395,15 +395,21 @@ function selectApt(block, index) {
     b.classList.toggle('plans__apt-tab--active', i === index)
   );
 
-  planImage.src = supportsWebP ? apt.img.replace('.jpg', '.webp') : apt.img;
+  const newSrc = supportsWebP ? apt.img.replace('.jpg', '.webp') : apt.img;
+
+  // Slightly fade out while waiting for image
+  gsap.to(plansDisplay, { opacity: 0.4, scale: 0.99, duration: 0.1 });
+
+  planImage.onload = () => {
+    gsap.fromTo(plansDisplay,
+      { opacity: 0, y: 20, scale: 0.98 },
+      { opacity: 1, y: 0, scale: 1, duration: 0.4, ease: 'power2.out' }
+    );
+  };
+  planImage.src = newSrc;
   planImage.alt = apt.size;
   planSize.textContent = apt.size;
   planRooms.textContent = apt.rooms;
-  
-  gsap.fromTo(plansDisplay, 
-    { opacity: 0, y: 20, scale: 0.98 },
-    { opacity: 1, y: 0, scale: 1, duration: 0.4, ease: 'power2.out' }
-  );
 }
 
 blockTabs.forEach(tab => {
@@ -419,15 +425,11 @@ blockTabs.forEach(tab => {
 renderApts(1, 0);
 selectApt(1, 0);
 
-// Preload next plan image on hover for instant switching
-plansApts.addEventListener('mouseover', (e) => {
-  const btn = e.target.closest('.plans__apt-tab');
-  if (btn) {
-    const block = +document.querySelector('.plans__block-tab--active').dataset.block;
-    const idx = [...plansApts.children].indexOf(btn);
-    const apt = plansData[block][idx];
-    if (apt) { const img = new Image(); img.src = apt.img; }
-  }
+// Preload all plan images for instant switching (WebP where supported)
+Object.values(plansData).flat().forEach(apt => {
+  const src = supportsWebP ? apt.img.replace('.jpg', '.webp') : apt.img;
+  const img = new Image();
+  img.src = src;
 });
 
 // ===== GREEN HALL: переключение зон =====
