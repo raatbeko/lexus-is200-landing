@@ -86,6 +86,11 @@ img {
   transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
+/* picture — прозрачен для layout, img ведёт себя как прямой потомок */
+picture {
+  display: contents;
+}
+
 a {
   text-decoration: none;
   color: inherit;
