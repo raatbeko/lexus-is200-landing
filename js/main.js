@@ -372,9 +372,132 @@ function renderApts(block, activeIndex = 0) {
   });
 }
 
+// ===== ZOOM + PAN =====
+let currentScale = 1;
+const minScale = 0.5;
+const maxScale = 3;
+const zoomStep = 0.25;
+const planImg = document.getElementById('planSvg');
+let translateX = 0, translateY = 0;
+let isDragging = false;
+let startX, startY;
+let initialPinchDistance = null;
+let lastTouchX, lastTouchY;
+
+function updateTransform() {
+  const card = document.getElementById('planPlanCard');
+  const imgRect = planImg.getBoundingClientRect();
+  const cardRect = card.getBoundingClientRect();
+
+  const maxX = Math.max(0, (imgRect.width * currentScale - cardRect.width) / 2);
+  const maxY = Math.max(0, (imgRect.height * currentScale - cardRect.height) / 2);
+
+  translateX = Math.min(maxX, Math.max(-maxX, translateX));
+  translateY = Math.min(maxY, Math.max(-maxY, translateY));
+
+  planImg.style.transform = `scale(${currentScale}) translate(${translateX / currentScale}px, ${translateY / currentScale}px)`;
+}
+
+// Кнопки зума
+document.getElementById('zoomIn').addEventListener('click', () => {
+  if (currentScale < maxScale) {
+    currentScale += zoomStep;
+    updateTransform();
+    planImg.style.cursor = 'grab';
+  }
+});
+
+document.getElementById('zoomOut').addEventListener('click', () => {
+  if (currentScale > minScale) {
+    currentScale -= zoomStep;
+    if (currentScale <= 1) {
+      currentScale = 1;
+      translateX = 0;
+      translateY = 0;
+      planImg.style.cursor = 'default';
+    }
+    updateTransform();
+    planImg.style.cursor = currentScale > 1 ? 'grab' : 'default';
+  }
+});
+
+document.getElementById('zoomReset').addEventListener('click', () => {
+  currentScale = 1;
+  translateX = 0;
+  translateY = 0;
+  updateTransform();
+  planImg.style.cursor = 'default';
+});
+
+// Мышь
+planImg.addEventListener('mousedown', (e) => {
+  if (currentScale === 1) return;
+  isDragging = true;
+  startX = e.clientX - translateX;
+  startY = e.clientY - translateY;
+  planImg.style.cursor = 'grabbing';
+  e.preventDefault();
+});
+
+document.addEventListener('mousemove', (e) => {
+  if (!isDragging) return;
+  translateX = e.clientX - startX;
+  translateY = e.clientY - startY;
+  updateTransform();
+});
+
+document.addEventListener('mouseup', () => {
+  if (!isDragging) return;
+  isDragging = false;
+  planImg.style.cursor = currentScale > 1 ? 'grab' : 'default';
+});
+
+// Тач
+planImg.addEventListener('touchstart', (e) => {
+  if (e.touches.length === 1) {
+    lastTouchX = e.touches[0].clientX - translateX;
+    lastTouchY = e.touches[0].clientY - translateY;
+  }
+  if (e.touches.length === 2) {
+    initialPinchDistance = Math.hypot(
+      e.touches[0].clientX - e.touches[1].clientX,
+      e.touches[0].clientY - e.touches[1].clientY
+    );
+  }
+  e.preventDefault();
+}, { passive: false });
+
+planImg.addEventListener('touchmove', (e) => {
+  if (e.touches.length === 1 && currentScale > 1) {
+    translateX = e.touches[0].clientX - lastTouchX;
+    translateY = e.touches[0].clientY - lastTouchY;
+    updateTransform();
+  }
+  if (e.touches.length === 2 && initialPinchDistance) {
+    const currentDistance = Math.hypot(
+      e.touches[0].clientX - e.touches[1].clientX,
+      e.touches[0].clientY - e.touches[1].clientY
+    );
+    const ratio = currentDistance / initialPinchDistance;
+    currentScale = Math.min(maxScale, Math.max(minScale, currentScale * ratio));
+    initialPinchDistance = currentDistance;
+    updateTransform();
+  }
+  e.preventDefault();
+}, { passive: false });
+
+planImg.addEventListener('touchend', () => {
+  initialPinchDistance = null;
+});
+
 function selectApt(block, index) {
+  currentScale = 1;
+  translateX = 0;
+  translateY = 0;
+  updateTransform();
+  planImg.style.cursor = 'default';
+
   const apt = plansData[block][index];
-  const planImg = document.getElementById('planSvg');
 
   gsap.to('#planPlanCard', {
     opacity: 0,
@@ -395,6 +518,13 @@ function selectApt(block, index) {
   document.querySelectorAll('.plans__apt-tab').forEach((b, i) =>
     b.classList.toggle('plans__apt-tab--active', i === index)
   );
+
+  if (isMobile) {
+    setTimeout(() => {
+      document.getElementById('planPlanCard')
+        .scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 300);
+  }
 }
 
 blockTabs.forEach(tab => {

@@ -1537,25 +1537,55 @@ a {
   gap: 32px;
 }
 
-.plans__image-wrap {
-  width: 100%;
-  border: 1px solid var(--border);
-  border-radius: 8px;
+.plans__plan-card {
+  position: relative;
+  background: white;
+  border: 1px solid #C4A882;
+  border-radius: 4px;
   overflow: hidden;
-  background: var(--white);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 600px;
-  padding: 48px;
+  padding: 40px;
+  cursor: default;
 }
 
-#planPlanCard img {
+#planSvg {
   width: 100%;
   height: auto;
   display: block;
-  max-height: 560px;
-  object-fit: contain;
+  transform-origin: center center;
+  transition: transform 0.15s ease;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.plans__zoom-controls {
+  position: absolute;
+  bottom: 16px;
+  right: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.plans__zoom-btn {
+  width: 36px;
+  height: 36px;
+  background: white;
+  border: 1px solid #C4A882;
+  border-radius: 4px;
+  font-size: 18px;
+  color: var(--accent);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s ease;
+  font-family: 'Inter', sans-serif;
+  font-weight: 300;
+}
+
+.plans__zoom-btn:hover {
+  background: var(--accent);
+  color: white;
 }
 
 .plans__info {
@@ -1811,32 +1841,14 @@ a {
 }
 
 /* Иконки */
-.borsan__icons {
+.borsan__icons-img {
+  display: block;
   margin-top: 52px;
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  gap: 8px;
-}
-
-.borsan__icon-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-  padding: 20px 8px;
-  border: 1px solid var(--border);
+  width: 100%;
+  height: auto;
+  background: #a0927d;
   border-radius: 8px;
-  color: var(--accent);
-  background: var(--surface);
-}
-
-.borsan__icon-item span {
-  font-family: 'Inter', sans-serif;
-  font-weight: 300;
-  font-size: 11px;
-  letter-spacing: 0.04em;
-  color: var(--text-sec);
-  text-align: center;
+  padding: 16px;
 }
 
 /* Фото */
@@ -2246,8 +2258,9 @@ a {
   .plans__inner { padding: 0 24px; }
   .plans__title { font-size: 36px; }
   .plans__display { grid-template-columns: 1fr; gap: 32px; }
-  .plans__image-wrap { min-height: 300px; padding: 24px; }
-  #planPlanCard img { max-height: 80vw; }
+  .plans__plan-card { padding: 20px; }
+  .plans__zoom-controls { bottom: 10px; right: 10px; }
+  .plans__zoom-btn { width: 30px; height: 30px; font-size: 16px; }
   .plans__info-size { font-size: 52px; }
 
   /* Borsan Service мобильный */
@@ -2261,7 +2274,6 @@ a {
   .borsan__photo { grid-area: photo; }
   .borsan__left  { grid-area: left; }
   .borsan__photo-circle { width: 280px; height: 280px; }
-  .borsan__icons { grid-template-columns: repeat(3, 1fr); }
   .borsan__title { font-size: 36px; }
 
   /* Технические решения мобильный */
@@ -2986,11 +2998,6 @@ a {
   .borsan__para {
     font-size: 14px;
     text-align: center;
-  }
-
-  .borsan__icons {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 8px;
   }
 
   .borsan__photo {
