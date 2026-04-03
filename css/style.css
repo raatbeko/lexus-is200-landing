@@ -522,16 +522,16 @@ a {
 .hero__tags {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 12px;
   justify-content: center;
-  max-width: 340px;
-  margin: 24px auto 0;
+  max-width: 600px;
+  margin: 36px auto 0;
   position: relative;
   z-index: 10;
 }
 
 .hero__tag {
-  padding: 7px 16px;
+  padding: 10px 22px;
   background: rgba(255, 255, 255, 0.10);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
@@ -539,7 +539,7 @@ a {
   border-radius: 100px;
   color: rgba(255, 255, 255, 0.88);
   font-family: 'Inter', sans-serif;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 300;
   letter-spacing: 0.05em;
   white-space: nowrap;
@@ -1158,113 +1158,115 @@ a {
   background: var(--bg);
 }
 
-/* Верхняя часть: фото */
-.gh__hero {
-  position: relative;
-  width: 100%;
-  height: 70vh;
-  min-height: 480px;
-  overflow: hidden;
+/* Верхняя часть: фото + текст */
+.gh__top {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 100px 100px 0;
+}
+
+.gh__top-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+
+.gh__photo-col {
+  display: flex;
+  justify-content: center;
 }
 
 .gh__hero-img {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
+  width: 420px;
+  height: 420px;
+  border-radius: 50%;
   object-fit: cover;
-  object-position: center;
+  outline: 5px solid #C3AE98;
+  outline-offset: 0;
+  flex-shrink: 0;
 }
 
-/* Overlay снизу */
-.gh__hero::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to bottom, rgba(0,0,0,0.1) 30%, rgba(0,0,0,0.6) 100%);
-  pointer-events: none;
-}
-
-/* Заголовок в левом верхнем углу */
-.gh__hero-title {
-  position: absolute;
-  top: 48px;
-  left: 60px;
-  z-index: 2;
+.gh__text-col {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .gh__title {
   font-family: 'Cormorant Garamond', serif;
-  font-size: 64px;
+  font-size: 56px;
   font-weight: 400;
-  letter-spacing: 0.1em;
-  color: var(--white);
+  letter-spacing: 0.08em;
+  color: var(--text-primary);
   line-height: 1;
 }
 
 .gh__title-sub {
   font-family: 'Inter', sans-serif;
   font-weight: 300;
-  font-size: 20px;
-  color: rgba(255,255,255,0.85);
-  margin-top: 10px;
+  font-size: 18px;
+  color: var(--text-secondary);
+  margin-top: 16px;
 }
 
-/* Табы внизу фото */
+.gh__intro {
+  font-family: 'Inter', sans-serif;
+  font-weight: 300;
+  font-size: 15px;
+  line-height: 1.8;
+  color: var(--text-secondary);
+  margin-top: 24px;
+}
+
+/* Табы — отдельная строка */
 .gh__tabs {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  z-index: 3;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  margin: 48px 0 0;
+  flex-wrap: wrap;
 }
 
 .gh__tab {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  gap: 10px;
-  padding: 20px 16px;
-  background: rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: none;
-  border-right: 1px solid rgba(255, 255, 255, 0.25);
-  cursor: pointer;
-  transition: background 0.3s ease, color 0.3s ease;
-}
-
-.gh__tab:last-child {
-  border-right: none;
-}
-
-.gh__tab svg {
-  color: var(--white);
-  flex-shrink: 0;
-}
-
-.gh__tab span {
+  gap: 8px;
+  padding: 12px 28px;
+  border-radius: 100px;
+  border: 1px solid var(--border);
+  background: transparent;
   font-family: 'Inter', sans-serif;
+  font-size: 14px;
   font-weight: 300;
-  font-size: 13px;
-  letter-spacing: 0.06em;
-  color: var(--white);
-  transition: color 0.3s ease;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  letter-spacing: 0.03em;
+}
+
+.gh__tab:hover {
+  border-color: var(--accent);
+  color: var(--accent);
 }
 
 .gh__tab--active {
-  background: var(--white);
+  background: var(--accent);
+  border-color: var(--accent);
+  color: white;
 }
 
-.gh__tab--active svg {
-  color: var(--accent);
+.gh__tab-icon {
+  width: 18px;
+  height: 18px;
+  opacity: 0.7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.gh__tab--active span {
-  color: var(--accent);
-  font-weight: 400;
+.gh__tab--active .gh__tab-icon {
+  opacity: 1;
 }
 
 /* Карточки зон */
@@ -1306,7 +1308,7 @@ a {
   height: 420px;
   border-radius: 50%;
   overflow: hidden;
-  outline: 5px solid #c3ae98;
+  outline: 5px solid #C3AE98;
   outline-offset: 0;
   flex-shrink: 0;
 }
@@ -1367,12 +1369,42 @@ a {
 
 /* Мобильная адаптация */
 @media (max-width: 768px) {
-  .gh__tabs {
-    grid-template-columns: repeat(2, 1fr);
+  .gh__top {
+    padding: 60px 24px 0;
   }
 
-  .gh__tab span {
-    font-size: 12px;
+  .gh__top-inner {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .gh__hero-img {
+    width: 280px;
+    height: 280px;
+    margin: 0 auto;
+  }
+
+  .gh__title {
+    font-size: 42px;
+    text-align: center;
+  }
+
+  .gh__title-sub,
+  .gh__intro {
+    text-align: center;
+  }
+
+  .gh__tabs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-top: 36px;
+  }
+
+  .gh__tab {
+    justify-content: center;
+    padding: 10px 16px;
+    font-size: 13px;
   }
 
   .gh__cards {

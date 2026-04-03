@@ -283,46 +283,62 @@
   <!-- ===== GREEN HALL ===== -->
   <section class="gh" id="green-hall">
 
-    <!-- Верхняя часть: фото + заголовок + табы -->
-    <div class="gh__hero">
-      <img src="prepared/sections/07_green_hall/image/green-hall.webp" alt="GREEN HALL — терраса 19 этажа" loading="lazy" decoding="async" class="gh__hero-img">
+    <!-- Верхняя часть: фото + текст 50/50 -->
+    <div class="gh__top">
+      <div class="gh__top-inner">
 
-      <!-- Заголовок в левом верхнем углу -->
-      <div class="gh__hero-title">
-        <h2 class="gh__title">GREEN HALL</h2>
-        <p class="gh__title-sub">Терраса на 19-м этаже</p>
+        <!-- Левая: круглое фото -->
+        <div class="gh__photo-col">
+          <img src="prepared/sections/07_green_hall/image/green-hall.webp" alt="GREEN HALL — терраса 19 этажа" loading="lazy" decoding="async" class="gh__hero-img">
+        </div>
+
+        <!-- Правая: текст -->
+        <div class="gh__text-col">
+          <h2 class="gh__title">GREEN HALL</h2>
+          <p class="gh__title-sub">Терраса на 19-м этаже</p>
+          <p class="gh__intro">Эксклюзивное пространство на вершине комплекса. Место где город открывается с новой стороны.</p>
+        </div>
+
       </div>
 
-      <!-- Табы внизу фото -->
+      <!-- Табы — отдельная строка -->
       <div class="gh__tabs">
         <button class="gh__tab gh__tab--active" data-zone="winter">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-            <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>
-            <circle cx="12" cy="12" r="4"/>
-          </svg>
-          <span>Зимний сад</span>
+          <span class="gh__tab-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>
+              <circle cx="12" cy="12" r="4"/>
+            </svg>
+          </span>
+          Зимний сад
         </button>
         <button class="gh__tab" data-zone="sport">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-            <path d="M6.5 6.5L17.5 17.5M6.5 17.5L17.5 6.5"/>
-            <circle cx="12" cy="12" r="9"/>
-          </svg>
-          <span>Спортивный зал</span>
+          <span class="gh__tab-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M6.5 6.5L17.5 17.5M6.5 17.5L17.5 6.5"/>
+              <circle cx="12" cy="12" r="9"/>
+            </svg>
+          </span>
+          Спортивный зал
         </button>
         <button class="gh__tab" data-zone="library">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
-            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
-          </svg>
-          <span>Библиотека</span>
+          <span class="gh__tab-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+              <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+            </svg>
+          </span>
+          Библиотека
         </button>
         <button class="gh__tab" data-zone="coworking">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
-            <line x1="8" y1="21" x2="16" y2="21"/>
-            <line x1="12" y1="17" x2="12" y2="21"/>
-          </svg>
-          <span>Коворкинг</span>
+          <span class="gh__tab-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+              <line x1="8" y1="21" x2="16" y2="21"/>
+              <line x1="12" y1="17" x2="12" y2="21"/>
+            </svg>
+          </span>
+          Коворкинг
         </button>
       </div>
     </div>
