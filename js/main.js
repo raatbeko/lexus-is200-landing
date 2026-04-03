@@ -240,30 +240,6 @@ function createSlideInAnimations() {
   });
 
   // ТЕХНИЧЕСКИЕ РЕШЕНИЯ
-  gsap.from('.tech__mother-circle', {
-    opacity: 0,
-    x: isMobile ? 0 : -80,
-    y: isMobile ? yBase : 0,
-    duration: 1,
-    ease: 'power3.out',
-    scrollTrigger: {
-      trigger: '.tech__mother',
-      start: 'top 75%',
-    },
-  });
-
-  gsap.from('.tech__mother-text', {
-    opacity: 0,
-    x: xR,
-    y: isMobile ? yBase : 0,
-    duration: 0.9,
-    ease: 'power3.out',
-    scrollTrigger: {
-      trigger: '.tech__mother',
-      start: 'top 75%',
-    },
-  });
-
   gsap.from('.tech__title', {
     opacity: 0,
     y: yBase,
@@ -354,35 +330,33 @@ createSlideInAnimations();
 const plansBase = 'prepared/sections/10_plans/images';
 const plansData = {
   1: [
-    { size: 'Планировка', rooms: ' ', desc: '', img: `${plansBase}/plan-block1/22.jpg` },
-    { size: '48,48 м²', rooms: '2-комнатная', desc: 'Квартира для семьи, которая хочет расти', img: `${plansBase}/plan-block1/26.jpg` },
-    { size: '63,40 м²', rooms: '2-комнатная', desc: 'Квартира для семьи, которая хочет расти', img: `${plansBase}/plan-block1/23.jpg` },
-    { size: '64,13 м²', rooms: '2-комнатная', desc: 'Квартира для семьи, которая хочет расти', img: `${plansBase}/plan-block1/27.jpg` },
-    { size: '68,76 м²', rooms: '3-комнатная', desc: 'Квартира для большой семьи', img: `${plansBase}/plan-block1/24.jpg` },
-    { size: '82,50 м²', rooms: '3-комнатная', desc: 'Квартира для большой семьи', img: `${plansBase}/plan-block1/25.jpg` },
+    { size: 'Планировка', rooms: ' ', desc: '', img: `${plansBase}/plan-block1/plan.svg` },
+    { size: '48,48 м²', rooms: '2-комнатная', desc: 'Квартира для семьи, которая хочет расти', img: `${plansBase}/plan-block1/plan-1.svg` },
+    { size: '63,40 м²', rooms: '2-комнатная', desc: 'Квартира для семьи, которая хочет расти', img: `${plansBase}/plan-block1/plan-2.svg` },
+    { size: '64,13 м²', rooms: '2-комнатная', desc: 'Квартира для семьи, которая хочет расти', img: `${plansBase}/plan-block1/plan-3.svg` },
+    { size: '68,76 м²', rooms: '3-комнатная', desc: 'Квартира для большой семьи', img: `${plansBase}/plan-block1/plan-4.svg` },
+    { size: '82,50 м²', rooms: '3-комнатная', desc: 'Квартира для большой семьи', img: `${plansBase}/plan-block1/plan-5.svg` },
   ],
   2: [
-    { size: 'Планировка', rooms: ' ', desc: '', img: `${plansBase}/plan-block2/28.jpg` },
-    { size: '48,52 м²', rooms: '1-комнатная', desc: 'Квартира для молодой семьи', img: `${plansBase}/plan-block2/31.jpg` },
-    { size: '49,32 м²', rooms: '1-комнатная', desc: 'Квартира для молодой семьи', img: `${plansBase}/plan-block2/33.jpg` },
-    { size: '58,17 м²', rooms: '2-комнатная', desc: 'Квартира для семьи, которая хочет расти', img: `${plansBase}/plan-block2/32.jpg` },
-    { size: '80,71 м²', rooms: '3-комнатная', desc: 'Квартира для большой семьи', img: `${plansBase}/plan-block2/34.jpg` },
-    { size: '89,22 м²', rooms: '3-комнатная', desc: 'Квартира для большой семьи', img: `${plansBase}/plan-block2/29.jpg` },
-    { size: '98,61 м²', rooms: '3-комнатная', desc: 'Квартира для большой семьи', img: `${plansBase}/plan-block2/30.jpg` },
-    { size: '108,16 м²', rooms: '4-комнатная', desc: 'Квартира для большой семьи', img: `${plansBase}/plan-block2/35.jpg` },
+    { size: 'Планировка', rooms: ' ', desc: '', img: `${plansBase}/plan-block2/plan.svg` },
+    { size: '48,52 м²', rooms: '1-комнатная', desc: 'Квартира для молодой семьи', img: `${plansBase}/plan-block2/plan-1.svg` },
+    { size: '49,32 м²', rooms: '1-комнатная', desc: 'Квартира для молодой семьи', img: `${plansBase}/plan-block2/plan-2.svg` },
+    { size: '58,17 м²', rooms: '2-комнатная', desc: 'Квартира для семьи, которая хочет расти', img: `${plansBase}/plan-block2/plan-3.svg` },
+    { size: '80,71 м²', rooms: '3-комнатная', desc: 'Квартира для большой семьи', img: `${plansBase}/plan-block2/plan-4.svg` },
+    { size: '89,22 м²', rooms: '3-комнатная', desc: 'Квартира для большой семьи', img: `${plansBase}/plan-block2/plan-5.svg` },
+    { size: '98,61 м²', rooms: '3-комнатная', desc: 'Квартира для большой семьи', img: `${plansBase}/plan-block2/plan-6.svg` },
+    { size: '108,16 м²', rooms: '4-комнатная', desc: 'Квартира для большой семьи', img: `${plansBase}/plan-block2/plan-7.svg` },
   ],
   3: [
-    { size: 'Планировка', rooms: ' ', desc: '', img: `${plansBase}/plan-block3/36.jpg` },
-    { size: '51,55 м²', rooms: '2-комнатная', desc: 'Квартира для семьи, которая хочет расти', img: `${plansBase}/plan-block3/38.jpg` },
-    { size: '64,69 м²', rooms: '3-комнатная', desc: 'Квартира для большой семьи', img: `${plansBase}/plan-block3/40.jpg` },
-    { size: '68,91 м²', rooms: '2-комнатная', desc: 'Квартира для семьи, которая хочет расти', img: `${plansBase}/plan-block3/37.jpg` },
-    { size: '82,37 м²', rooms: '3-комнатная', desc: 'Квартира для большой семьи', img: `${plansBase}/plan-block3/39.jpg` },
+    { size: 'Планировка', rooms: ' ', desc: '', img: `${plansBase}/plan-block3/plan.svg` },
+    { size: '51,55 м²', rooms: '2-комнатная', desc: 'Квартира для семьи, которая хочет расти', img: `${plansBase}/plan-block3/plan-1.svg` },
+    { size: '64,69 м²', rooms: '3-комнатная', desc: 'Квартира для большой семьи', img: `${plansBase}/plan-block3/plan-2.svg` },
+    { size: '68,91 м²', rooms: '2-комнатная', desc: 'Квартира для семьи, которая хочет расти', img: `${plansBase}/plan-block3/plan-3.svg` },
+    { size: '82,37 м²', rooms: '3-комнатная', desc: 'Квартира для большой семьи', img: `${plansBase}/plan-block3/plan-4.svg` },
   ],
 };
 
 const plansApts = document.getElementById('plansApts');
-const plansDisplay = document.getElementById('plansDisplay');
-const planImage = document.getElementById('planImage');
 const planSize = document.getElementById('planSize');
 const planRooms = document.getElementById('planRooms');
 const blockTabs = document.querySelectorAll('.plans__block-tab');
@@ -400,27 +374,27 @@ function renderApts(block, activeIndex = 0) {
 
 function selectApt(block, index) {
   const apt = plansData[block][index];
+  const planImg = document.getElementById('planSvg');
+
+  gsap.to('#planPlanCard', {
+    opacity: 0,
+    duration: 0.2,
+    ease: 'power2.in',
+    onComplete: () => {
+      planImg.src = apt.img;
+      planImg.onload = () => {
+        gsap.to('#planPlanCard', { opacity: 1, duration: 0.4, ease: 'power2.out' });
+      };
+    },
+  });
+
+  planSize.textContent = apt.size;
+  planRooms.textContent = apt.rooms;
+  document.getElementById('planDesc').textContent = apt.desc;
 
   document.querySelectorAll('.plans__apt-tab').forEach((b, i) =>
     b.classList.toggle('plans__apt-tab--active', i === index)
   );
-
-  const newSrc = supportsWebP ? apt.img.replace('.jpg', '.webp') : apt.img;
-
-  // Slightly fade out while waiting for image
-  gsap.to(plansDisplay, { opacity: 0.4, scale: 0.99, duration: 0.1 });
-
-  planImage.onload = () => {
-    gsap.fromTo(plansDisplay,
-      { opacity: 0, y: 20, scale: 0.98 },
-      { opacity: 1, y: 0, scale: 1, duration: 0.4, ease: 'power2.out' }
-    );
-  };
-  planImage.src = newSrc;
-  planImage.alt = apt.size;
-  planSize.textContent = apt.size;
-  planRooms.textContent = apt.rooms;
-  document.getElementById('planDesc').textContent = apt.desc;
 }
 
 blockTabs.forEach(tab => {
@@ -435,13 +409,6 @@ blockTabs.forEach(tab => {
 
 renderApts(1, 0);
 selectApt(1, 0);
-
-// Preload all plan images for instant switching (WebP where supported)
-Object.values(plansData).flat().forEach(apt => {
-  const src = supportsWebP ? apt.img.replace('.jpg', '.webp') : apt.img;
-  const img = new Image();
-  img.src = src;
-});
 
 // ===== GREEN HALL: переключение зон =====
 const ghTabs = document.querySelectorAll('.gh__tab');
