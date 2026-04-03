@@ -115,12 +115,19 @@ a {
   top: 0;
   left: 0;
   right: 0;
-  z-index: 100;
+  z-index: 9999;
   background: transparent;
   backdrop-filter: blur(0px);
   -webkit-backdrop-filter: blur(0px);
   border-bottom: 1px solid transparent;
-  transition: background 0.4s ease, backdrop-filter 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+  transition: background 0.4s ease, backdrop-filter 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease, opacity 0.4s ease, transform 0.4s ease;
+  opacity: 0;
+  transform: translateY(-100%);
+}
+
+.header.visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .header.scrolled {
@@ -212,6 +219,9 @@ a {
   padding: 12px 24px;
   background: var(--accent);
   color: var(--white);
+  border: none;
+  outline: none;
+  box-shadow: none;
   border-radius: 2px;
   transition: background 0.3s ease;
   white-space: nowrap;
@@ -219,10 +229,16 @@ a {
   line-height: 1;
   display: inline-flex;
   align-items: center;
+  cursor: pointer;
 }
 
 .header__cta:hover {
   background: var(--accent-light);
+}
+
+.header__cta:focus {
+  outline: none;
+  box-shadow: none;
 }
 
 /* Гамбургер */
@@ -235,7 +251,7 @@ a {
   cursor: pointer;
   padding: 4px;
   position: relative;
-  z-index: 100;
+  z-index: 10001;
 }
 
 .header__burger span {
@@ -266,25 +282,29 @@ a {
 }
 
 /* ===== МОБИЛЬНОЕ МЕНЮ ===== */
-.mobile-menu {
+#mobileMenu {
   position: fixed;
-  inset: 0;
-  background: var(--bg);
-  z-index: 99;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  z-index: 10000;
+  background: #F5F0E8;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+  gap: 32px;
   opacity: 0;
-  transform: translateY(-10px);
   pointer-events: none;
-  transition: opacity 0.4s ease, transform 0.4s ease;
-  padding-top: env(safe-area-inset-top);
+  transition: opacity 0.3s ease;
+  overflow: hidden;
 }
 
-.mobile-menu.open {
+#mobileMenu.open {
   opacity: 1;
-  transform: translateY(0);
-  pointer-events: all;
+  pointer-events: auto;
 }
 
 .mobile-menu__nav {
@@ -543,6 +563,169 @@ a {
   font-weight: 300;
   letter-spacing: 0.05em;
   white-space: nowrap;
+}
+
+/* ------- CTA кнопка в hero ------- */
+.hero__cta-btn {
+  margin-top: 24px;
+  padding: 14px 40px;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  color: white;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 300;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(8px);
+  border-radius: 2px;
+  position: relative;
+  z-index: 10;
+  pointer-events: auto;
+}
+
+.hero__cta-btn:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: white;
+}
+
+/* ------- Модалка ------- */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.modal-overlay.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.modal {
+  background: #F5F0E8;
+  width: 100%;
+  max-width: 480px;
+  padding: 48px;
+  position: relative;
+  transform: translateY(30px);
+  transition: transform 0.3s ease;
+  border-radius: 2px;
+}
+
+.modal-overlay.open .modal {
+  transform: translateY(0);
+}
+
+.modal__close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: none;
+  border: none;
+  font-size: 18px;
+  color: var(--text-secondary);
+  cursor: pointer;
+  padding: 4px 8px;
+  transition: color 0.2s;
+}
+
+.modal__close:hover { color: var(--text-primary); }
+
+.modal__title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 32px;
+  font-weight: 400;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+}
+
+.modal__subtitle {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 300;
+  color: var(--text-secondary);
+  margin-bottom: 32px;
+  line-height: 1.6;
+}
+
+.modal__field {
+  margin-bottom: 20px;
+}
+
+.modal__label {
+  display: block;
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--text-secondary);
+  letter-spacing: 0.05em;
+  margin-bottom: 8px;
+}
+
+.modal__input {
+  width: 100%;
+  padding: 12px 0;
+  border: none;
+  border-bottom: 1px solid #C4A882;
+  background: transparent;
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  font-weight: 300;
+  color: var(--text-primary);
+  outline: none;
+  transition: border-color 0.2s ease;
+  box-sizing: border-box;
+}
+
+.modal__input:focus {
+  border-bottom-color: var(--accent);
+}
+
+.modal__agree {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  color: var(--text-secondary);
+  margin-bottom: 24px;
+  line-height: 1.5;
+}
+
+.modal__submit {
+  width: 100%;
+  padding: 14px;
+  background: var(--accent);
+  color: white;
+  border: none;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.modal__submit:hover { opacity: 0.85; }
+
+.modal__success {
+  text-align: center;
+  color: var(--accent);
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 300;
+  padding: 16px 0;
+  line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+  .modal { padding: 32px 24px; margin: 16px; max-width: 100%; }
+  .modal__title { font-size: 26px; }
 }
 
 /* ------- Стрелка вниз ------- */
@@ -1545,11 +1728,18 @@ a {
   overflow: hidden;
   padding: 40px;
   cursor: default;
+  height: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 #planSvg {
-  width: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
   height: auto;
+  object-fit: contain;
   display: block;
   transform-origin: center center;
   transition: transform 0.15s ease;
@@ -2258,7 +2448,7 @@ a {
   .plans__inner { padding: 0 24px; }
   .plans__title { font-size: 36px; }
   .plans__display { grid-template-columns: 1fr; gap: 32px; }
-  .plans__plan-card { padding: 20px; }
+  .plans__plan-card { padding: 20px; height: 340px; }
   .plans__zoom-controls { bottom: 10px; right: 10px; }
   .plans__zoom-btn { width: 30px; height: 30px; font-size: 16px; }
   .plans__info-size { font-size: 52px; }
@@ -2289,6 +2479,10 @@ a {
 /* ===== MOBILE FIRST STYLES ===== */
 
 /* Base mobile styles - 375px default */
+@media (max-width: 480px) {
+  .plans__plan-card { height: 280px; }
+}
+
 @media (max-width: 480px) {
   /* Reset for mobile */
   html {

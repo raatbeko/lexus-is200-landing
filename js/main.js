@@ -35,10 +35,10 @@ tl.from('.hero__tag', {
 const header = document.getElementById('header');
 
 window.addEventListener('scroll', () => {
-  if (window.scrollY > 60) {
-    header.classList.add('scrolled');
+  if (window.scrollY > 80) {
+    header.classList.add('scrolled', 'visible');
   } else {
-    header.classList.remove('scrolled');
+    header.classList.remove('scrolled', 'visible');
   }
 }, { passive: true });
 
@@ -619,6 +619,79 @@ document.querySelectorAll('a[href^="#"]').forEach(link => {
       document.querySelector(href).scrollIntoView({ behavior: 'smooth' });
     }
   });
+});
+
+// ===== МОДАЛКА =====
+const modalOverlay = document.getElementById('modalOverlay');
+
+function openModalFn() {
+  modalOverlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModalFn() {
+  modalOverlay.classList.remove('open');
+  document.body.style.overflow = '';
+  document.getElementById('modalSuccess').style.display = 'none';
+  document.getElementById('modalSubmit').style.display = '';
+  document.getElementById('modalSubmit').disabled = false;
+  document.getElementById('modalSubmit').textContent = 'Отправить заявку';
+  document.getElementById('modalName').value = '';
+  document.getElementById('modalPhone').value = '';
+}
+
+document.getElementById('openModal').addEventListener('click', openModalFn);
+document.getElementById('closeModal').addEventListener('click', closeModalFn);
+document.getElementById('headerCta').addEventListener('click', (e) => {
+  e.preventDefault();
+  e.stopPropagation();
+  openModalFn();
+});
+document.getElementById('mobileMenuCta').addEventListener('click', () => {
+  burger.classList.remove('open');
+  mobileMenu.classList.remove('open');
+  document.body.style.overflow = '';
+  openModalFn();
+});
+
+modalOverlay.addEventListener('click', (e) => {
+  if (e.target === modalOverlay) closeModalFn();
+});
+
+document.getElementById('modalSubmit').addEventListener('click', async () => {
+  const name = document.getElementById('modalName').value.trim();
+  const phone = document.getElementById('modalPhone').value.trim();
+
+  if (!name || !phone) {
+    alert('Пожалуйста, заполните все поля');
+    return;
+  }
+
+  const submitBtn = document.getElementById('modalSubmit');
+  submitBtn.textContent = 'Отправка...';
+  submitBtn.disabled = true;
+
+  try {
+    const BITRIX_URL = 'https://YOUR_DOMAIN.bitrix24.ru/rest/crm.lead.add.json';
+    await fetch(BITRIX_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        fields: {
+          TITLE: `Заявка с сайта IVORY — ${name}`,
+          NAME: name,
+          PHONE: [{ VALUE: phone, VALUE_TYPE: 'WORK' }],
+          SOURCE_ID: 'WEB',
+          SOURCE_DESCRIPTION: 'Лендинг IVORY',
+        }
+      })
+    });
+  } catch (err) {
+    console.error('Bitrix error:', err);
+  }
+
+  document.getElementById('modalSuccess').style.display = 'block';
+  submitBtn.style.display = 'none';
 });
 
 // ===== Respect prefers-reduced-motion =====

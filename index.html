@@ -8,6 +8,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <title>IVORY — Жилой комплекс премиум класса | BORSAN</title>
   <meta name="description" content="IVORY — жилой комплекс премиум класса в Бишкеке от застройщика BORSAN. Выше ожиданий.">
+  <link rel="icon" href="prepared/header/images/borsan-logo.png" type="image/png">
   <meta name="theme-color" content="#F5F0E8">
   <meta name="format-detection" content="telephone=no">
 
@@ -47,7 +48,7 @@
         <a href="#contacts" class="header__nav-link">Контакты</a>
       </nav>
 
-      <a href="#contacts" class="header__cta">Получить консультацию</a>
+      <button class="header__cta" id="headerCta">Получить консультацию</button>
 
       <!-- Гамбургер -->
       <button class="header__burger" id="burger" aria-label="Меню">
@@ -65,7 +66,7 @@
         <a href="#plans" class="mobile-menu__link">Планировки</a>
         <a href="#gallery" class="mobile-menu__link">Галерея</a>
         <a href="#contacts" class="mobile-menu__link">Контакты</a>
-        <a href="#contacts" class="mobile-menu__cta">Получить консультацию</a>
+        <button class="mobile-menu__cta" id="mobileMenuCta">Получить консультацию</button>
       </nav>
     </div>
   </header>
@@ -93,6 +94,7 @@
     <div class="hero__content">
       <h1 class="hero__title" id="heroTitle">IVORY</h1>
       <p class="hero__subtitle" id="heroSubtitle">ЖИЛОЙ КОМПЛЕКС</p>
+      <button class="hero__cta-btn" id="openModal">Получить консультацию</button>
       <div class="hero__tags">
         <div class="hero__tag">от 48 м²</div>
         <div class="hero__tag">18 этажей</div>
@@ -541,6 +543,32 @@
     </div>
   </footer>
 
+  <!-- МОДАЛКА -->
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal">
+      <button class="modal__close" id="closeModal">✕</button>
+      <div class="modal__header">
+        <h3 class="modal__title">Получить консультацию</h3>
+        <p class="modal__subtitle">Заполните форму — мы свяжемся с вами в ближайшее время</p>
+      </div>
+      <div class="modal__body">
+        <div class="modal__field">
+          <label class="modal__label">ФИО</label>
+          <input type="text" id="modalName" class="modal__input" placeholder="Иванов Иван Иванович">
+        </div>
+        <div class="modal__field">
+          <label class="modal__label">Номер телефона</label>
+          <input type="tel" id="modalPhone" class="modal__input" placeholder="+996 700 000 000">
+        </div>
+        <p class="modal__agree">Нажимая кнопку, вы соглашаетесь на обработку персональных данных</p>
+        <button class="modal__submit" id="modalSubmit">Отправить заявку</button>
+        <div class="modal__success" id="modalSuccess" style="display:none">
+          ✓ Заявка отправлена! Мы свяжемся с вами в ближайшее время.
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- GSAP + ScrollTrigger (deferred to body end for non-blocking render) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
@@ -666,5 +694,6 @@
       });
     });
   </script>
+
 </body>
 </html>
