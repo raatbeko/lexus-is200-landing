@@ -643,18 +643,40 @@
         { coords: [42.857401, 74.609653], name: 'Vefa', distance: '1.9 км', category: 'mall' },
       ];
 
-      const colors = {
-        school: '#8B7355',
-        med:    '#7A8B73',
-        mall:   '#735E8B',
+      // Иконки по категории
+      const icons = {
+        school: `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#8B7355" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>`,
+        med:    `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#7A8B73" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20z"/><path d="M12 8v8M8 12h8"/></svg>`,
+        mall:   `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#735E8B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>`,
+        ivory:  `<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="#8B7355" stroke="#8B7355" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>`,
       };
 
+      // Создание кастомной иконки
+      function createIcon(svgString) {
+        return ymaps.templateLayoutFactory.createClass(
+          `<div style="
+            width:36px;
+            height:36px;
+            background:white;
+            border:1.5px solid #C4A882;
+            border-radius:50%;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            box-shadow:0 2px 8px rgba(139,115,85,0.2);
+            padding:6px;
+          ">${svgString}</div>`
+        );
+      }
+
+      // Метка IVORY
       const ivoryMark = new ymaps.Placemark(
         [42.847724, 74.589298],
         { balloonContent: '<b>IVORY</b><br>Жилой комплекс' },
         {
-          preset: 'islands#darkOrangeStretchyIcon',
-          iconColor: '#8B7355',
+          iconLayout: createIcon(icons.ivory),
+          iconShape: { type: 'Circle', coordinates: [20, 20], radius: 20 },
+          iconOffset: [-20, -20],
         }
       );
       map.geoObjects.add(ivoryMark);
@@ -664,12 +686,11 @@
       places.forEach(place => {
         const pm = new ymaps.Placemark(
           place.coords,
+          { balloonContent: `<b>${place.name}</b><br>${place.distance} от IVORY` },
           {
-            balloonContent: `<b>${place.name}</b><br>${place.distance} от IVORY`,
-          },
-          {
-            preset: 'islands#circleDotIcon',
-            iconColor: colors[place.category],
+            iconLayout: createIcon(icons[place.category]),
+            iconShape: { type: 'Circle', coordinates: [18, 18], radius: 18 },
+            iconOffset: [-18, -18],
           }
         );
         pm.category = place.category;
