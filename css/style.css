@@ -828,21 +828,33 @@ a {
 /* ------- Яндекс карта с фильтрами ------- */
 .sur__map-wrap {
   position: relative;
-  border-radius: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 24px rgba(139, 115, 85, 0.10);
+}
+
+#ymap {
+  border-radius: 8px;
+  border: 1px solid #C4A882;
   overflow: hidden;
 }
 
 .sur__filters {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  z-index: 10;
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  margin-bottom: 16px;
+  margin: 0;
 }
 
 .sur__filter {
   padding: 8px 20px;
-  border: 1px solid var(--border);
-  background: transparent;
+  background: rgba(245, 240, 232, 0.95);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid #C4A882;
   border-radius: 100px;
   font-family: 'Inter', sans-serif;
   font-size: 13px;
@@ -3212,8 +3224,9 @@ a {
   }
 
   .sur__filters {
+    top: 10px;
+    left: 10px;
     gap: 6px;
-    margin-bottom: 12px;
   }
 
   .sur__filter {
