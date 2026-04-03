@@ -429,9 +429,10 @@ a {
   z-index: 5;
   font-family: 'Cormorant Garamond', serif;
   font-style: italic;
-  font-size: 36px;
   font-weight: 300;
-  color: var(--white);
+  font-size: 36px;
+  color: rgba(255, 255, 255, 0.85);
+  letter-spacing: 0.02em;
   pointer-events: none;
 }
 
