@@ -143,6 +143,41 @@
     </div>
   </section>
 
+  <!-- ===== АРХИТЕКТУРА ===== -->
+  <section class="arch" id="architecture">
+    <div class="arch__inner">
+
+      <!-- Текст слева -->
+      <div class="arch__text" id="archText">
+        <h2 class="arch__title">Архитектура,<br>которую хочется<br>рассматривать</h2>
+        <p class="arch__para">
+          Фасад комплекса выполнен из широкоформатного керамогранита
+          и премиального материала Laminam.
+        </p>
+        <p class="arch__para">
+          Сдержанная цветовая палитра, выразительная геометрия и продуманные
+          линии создают ощущение архитектуры, которая будет выглядеть достойно
+          и через годы.
+        </p>
+        <!-- Декоративный элемент IVORY -->
+        <div class="arch__deco">IVORY</div>
+      </div>
+
+      <!-- Два перекрывающихся круга справа -->
+      <div class="arch__circles">
+        <!-- Большой круг: фасад -->
+        <div class="arch__circle arch__circle--big" id="archBig">
+          <img src="prepared/sections/05_architecture/image/facade-detail.webp" alt="Фасад IVORY" loading="lazy" decoding="async">
+        </div>
+        <!-- Маленький круг: вид сверху -->
+        <div class="arch__circle arch__circle--small" id="archSmall">
+          <img src="prepared/sections/05_architecture/image/aerial-view.webp" alt="Вид сверху IVORY" loading="lazy" decoding="async">
+        </div>
+      </div>
+
+    </div>
+  </section>
+
   <!-- ===== ОКРУЖЕНИЕ ===== -->
   <section class="surroundings" id="infrastructure">
     <div class="surroundings__inner">
@@ -190,41 +225,6 @@
           <img src="prepared/sections/04_surroundings/image/map.webp" alt="Расположение IVORY на карте" loading="lazy" decoding="async" class="surroundings__map-img">
           <img src="prepared/sections/04_surroundings/image/2gis.jpg" alt="Открыть в 2GIS" class="surroundings__map-btn">
         </a>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- ===== АРХИТЕКТУРА ===== -->
-  <section class="arch" id="architecture">
-    <div class="arch__inner">
-
-      <!-- Текст слева -->
-      <div class="arch__text" id="archText">
-        <h2 class="arch__title">Архитектура,<br>которую хочется<br>рассматривать</h2>
-        <p class="arch__para">
-          Фасад комплекса выполнен из широкоформатного керамогранита
-          и премиального материала Laminam.
-        </p>
-        <p class="arch__para">
-          Сдержанная цветовая палитра, выразительная геометрия и продуманные
-          линии создают ощущение архитектуры, которая будет выглядеть достойно
-          и через годы.
-        </p>
-        <!-- Декоративный элемент IVORY -->
-        <div class="arch__deco">IVORY</div>
-      </div>
-
-      <!-- Два перекрывающихся круга справа -->
-      <div class="arch__circles">
-        <!-- Большой круг: фасад -->
-        <div class="arch__circle arch__circle--big" id="archBig">
-          <img src="prepared/sections/05_architecture/image/facade-detail.webp" alt="Фасад IVORY" loading="lazy" decoding="async">
-        </div>
-        <!-- Маленький круг: вид сверху -->
-        <div class="arch__circle arch__circle--small" id="archSmall">
-          <img src="prepared/sections/05_architecture/image/aerial-view.webp" alt="Вид сверху IVORY" loading="lazy" decoding="async">
-        </div>
       </div>
 
     </div>
@@ -383,23 +383,6 @@
   <!-- ===== ТЕХНИЧЕСКИЕ РЕШЕНИЯ ===== -->
   <section class="tech" id="tech">
     <div class="tech__inner">
-
-      <!-- Комната матери и ребёнка -->
-      <div class="tech__mother">
-        <div class="tech__mother-photo-wrap">
-          <div class="tech__mother-circle">
-            <img src="prepared/sections/08_technical/image/mother-room.webp" alt="Комната матери и ребёнка" loading="lazy" decoding="async">
-          </div>
-          <div class="tech__mother-quote">
-            <p>Здесь всё сделано с продуманием.</p>
-          </div>
-        </div>
-        <div class="tech__mother-text">
-          <h3 class="tech__mother-title">Комната матери и ребёнка</h3>
-          <p class="tech__mother-para">Небольшое, но очень важное пространство на первом этаже. Продумано так, чтобы родители могли чувствовать уверенность и заботу в любой момент.</p>
-        </div>
-      </div>
-
       <!-- Основные технические решения -->
       <div class="tech__main">
         <h2 class="tech__title">Основные технические решения</h2>
@@ -409,58 +392,6 @@
         </div>
       </div>
 
-    </div>
-  </section>
-
-  <!-- ===== ПЛАНИРОВКИ ===== -->
-  <section class="plans" id="plans">
-    <div class="plans__inner">
-
-      <!-- Заголовок -->
-      <div class="plans__header">
-        <p class="plans__label">Планировки</p>
-        <h2 class="plans__title">Выберите свою квартиру</h2>
-      </div>
-
-      <!-- Уровень 1: блоки -->
-      <div class="plans__blocks">
-        <button class="plans__block-tab plans__block-tab--active" data-block="1">1 Блок</button>
-        <button class="plans__block-tab" data-block="2">2 Блок</button>
-        <button class="plans__block-tab" data-block="3">3 Блок</button>
-      </div>
-
-      <!-- Уровень 2: квартиры -->
-      <div class="plans__apts" id="plansApts"></div>
-
-      <!-- Отображение планировки -->
-      <div class="plans__display" id="plansDisplay">
-        <div class="plans__image-wrap">
-          <img id="planImage" src="" alt="Планировка">
-        </div>
-        <div class="plans__info">
-          <p class="plans__info-size" id="planSize"></p>
-          <p class="plans__info-rooms" id="planRooms"></p>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- ===== ГАЛЕРЕЯ ===== -->
-  <section class="gallery" id="gallery">
-    <div class="gallery__header">
-      <h2 class="gallery__title">ГАЛЕРЕЯ ВАШЕГО ДОМА</h2>
-    </div>
-    <div class="gallery__grid">
-      <div class="gallery__card">
-        <img src="prepared/sections/11_gallery/image/gallery-1.webp" alt="Галерея IVORY" loading="lazy" decoding="async">
-      </div>
-      <div class="gallery__card">
-        <img src="prepared/sections/11_gallery/image/gallery-2.webp" alt="Галерея IVORY" loading="lazy" decoding="async">
-      </div>
-      <div class="gallery__card">
-        <img src="prepared/sections/11_gallery/image/gallery-3.webp" alt="Галерея IVORY" loading="lazy" decoding="async">
-      </div>
     </div>
   </section>
 
@@ -552,6 +483,58 @@
         </div>
       </div>
 
+    </div>
+  </section>
+
+  <!-- ===== ПЛАНИРОВКИ ===== -->
+  <section class="plans" id="plans">
+    <div class="plans__inner">
+
+      <!-- Заголовок -->
+      <div class="plans__header">
+        <p class="plans__label">Планировки</p>
+        <h2 class="plans__title">Выберите свою квартиру</h2>
+      </div>
+
+      <!-- Уровень 1: блоки -->
+      <div class="plans__blocks">
+        <button class="plans__block-tab plans__block-tab--active" data-block="1">1 Блок</button>
+        <button class="plans__block-tab" data-block="2">2 Блок</button>
+        <button class="plans__block-tab" data-block="3">3 Блок</button>
+      </div>
+
+      <!-- Уровень 2: квартиры -->
+      <div class="plans__apts" id="plansApts"></div>
+
+      <!-- Отображение планировки -->
+      <div class="plans__display" id="plansDisplay">
+        <div class="plans__image-wrap">
+          <img id="planImage" src="" alt="Планировка">
+        </div>
+        <div class="plans__info">
+          <p class="plans__info-size" id="planSize"></p>
+          <p class="plans__info-rooms" id="planRooms"></p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===== ГАЛЕРЕЯ ===== -->
+  <section class="gallery" id="gallery">
+    <div class="gallery__header">
+      <h2 class="gallery__title">ГАЛЕРЕЯ ВАШЕГО ДОМА</h2>
+    </div>
+    <div class="gallery__grid">
+      <div class="gallery__card">
+        <img src="prepared/sections/11_gallery/image/gallery-1.webp" alt="Галерея IVORY" loading="lazy" decoding="async">
+      </div>
+      <div class="gallery__card">
+        <img src="prepared/sections/11_gallery/image/gallery-2.webp" alt="Галерея IVORY" loading="lazy" decoding="async">
+      </div>
+      <div class="gallery__card">
+        <img src="prepared/sections/11_gallery/image/gallery-3.webp" alt="Галерея IVORY" loading="lazy" decoding="async">
+      </div>
     </div>
   </section>
 
