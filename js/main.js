@@ -21,6 +21,16 @@ if (isMobile) {
 // ===== GSAP + ScrollTrigger =====
 gsap.registerPlugin(ScrollTrigger);
 
+// ===== HERO TIMELINE =====
+const tl = gsap.timeline();
+tl.from('.hero__tag', {
+  opacity: 0,
+  y: 12,
+  duration: 0.5,
+  stagger: 0.07,
+  ease: 'power3.out',
+}, 0.8);
+
 // ===== ХЕДЕР =====
 const header = document.getElementById('header');
 

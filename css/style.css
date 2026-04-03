@@ -518,6 +518,33 @@ a {
   margin-top: 4px;
 }
 
+/* ------- Теги-пилюли ------- */
+.hero__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  max-width: 340px;
+  margin: 24px auto 0;
+  position: relative;
+  z-index: 10;
+}
+
+.hero__tag {
+  padding: 7px 16px;
+  background: rgba(255, 255, 255, 0.10);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 100px;
+  color: rgba(255, 255, 255, 0.88);
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 300;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+}
+
 /* ------- Стрелка вниз ------- */
 .hero__arrow {
   position: absolute;
