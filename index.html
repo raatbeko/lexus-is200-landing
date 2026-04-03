@@ -25,6 +25,8 @@
   <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"></noscript>
 
   <link rel="stylesheet" href="css/style.css">
+  <!-- Яндекс Карты -->
+  <script src="https://api-maps.yandex.ru/2.1/?apikey=&lang=ru_RU" type="text/javascript"></script>
 </head>
 <body>
 
@@ -220,11 +222,16 @@
       </div>
 
       <!-- Карта -->
-      <div class="surroundings__map-wrap" id="surMap">
-        <a href="https://2gis.ru/bishkek" target="_blank" rel="noopener" class="surroundings__map-link">
-          <img src="prepared/sections/04_surroundings/image/map.webp" alt="Расположение IVORY на карте" loading="lazy" decoding="async" class="surroundings__map-img">
-          <img src="prepared/sections/04_surroundings/image/2gis.jpg" alt="Открыть в 2GIS" class="surroundings__map-btn">
-        </a>
+      <div class="sur__map-wrap" id="surMap">
+        <!-- Фильтры -->
+        <div class="sur__filters">
+          <button class="sur__filter sur__filter--active" data-category="all">Все объекты</button>
+          <button class="sur__filter" data-category="school">Школы и садики</button>
+          <button class="sur__filter" data-category="med">Мед. учреждения</button>
+          <button class="sur__filter" data-category="mall">Торговые центры</button>
+        </div>
+        <!-- Карта -->
+        <div id="ymap" style="width:100%; height:500px;"></div>
       </div>
 
     </div>
@@ -575,5 +582,103 @@
   <!-- Swiper JS -->
   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
   <script src="js/main.js"></script>
+
+  <!-- Яндекс Карта: инициализация -->
+  <script>
+    ymaps.ready(() => {
+      const map = new ymaps.Map('ymap', {
+        center: [42.847724, 74.589298],
+        zoom: 14,
+        controls: ['zoomControl']
+      });
+
+      const places = [
+        // ШКОЛЫ
+        { coords: [42.848613, 74.589261], name: 'Школа №69', distance: '60 м', category: 'school' },
+        { coords: [42.848735, 74.590245], name: 'Bilikmana International Kids', distance: '110 м', category: 'school' },
+        { coords: [42.846918, 74.596351], name: 'СОШ №48', distance: '550 м', category: 'school' },
+        { coords: [42.850077, 74.593824], name: 'Илим (частная школа)', distance: '540 м', category: 'school' },
+        { coords: [42.851310, 74.579863], name: 'Школа №25', distance: '794 м', category: 'school' },
+        { coords: [42.845235, 74.582157], name: 'СОШ №47', distance: '600 м', category: 'school' },
+        { coords: [42.845235, 74.582157], name: 'Сейтек STEM', distance: '1.6 км', category: 'school' },
+        { coords: [42.859191, 74.585859], name: 'Bilikmana American School', distance: '1.2 км', category: 'school' },
+        { coords: [42.846032, 74.599034], name: 'Школа №61', distance: '865 м', category: 'school' },
+        { coords: [42.840312, 74.580709], name: 'Intellect School', distance: '1.1 км', category: 'school' },
+        // ДЕТСКИЕ САДЫ
+        { coords: [42.847936, 74.591556], name: 'Солнечный город', distance: '160 м', category: 'school' },
+        { coords: [42.849856, 74.590977], name: 'Карамелька', distance: '219 м', category: 'school' },
+        { coords: [42.847613, 74.585311], name: 'Baby Life', distance: '354 м', category: 'school' },
+        { coords: [42.850673, 74.590245], name: 'Ole Preschool', distance: '291 м', category: 'school' },
+        { coords: [42.851168, 74.590817], name: 'Кораблик и Ко', distance: '356 м', category: 'school' },
+        { coords: [42.844681, 74.593511], name: 'ДОО №91', distance: '452 м', category: 'school' },
+        { coords: [42.846756, 74.594511], name: 'Детский сад №78', distance: '422 м', category: 'school' },
+        { coords: [42.846788, 74.593182], name: 'Детский сад №5', distance: '327 м', category: 'school' },
+        // МЕД. УЧРЕЖДЕНИЯ
+        { coords: [42.851984, 74.582864], name: 'НХЦ им. М.М. Мамакеева', distance: '686 м', category: 'med' },
+        { coords: [42.845544, 74.577201], name: 'Авицена', distance: '830 м', category: 'med' },
+        { coords: [42.852700, 74.582122], name: 'ЦСМ', distance: '761 м', category: 'med' },
+        { coords: [42.839753, 74.607378], name: 'Городская детская больница', distance: '979 м', category: 'med' },
+        { coords: [42.842034, 74.615285], name: 'Центр онкологии', distance: '1.3 км', category: 'med' },
+        { coords: [42.852700, 74.582122], name: 'Больница №2', distance: '918 м', category: 'med' },
+        { coords: [42.869649, 74.599452], name: 'Республиканская', distance: '1.7 км', category: 'med' },
+        // ТОРГОВЫЕ ЦЕНТРЫ
+        { coords: [42.855462, 74.584985], name: 'Asia Mall', distance: '893 м', category: 'mall' },
+        { coords: [42.828820, 74.583830], name: 'Ала-Арча', distance: '2.2 км', category: 'mall' },
+        { coords: [42.857401, 74.609653], name: 'Vefa', distance: '1.9 км', category: 'mall' },
+      ];
+
+      const colors = {
+        school: '#8B7355',
+        med:    '#7A8B73',
+        mall:   '#735E8B',
+      };
+
+      const ivoryMark = new ymaps.Placemark(
+        [42.847724, 74.589298],
+        { balloonContent: '<b>IVORY</b><br>Жилой комплекс' },
+        {
+          preset: 'islands#darkOrangeStretchyIcon',
+          iconColor: '#8B7355',
+        }
+      );
+      map.geoObjects.add(ivoryMark);
+
+      let placemarks = [];
+
+      places.forEach(place => {
+        const pm = new ymaps.Placemark(
+          place.coords,
+          {
+            balloonContent: `<b>${place.name}</b><br>${place.distance} от IVORY`,
+          },
+          {
+            preset: 'islands#circleDotIcon',
+            iconColor: colors[place.category],
+          }
+        );
+        pm.category = place.category;
+        map.geoObjects.add(pm);
+        placemarks.push(pm);
+      });
+
+      document.querySelectorAll('.sur__filter').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.sur__filter')
+            .forEach(b => b.classList.remove('sur__filter--active'));
+          btn.classList.add('sur__filter--active');
+
+          const cat = btn.dataset.category;
+
+          placemarks.forEach(pm => {
+            if (cat === 'all' || pm.category === cat) {
+              pm.options.set('visible', true);
+            } else {
+              pm.options.set('visible', false);
+            }
+          });
+        });
+      });
+    });
+  </script>
 </body>
 </html>
