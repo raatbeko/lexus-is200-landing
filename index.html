@@ -555,50 +555,21 @@
   <!-- ===== ФУТЕР ===== -->
   <footer class="footer">
     <div class="footer__inner">
-      <div class="footer__top">
-        <div class="footer__col footer__col--brand">
-          <div class="footer__logo">
-            <span class="footer__logo-icon"></span>
-            <span class="footer__logo-name">BORSAN</span>
-          </div>
-          <p class="footer__brand-desc">международная строительная компания</p>
-          <p class="footer__address">г. Бишкек, ул. Нефёрова, 113</p>
-          <div class="footer__social">
-            <a href="https://wa.me/996700880044" target="_blank" class="footer__social-link" aria-label="WhatsApp">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
-              </svg>
-            </a>
-            <a href="https://instagram.com/ivory_bishkek" target="_blank" class="footer__social-link" aria-label="Instagram">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
-                <circle cx="12" cy="12" r="4"/>
-                <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor"/>
-              </svg>
-            </a>
-          </div>
-        </div>
-        <nav class="footer__col footer__col--nav">
-          <a href="#about-section" class="footer__nav-link">О проекте</a>
-          <a href="#infrastructure" class="footer__nav-link">Инфраструктура</a>
-          <a href="#plans" class="footer__nav-link">Планировки</a>
-          <a href="#gallery" class="footer__nav-link">Галерея</a>
-          <a href="#contacts" class="footer__nav-link">Контакты</a>
-        </nav>
-        <div class="footer__col footer__col--phones">
-          <a href="tel:+996700880044" class="footer__phone">+996 700 88 00 44</a>
-          <a href="tel:+996777880044" class="footer__phone">+996 777 88 00 44</a>
-          <a href="tel:+996220880044" class="footer__phone">+996 220 88 00 44</a>
-        </div>
-      </div>
       <div class="footer__cta-section">
+        <p class="footer__cta-eyebrow">СВЯЗАТЬСЯ С НАМИ</p>
         <div class="footer__cta-left">
           <h3 class="footer__cta-title">Оставьте заявку</h3>
           <p class="footer__cta-sub">Мы свяжемся с вами и ответим на все вопросы</p>
         </div>
         <div class="footer__cta-form">
-          <input type="text" id="footerName" class="footer__input" placeholder="Ваше имя">
-          <input type="tel" id="footerPhone" class="footer__input" placeholder="+996 700 000 000">
+          <div class="footer__field">
+            <input type="text" id="footerName" class="footer__input" placeholder=" ">
+            <label for="footerName" class="footer__label">Ваше имя</label>
+          </div>
+          <div class="footer__field">
+            <input type="tel" id="footerPhone" class="footer__input" placeholder=" ">
+            <label for="footerPhone" class="footer__label">+996 700 000 000</label>
+          </div>
           <button class="footer__submit" id="footerSubmit">Отправить заявку</button>
         </div>
         <div class="footer__form-success" id="footerSuccess" style="display:none">
@@ -606,6 +577,45 @@
         </div>
       </div>
 
+      <div class="footer__top">
+        <div class="footer__logo">
+          <span class="footer__logo-icon"></span>
+          <span class="footer__logo-name">BORSAN</span>
+        </div>
+        <p class="footer__brand-desc">международная строительная компания</p>
+        <nav class="footer__nav">
+          <a href="#about-section" class="footer__nav-link">О проекте</a>
+          <span class="footer__nav-sep">·</span>
+          <a href="#infrastructure" class="footer__nav-link">Инфраструктура</a>
+          <span class="footer__nav-sep">·</span>
+          <a href="#plans" class="footer__nav-link">Планировки</a>
+          <span class="footer__nav-sep">·</span>
+          <a href="#gallery" class="footer__nav-link">Галерея</a>
+          <span class="footer__nav-sep">·</span>
+          <a href="#contacts" class="footer__nav-link">Контакты</a>
+        </nav>
+        <div class="footer__social">
+          <a href="https://wa.me/996700880044" target="_blank" class="footer__social-link" aria-label="WhatsApp">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
+            </svg>
+          </a>
+          <a href="https://instagram.com/ivory_bishkek" target="_blank" class="footer__social-link" aria-label="Instagram">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+              <circle cx="12" cy="12" r="4"/>
+              <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor"/>
+            </svg>
+          </a>
+        </div>
+        <div class="footer__phones">
+          <a href="tel:+996700880044" class="footer__phone">+996 700 88 00 44</a>
+          <span class="footer__phone-sep">|</span>
+          <a href="tel:+996777880044" class="footer__phone">+996 777 88 00 44</a>
+          <span class="footer__phone-sep">|</span>
+          <a href="tel:+996220880044" class="footer__phone">+996 220 88 00 44</a>
+        </div>
+      </div>
       <div class="footer__bottom">
         <p class="footer__copyright">© 2024 IVORY. Все права защищены. BORSAN Group.</p>
       </div>
