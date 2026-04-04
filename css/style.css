@@ -1482,6 +1482,15 @@ a {
   pointer-events: none;
 }
 
+@media (min-width: 769px) {
+  #zone-coworking {
+    left: 13%;
+  }
+  #zone-sport {
+    left: 13%;
+  }
+}
+
 .gh__card--active {
   visibility: visible;
   position: relative;
