@@ -28,7 +28,7 @@
 
   <link rel="stylesheet" href="css/style.css">
   <!-- Яндекс Карты -->
-  <script src="https://api-maps.yandex.ru/2.1/?apikey=&lang=ru_RU" type="text/javascript"></script>
+  <script src="https://api-maps.yandex.ru/2.1/?apikey=&lang=ru_RU&load=package.standard&mode=release" type="text/javascript"></script>
 </head>
 <body>
 
@@ -620,7 +620,10 @@
       const map = new ymaps.Map('ymap', {
         center: [42.847724, 74.589298],
         zoom: 14,
-        controls: ['zoomControl']
+        controls: ['zoomControl'],
+      }, {
+        suppressMapOpenBlock: true,
+        avoidFractionalZoom: false,
       });
 
       const places = [
@@ -667,19 +670,20 @@
       };
 
       // Создание кастомной иконки
-      function createIcon(svgString) {
+      function createIcon(svgString, isIvory = false) {
         return ymaps.templateLayoutFactory.createClass(
           `<div style="
-            width:36px;
-            height:36px;
-            background:white;
-            border:1.5px solid #C4A882;
-            border-radius:50%;
-            display:flex;
-            align-items:center;
-            justify-content:center;
-            box-shadow:0 2px 8px rgba(139,115,85,0.2);
-            padding:6px;
+            width: ${isIvory ? '44px' : '38px'};
+            height: ${isIvory ? '44px' : '38px'};
+            background: white;
+            border: 2px solid #8B7355;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.25);
+            padding: 7px;
+            cursor: pointer;
           ">${svgString}</div>`
         );
       }
@@ -689,9 +693,9 @@
         [42.847724, 74.589298],
         { balloonContent: '<b>IVORY</b><br>Жилой комплекс' },
         {
-          iconLayout: createIcon(icons.ivory),
-          iconShape: { type: 'Circle', coordinates: [20, 20], radius: 20 },
-          iconOffset: [-20, -20],
+          iconLayout: createIcon(icons.ivory, true),
+          iconShape: { type: 'Circle', coordinates: [22, 22], radius: 22 },
+          iconOffset: [-22, -22],
         }
       );
       map.geoObjects.add(ivoryMark);
