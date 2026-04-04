@@ -317,9 +317,11 @@
         </button>
         <button class="gh__tab" data-zone="sport">
           <span class="gh__tab-icon">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-              <path d="M6.5 6.5L17.5 17.5M6.5 17.5L17.5 6.5"/>
-              <circle cx="12" cy="12" r="9"/>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="6" width="6" height="12" rx="2"/>
+              <rect x="16" y="6" width="6" height="12" rx="2"/>
+              <line x1="8" y1="10" x2="16" y2="10"/>
+              <line x1="16" y1="14" x2="8" y2="14"/>
             </svg>
           </span>
           Спортивный зал
@@ -475,20 +477,53 @@
       <div class="plans__apts" id="plansApts"></div>
 
       <!-- Отображение планировки -->
-      <div class="plans__display" id="plansDisplay">
-        <div class="plans__plan-card" id="planPlanCard">
-          <img id="planSvg" src="" alt="" loading="eager">
+      <div class="plans__viewer">
+
+        <!-- ЛЕВАЯ КОЛОНКА — инфо 35% -->
+        <div class="plans__sidebar">
+          <div class="plans__sidebar-size" id="planSize">48,48 м²</div>
+          <div class="plans__sidebar-rooms" id="planRooms">2-комнатная</div>
+          <div class="plans__sidebar-desc" id="planDesc">Квартира для семьи, которая хочет расти</div>
+
+          <div class="plans__sidebar-divider"></div>
+
+          <!-- Подсказка зума -->
+          <div class="plans__zoom-hint">
+            <div class="plans__zoom-hint-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="1.5">
+                <circle cx="11" cy="11" r="8"/>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                <line x1="11" y1="8" x2="11" y2="14"/>
+                <line x1="8" y1="11" x2="14" y2="11"/>
+              </svg>
+            </div>
+            <span>Используйте + / − для масштаба.<br>Зажмите и перетащите для просмотра.</span>
+          </div>
+
+          <!-- Кнопки зума -->
           <div class="plans__zoom-controls">
             <button class="plans__zoom-btn" id="zoomIn">+</button>
             <button class="plans__zoom-btn" id="zoomOut">−</button>
             <button class="plans__zoom-btn" id="zoomReset">↺</button>
           </div>
+
         </div>
-        <div class="plans__info">
-          <p class="plans__info-size" id="planSize"></p>
-          <p class="plans__info-rooms" id="planRooms"></p>
-          <p class="plans__info-desc" id="planDesc"></p>
+
+        <!-- ПРАВАЯ КОЛОНКА — планировка 65% -->
+        <div class="plans__plan-card" id="planPlanCard">
+          <img id="planSvg" src="" alt="" loading="eager">
+
+          <!-- Подсказка drag поверх фото -->
+          <div class="plans__drag-hint" id="dragHint">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+              stroke="white" stroke-width="1.5">
+              <path d="M5 9l-3 3 3 3M9 5l3-3 3 3M15 19l-3 3-3-3M19 9l3 3-3 3"/>
+            </svg>
+            <span>Перетащите для просмотра</span>
+          </div>
         </div>
+
       </div>
 
     </div>

@@ -1433,13 +1433,14 @@ a {
 
 .gh__tab:hover {
   border-color: var(--accent);
-  color: var(--accent);
+  background: var(--accent);
+  color: var(--white);
 }
 
 .gh__tab--active {
   background: var(--accent);
   border-color: var(--accent);
-  color: white;
+  color: var(--white);
 }
 
 .gh__tab-icon {
@@ -1716,113 +1717,185 @@ a {
 }
 
 /* Отображение планировки */
-.plans__display {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 32px;
-}
-
-.plans__plan-card {
-  position: relative;
-  background: white;
-  border: 1px solid #C4A882;
+/* ===== PLANS VIEWER ===== */
+.plans__viewer {
+  display: grid;
+  grid-template-columns: 35% 65%;
+  gap: 0;
+  background: var(--white);
+  border: 1px solid var(--accent-light);
   border-radius: 4px;
   overflow: hidden;
-  padding: 40px;
-  cursor: default;
-  height: 500px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  margin-top: 32px;
 }
 
-#planSvg {
-  max-width: 100%;
-  max-height: 100%;
-  width: auto;
-  height: auto;
-  object-fit: contain;
-  display: block;
-  transform-origin: center center;
-  transition: transform 0.15s ease;
-  user-select: none;
-  -webkit-user-drag: none;
+/* ЛЕВАЯ КОЛОНКА */
+.plans__sidebar {
+  padding: 40px 32px;
+  border-right: 1px solid var(--surface);
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.plans__sidebar-size {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 52px;
+  color: var(--text-primary);
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+.plans__sidebar-rooms {
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  font-weight: 300;
+  color: var(--text-secondary);
+  margin-bottom: 4px;
+}
+
+.plans__sidebar-desc {
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--accent);
+  font-style: italic;
+  margin-bottom: 24px;
+}
+
+.plans__sidebar-divider {
+  width: 40px;
+  height: 1px;
+  background: var(--accent-light);
+  margin-bottom: 24px;
+}
+
+.plans__zoom-hint {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 20px;
+  padding: 12px;
+  background: var(--bg);
+  border-radius: 4px;
+}
+
+.plans__zoom-hint-icon {
+  color: var(--accent);
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.plans__zoom-hint span {
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 300;
+  color: var(--text-secondary);
+  line-height: 1.5;
 }
 
 .plans__zoom-controls {
-  position: absolute;
-  bottom: 16px;
-  right: 16px;
   display: flex;
-  flex-direction: column;
-  gap: 4px;
+  gap: 8px;
+  margin-bottom: 24px;
 }
 
 .plans__zoom-btn {
   width: 36px;
   height: 36px;
-  background: white;
-  border: 1px solid #C4A882;
+  background: var(--white);
+  border: 1px solid var(--accent-light);
   border-radius: 4px;
-  font-size: 18px;
+  font-size: 16px;
   color: var(--accent);
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background 0.2s ease;
+  transition: all 0.2s ease;
   font-family: 'Inter', sans-serif;
-  font-weight: 300;
 }
 
 .plans__zoom-btn:hover {
   background: var(--accent);
-  color: white;
+  color: var(--white);
+  border-color: var(--accent);
 }
 
-.plans__info {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.plans__sidebar-cta {
+  margin-top: auto;
+  padding: 13px;
+  background: var(--accent);
+  color: var(--white);
+  border: none;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  transition: opacity 0.2s;
   text-align: center;
 }
 
-.plans__info-label {
+.plans__sidebar-cta:hover { opacity: 0.85; }
+
+/* ПРАВАЯ КОЛОНКА */
+.plans__plan-card {
+  position: relative;
+  height: 560px;
+  overflow: hidden;
+  background: var(--white);
+  cursor: grab;
+}
+
+.plans__plan-card:active { cursor: grabbing; }
+
+#planSvg {
+  position: absolute;
+  top: 10%;
+  left: 10%;
+  transform-origin: center center;
+  max-width: 85%;
+  max-height: 85%;
+  width: auto;
+  height: auto;
+  user-select: none;
+  -webkit-user-drag: none;
+  transition: transform 0.15s ease;
+}
+
+.plans__drag-hint {
+  position: absolute;
+  bottom: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: rgba(0,0,0,0.45);
+  backdrop-filter: blur(4px);
+  border-radius: 100px;
+  color: white;
   font-family: 'Inter', sans-serif;
-  font-weight: 300;
   font-size: 12px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--text-sec);
-  opacity: 0.7;
+  font-weight: 300;
+  white-space: nowrap;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
 }
 
-.plans__info-size {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 72px;
-  font-weight: 300;
-  color: var(--accent);
-  line-height: 1;
-  margin-bottom: 8px;
+.plans__drag-hint.hidden {
+  opacity: 0;
 }
 
-.plans__info-rooms {
-  font-family: 'Inter', sans-serif;
-  font-weight: 300;
-  font-size: 16px;
-  color: var(--text-sec);
-  margin-top: 0;
-  margin-bottom: 0;
-}
-
-.plans__info-desc {
-  font-family: 'Inter', sans-serif;
-  font-size: 14px;
-  font-weight: 300;
-  color: var(--text-secondary);
-  margin-top: 4px;
-  letter-spacing: 0.03em;
+.plans__mobile-zoom {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  z-index: 5;
 }
 
 .plans__cta {
@@ -2705,11 +2778,13 @@ a {
   .plans { padding: 80px 0; }
   .plans__inner { padding: 0 24px; }
   .plans__title { font-size: 36px; }
-  .plans__display { grid-template-columns: 1fr; gap: 32px; }
-  .plans__plan-card { padding: 20px; height: 340px; }
-  .plans__zoom-controls { bottom: 10px; right: 10px; }
-  .plans__zoom-btn { width: 30px; height: 30px; font-size: 16px; }
-  .plans__info-size { font-size: 52px; }
+  .plans__viewer { grid-template-columns: 1fr; }
+  .plans__sidebar { padding: 24px 20px; border-right: none; border-bottom: 1px solid #EDE7D9; }
+  .plans__sidebar-size { font-size: 36px; }
+  .plans__zoom-controls { display: none; }
+  .plans__zoom-hint { display: none; }
+  .plans__sidebar-cta { margin-top: 16px; }
+  .plans__plan-card { height: 320px; cursor: default; }
 
   /* Borsan Service мобильный */
   .borsan { padding: 80px 0; }
@@ -2738,7 +2813,7 @@ a {
 
 /* Base mobile styles - 375px default */
 @media (max-width: 480px) {
-  .plans__plan-card { height: 280px; }
+  .plans__plan-card { height: 260px; }
 }
 
 @media (max-width: 480px) {
@@ -3379,24 +3454,6 @@ a {
   .plans__apt-btn {
     padding: 10px 16px;
     font-size: 12px;
-  }
-
-  .plans__display {
-    grid-template-columns: 1fr;
-    gap: 24px;
-  }
-
-  .plans__image-wrap {
-    padding: 16px;
-    min-height: 260px;
-  }
-
-  .plans__info-size {
-    font-size: 40px;
-  }
-
-  .plans__info-rooms {
-    font-size: 14px;
   }
 
   .plans__cta {

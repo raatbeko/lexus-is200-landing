@@ -373,11 +373,16 @@ function renderApts(block, activeIndex = 0) {
 }
 
 // ===== ZOOM + PAN =====
-let currentScale = 1;
-const minScale = 0.5;
+let currentScale = 0.8;
+const minScale = 0.3;
 const maxScale = 3;
 const zoomStep = 0.25;
 const planImg = document.getElementById('planSvg');
+
+// Применить начальный зум при загрузке
+window.addEventListener('load', () => {
+  if (planImg) updateTransform();
+});
 let translateX = 0, translateY = 0;
 let isDragging = false;
 let startX, startY;
@@ -490,8 +495,38 @@ planImg.addEventListener('touchend', () => {
   initialPinchDistance = null;
 });
 
+// Скрыть drag-подсказку после первого взаимодействия
+const planCard = document.getElementById('planPlanCard');
+
+planCard.addEventListener('mousedown', () => {
+  const hint = document.getElementById('dragHint');
+  if (hint) hint.classList.add('hidden');
+  setTimeout(() => { if (hint) hint.remove(); }, 400);
+}, { once: true });
+
+planCard.addEventListener('touchstart', () => {
+  const hint = document.getElementById('dragHint');
+  if (hint) hint.classList.add('hidden');
+  setTimeout(() => { if (hint) hint.remove(); }, 400);
+}, { once: true });
+
+// Мобильный зум поверх фото: перемещаем кнопки в оверлей на карточке
+if (window.innerWidth <= 768) {
+  const mobileZoom = document.createElement('div');
+  mobileZoom.className = 'plans__mobile-zoom';
+  // Переносим существующие кнопки (с уже привязанными listeners) в оверлей
+  const zoomControls = document.querySelector('.plans__zoom-controls');
+  if (zoomControls) {
+    while (zoomControls.firstChild) {
+      mobileZoom.appendChild(zoomControls.firstChild);
+    }
+    zoomControls.remove();
+  }
+  planCard.appendChild(mobileZoom);
+}
+
 function selectApt(block, index, skipScroll = false) {
-  currentScale = 1;
+  currentScale = 0.8;
   translateX = 0;
   translateY = 0;
   updateTransform();
@@ -518,13 +553,6 @@ function selectApt(block, index, skipScroll = false) {
   document.querySelectorAll('.plans__apt-tab').forEach((b, i) =>
     b.classList.toggle('plans__apt-tab--active', i === index)
   );
-
-  if (isMobile && !skipScroll) {
-    setTimeout(() => {
-      document.getElementById('planPlanCard')
-        .scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }, 300);
-  }
 }
 
 blockTabs.forEach(tab => {
