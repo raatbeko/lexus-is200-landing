@@ -499,18 +499,27 @@
     <div class="gallery__header">
       <h2 class="gallery__title">ГАЛЕРЕЯ ВАШЕГО ДОМА</h2>
     </div>
-    <div class="gallery__grid">
-      <div class="gallery__card">
-        <img src="prepared/sections/11_gallery/image/gallery-1.webp" alt="Галерея IVORY" loading="lazy" decoding="async">
+    <div class="gallery__body">
+      <button class="gallery__arrow gallery__arrow--prev" id="galleryPrev">←</button>
+      <div class="gallery__grid">
+        <div class="gallery__card"><img src="" alt="IVORY" loading="eager"></div>
+        <div class="gallery__card gallery__card--center"><img src="" alt="IVORY" loading="eager"></div>
+        <div class="gallery__card"><img src="" alt="IVORY" loading="eager"></div>
       </div>
-      <div class="gallery__card">
-        <img src="prepared/sections/11_gallery/image/gallery-2.webp" alt="Галерея IVORY" loading="lazy" decoding="async">
-      </div>
-      <div class="gallery__card">
-        <img src="prepared/sections/11_gallery/image/gallery-3.webp" alt="Галерея IVORY" loading="lazy" decoding="async">
-      </div>
+      <button class="gallery__arrow gallery__arrow--next" id="galleryNext">→</button>
     </div>
   </section>
+
+  <!-- Модалка галереи -->
+  <div class="gallery__modal" id="galleryModal">
+    <button class="gallery__modal-close" id="galleryModalClose">✕</button>
+    <button class="gallery__modal-nav--prev" id="galleryModalPrev">←</button>
+    <div class="gallery__modal-loader" id="galleryModalLoader">
+      <div class="gallery__spinner"></div>
+    </div>
+    <img class="gallery__modal-img" id="galleryModalImg" src="" alt="">
+    <button class="gallery__modal-nav--next" id="galleryModalNext">→</button>
+  </div>
 
   <!-- ===== ФУТЕР ===== -->
   <footer class="footer">
