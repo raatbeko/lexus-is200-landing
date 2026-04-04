@@ -21,6 +21,14 @@ if (isMobile) {
 // ===== GSAP + ScrollTrigger =====
 gsap.registerPlugin(ScrollTrigger);
 
+// Mobile: use RAF-based scroll for smoother performance
+if (isMobile) {
+  ScrollTrigger.config({
+    ignoreMobileResize: true,  // don't refresh on every mobile resize (address bar show/hide)
+    autoRefreshEvents: 'visibilitychange,DOMContentLoaded,load', // skip orientationchange jank
+  });
+}
+
 // ===== HERO TIMELINE =====
 const tl = gsap.timeline();
 tl.from('.hero__tag', {
@@ -67,20 +75,21 @@ document.getElementById('heroArrow').addEventListener('click', () => {
 
 // ===== SLIDE-IN АНИМАЦИИ =====
 function createSlideInAnimations() {
-  // На мобильных x-анимации вызывают горизонтальный скролл — используем только y
+  // На мобильных: только opacity + небольшой y, без x (горизонтальный скролл), короче duration
   const xL = isMobile ? 0 : -60;
   const xR = isMobile ? 0 : 60;
   const xLg = isMobile ? 0 : 80;
   const xRg = isMobile ? 0 : 80;
   const xXl = isMobile ? 0 : 100;
-  const yBase = isMobile ? 30 : 40;
+  const yBase = isMobile ? 20 : 40;
+  const dur = isMobile ? 0.5 : 0.8;   // shorter on mobile = less JS work per frame
 
   // О ПРОЕКТЕ: текст слева, фото справа
   gsap.from('#aboutTitle', {
     opacity: 0,
     x: xL,
     y: isMobile ? yBase : 0,
-    duration: 0.8,
+    duration: dur,
     ease: 'power3.out',
     scrollTrigger: {
       trigger: '#about-section',
@@ -92,7 +101,7 @@ function createSlideInAnimations() {
     opacity: 0,
     x: isMobile ? 0 : -40,
     y: isMobile ? yBase : 0,
-    duration: 0.8,
+    duration: dur,
     stagger: 0.2,
     ease: 'power3.out',
     scrollTrigger: {
@@ -105,7 +114,7 @@ function createSlideInAnimations() {
     opacity: 0,
     x: xRg,
     y: isMobile ? yBase : 0,
-    duration: 1,
+    duration: dur,
     ease: 'power3.out',
     scrollTrigger: {
       trigger: '#about-section',
@@ -117,7 +126,7 @@ function createSlideInAnimations() {
   gsap.from('#surTitle', {
     opacity: 0,
     y: yBase,
-    duration: 0.8,
+    duration: dur,
     ease: 'power3.out',
     scrollTrigger: {
       trigger: '#infrastructure',
@@ -130,7 +139,7 @@ function createSlideInAnimations() {
     opacity: 0,
     x: isMobile ? 0 : -80,
     y: isMobile ? yBase : 0,
-    duration: 1,
+    duration: dur,
     ease: 'power3.out',
     scrollTrigger: {
       trigger: '#surLeft',
@@ -180,7 +189,7 @@ function createSlideInAnimations() {
     opacity: 0,
     x: xXl,
     y: isMobile ? yBase : 0,
-    duration: 1,
+    duration: dur,
     ease: 'power3.out',
     scrollTrigger: {
       trigger: '#archBig',
@@ -192,7 +201,7 @@ function createSlideInAnimations() {
     opacity: 0,
     x: isMobile ? 0 : 60,
     y: isMobile ? yBase : 40,
-    duration: 0.8,
+    duration: dur,
     delay: 0.2,
     ease: 'power3.out',
     scrollTrigger: {
@@ -218,7 +227,7 @@ function createSlideInAnimations() {
     opacity: 0,
     x: xRg,
     y: isMobile ? yBase : 0,
-    duration: 1,
+    duration: dur,
     ease: 'power3.out',
     scrollTrigger: {
       trigger: '#courtyardCircles',
@@ -230,7 +239,7 @@ function createSlideInAnimations() {
     opacity: 0,
     x: isMobile ? 0 : 50,
     y: isMobile ? yBase : 30,
-    duration: 0.8,
+    duration: dur,
     delay: 0.2,
     ease: 'power3.out',
     scrollTrigger: {
@@ -243,7 +252,7 @@ function createSlideInAnimations() {
   gsap.from('.tech__title', {
     opacity: 0,
     y: yBase,
-    duration: 0.8,
+    duration: dur,
     ease: 'power3.out',
     scrollTrigger: {
       trigger: '.tech__main',
@@ -266,7 +275,7 @@ function createSlideInAnimations() {
   gsap.from('.plans__header', {
     opacity: 0,
     y: yBase,
-    duration: 0.8,
+    duration: dur,
     ease: 'power3.out',
     scrollTrigger: {
       trigger: '#plans',
@@ -303,7 +312,7 @@ function createSlideInAnimations() {
     opacity: 0,
     x: isMobile ? 0 : -80,
     y: isMobile ? yBase : 0,
-    duration: 1,
+    duration: dur,
     ease: 'power3.out',
     scrollTrigger: {
       trigger: '#contacts',
@@ -315,7 +324,7 @@ function createSlideInAnimations() {
     opacity: 0,
     x: xRg,
     y: isMobile ? yBase : 0,
-    duration: 1,
+    duration: dur,
     ease: 'power3.out',
     scrollTrigger: {
       trigger: '#contacts',
