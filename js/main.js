@@ -628,65 +628,41 @@ ghTabs.forEach(tab => {
 // ===== ГАЛЕРЕЯ =====
 const galleryBase = 'prepared/sections/11_gallery/image';
 const galleryImages = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,18,19,20,21,22,23,24,25,26];
-let currentOffset = 0;
-let autoSlideInterval;
-
-function updateVisibleCards() {
-  const cards = document.querySelectorAll('.gallery__card img');
-  cards.forEach((img, i) => {
-    const n = galleryImages[(currentOffset + i) % galleryImages.length];
-    gsap.to(img, {
-      opacity: 0,
-      duration: 0.3,
-      onComplete: () => {
-        img.src = `${galleryBase}/${n}.webp`;
-        img.dataset.n = n;
-        gsap.to(img, { opacity: 1, duration: 0.4 });
-      }
-    });
-  });
-}
-
-function slideNext() {
-  currentOffset = (currentOffset + 1) % galleryImages.length;
-  updateVisibleCards();
-}
-
-function slidePrev() {
-  currentOffset = (currentOffset - 1 + galleryImages.length) % galleryImages.length;
-  updateVisibleCards();
-}
-
-function startAutoSlide() {
-  autoSlideInterval = setInterval(slideNext, 4000);
-}
-
-function stopAutoSlide() {
-  clearInterval(autoSlideInterval);
-}
 
 function initGallery() {
-  const cards = document.querySelectorAll('.gallery__card img');
-  cards.forEach((img, i) => {
-    const n = galleryImages[i % galleryImages.length];
+  const track = document.getElementById('galleryTrack');
+  const wrap = document.getElementById('galleryTrackWrap');
+
+  // Строим карточки
+  galleryImages.forEach(n => {
+    const card = document.createElement('div');
+    card.className = 'gallery__card';
+    const img = document.createElement('img');
     img.src = `${galleryBase}/${n}.webp`;
+    img.alt = 'IVORY';
+    img.loading = 'lazy';
     img.dataset.n = n;
+    card.appendChild(img);
+    card.addEventListener('click', () => openGalleryModal(n));
+    track.appendChild(card);
   });
 
-  document.querySelectorAll('.gallery__card').forEach(card => {
-    card.addEventListener('click', () => {
-      openGalleryModal(parseInt(card.querySelector('img').dataset.n));
-    });
+  // Клонируем для бесшовного loop
+  track.querySelectorAll('.gallery__card').forEach(card => {
+    track.appendChild(card.cloneNode(true));
+  });
+  // Клонированным карточкам тоже навешиваем клик
+  track.querySelectorAll('.gallery__card').forEach(card => {
+    card.onclick = () => openGalleryModal(parseInt(card.querySelector('img').dataset.n));
   });
 
-  document.getElementById('galleryPrev').addEventListener('click', () => {
-    stopAutoSlide(); slidePrev(); startAutoSlide();
+  // Hover пауза (только десктоп)
+  wrap.addEventListener('mouseenter', () => {
+    track.style.animationPlayState = 'paused';
   });
-  document.getElementById('galleryNext').addEventListener('click', () => {
-    stopAutoSlide(); slideNext(); startAutoSlide();
+  wrap.addEventListener('mouseleave', () => {
+    track.style.animationPlayState = 'running';
   });
-
-  startAutoSlide();
 }
 
 // Модалка галереи
@@ -700,7 +676,6 @@ function openGalleryModal(n) {
 
   modal.classList.add('open');
   document.body.style.overflow = 'hidden';
-  stopAutoSlide();
 
   loader.style.display = 'flex';
   modalImg.style.opacity = '0';
@@ -722,7 +697,6 @@ function navigateModal(dir) {
 function closeGalleryModal() {
   document.getElementById('galleryModal').classList.remove('open');
   document.body.style.overflow = '';
-  startAutoSlide();
 }
 
 document.getElementById('galleryModalClose').addEventListener('click', closeGalleryModal);

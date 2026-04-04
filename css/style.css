@@ -109,6 +109,7 @@ a {
   transform: scale(1.08);
 }
 
+
 /* ===== ХЕДЕР ===== */
 .header {
   position: fixed;
@@ -2158,25 +2159,35 @@ a {
   line-height: 1;
 }
 
+@keyframes galleryScroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
 .gallery__body {
+  padding: 40px 0;
+  overflow: hidden;
+}
+
+.gallery__track-wrap {
+  overflow: hidden;
+  width: 100%;
+}
+
+.gallery__track-wrap:hover .gallery__track {
+  animation-play-state: paused;
+}
+
+.gallery__track {
   display: flex;
-  align-items: center;
   gap: 16px;
-  padding: 40px;
+  width: max-content;
+  animation: galleryScroll 60s linear infinite;
 }
 
-.gallery__grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 16px;
-  flex: 1;
-  align-items: start;
-}
-
-.gallery__card,
-.gallery__card--center {
+.gallery__card {
+  width: 380px;
   height: 520px;
-  margin-top: 0;
   border-radius: 8px;
   overflow: hidden;
   cursor: pointer;
@@ -2194,27 +2205,6 @@ a {
 
 .gallery__card:hover img {
   transform: scale(1.04);
-}
-
-.gallery__arrow {
-  flex-shrink: 0;
-  width: 44px;
-  height: 44px;
-  background: white;
-  border: 1px solid #C4A882;
-  border-radius: 50%;
-  font-size: 18px;
-  color: var(--accent);
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.2s ease;
-}
-
-.gallery__arrow:hover {
-  background: var(--accent);
-  color: white;
 }
 
 /* Модалка галереи */
@@ -2300,8 +2290,8 @@ a {
 @keyframes spin { to { transform: rotate(360deg); } }
 
 @media (max-width: 1200px) {
-  .gallery__card,
-  .gallery__card--center {
+  .gallery__card {
+    width: 320px;
     height: 420px;
   }
 }
@@ -2310,24 +2300,12 @@ a {
   .gallery__header { padding: 40px 24px 32px; }
 
   .gallery__body {
-    padding: 20px 16px;
-    gap: 8px;
+    padding: 24px 0;
   }
 
-  .gallery__grid {
-    grid-template-columns: 1fr;
-    gap: 12px;
-  }
-
-  .gallery__card,
-  .gallery__card--center {
-    height: 300px;
-    margin-top: 0;
-  }
-
-  .gallery__card:nth-child(2),
-  .gallery__card:nth-child(3) {
-    display: none;
+  .gallery__card {
+    width: 260px;
+    height: 340px;
   }
 
   .gallery__modal-img {
@@ -3476,42 +3454,13 @@ a {
   }
 
   .gallery__body {
-    position: relative;
-    padding: 0;
-    gap: 0;
-  }
-
-  .gallery__grid {
-    grid-template-columns: 1fr;
-    gap: 0;
-    margin-left: 0;
-    width: 100%;
+    padding: 20px 0;
   }
 
   .gallery__card {
-    height: 260px;
-    aspect-ratio: unset;
-    border-radius: 0;
-    border-left: none;
-    border-right: none;
-  }
-
-  .gallery__arrow {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    z-index: 10;
-    background: rgba(255, 255, 255, 0.85);
-    backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);
-  }
-
-  .gallery__arrow--prev {
-    left: 12px;
-  }
-
-  .gallery__arrow--next {
-    right: 12px;
+    width: 220px;
+    height: 280px;
+    border-radius: 6px;
   }
 
   /* ===== BORSAN MOBILE ===== */
