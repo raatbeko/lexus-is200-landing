@@ -490,7 +490,7 @@ planImg.addEventListener('touchend', () => {
   initialPinchDistance = null;
 });
 
-function selectApt(block, index) {
+function selectApt(block, index, skipScroll = false) {
   currentScale = 1;
   translateX = 0;
   translateY = 0;
@@ -519,7 +519,7 @@ function selectApt(block, index) {
     b.classList.toggle('plans__apt-tab--active', i === index)
   );
 
-  if (isMobile) {
+  if (isMobile && !skipScroll) {
     setTimeout(() => {
       document.getElementById('planPlanCard')
         .scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -538,7 +538,7 @@ blockTabs.forEach(tab => {
 });
 
 renderApts(1, 0);
-selectApt(1, 0);
+selectApt(1, 0, true);
 
 // ===== GREEN HALL: переключение зон =====
 const ghTabs = document.querySelectorAll('.gh__tab');
