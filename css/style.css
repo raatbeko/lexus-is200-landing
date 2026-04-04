@@ -383,8 +383,8 @@ a {
 /* ------- Слои изображений ------- */
 .hero__layer {
   position: absolute;
-  top: 0%;
-  bottom: -20%;
+  top: 0;
+  bottom: 0;
   left: 0;
   right: 0;
   will-change: transform;
@@ -3039,6 +3039,7 @@ a {
   .hero__layer {
     top: 0;
     bottom: 0;
+    left: -20%;
   }
 
   .hero__content {
