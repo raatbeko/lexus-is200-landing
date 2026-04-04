@@ -568,6 +568,19 @@ blockTabs.forEach(tab => {
 renderApts(1, 0);
 selectApt(1, 0, true);
 
+// ===== COURTYARD: мобильные табы =====
+document.querySelectorAll('.courtyard__tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    const target = tab.dataset.ctab;
+    document.querySelectorAll('.courtyard__tab').forEach(t =>
+      t.classList.toggle('courtyard__tab--active', t === tab)
+    );
+    document.querySelectorAll('.courtyard__tab-panel').forEach(panel =>
+      panel.classList.toggle('courtyard__tab-panel--active', panel.id === `cyard-tab-${target}`)
+    );
+  });
+});
+
 // ===== GREEN HALL: переключение зон =====
 const ghTabs = document.querySelectorAll('.gh__tab');
 const ghCards = document.querySelectorAll('.gh__card');
