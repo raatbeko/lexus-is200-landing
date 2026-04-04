@@ -21,6 +21,32 @@ if (isMobile) {
 // ===== GSAP + ScrollTrigger =====
 gsap.registerPlugin(ScrollTrigger);
 
+// ===== HERO PARALLAX =====
+if (!isMobile) {
+  // Фон: движется быстрее — ощущение дальнего плана
+  gsap.to('#layerBg', {
+    yPercent: -25,
+    ease: 'none',
+    scrollTrigger: {
+      trigger: '.hero',
+      start: 'top top',
+      end: 'bottom top',
+      scrub: true,
+    }
+  });
+  // Здание: движется медленнее — ощущение ближнего плана
+  gsap.to('#layerTop', {
+    yPercent: -8,
+    ease: 'none',
+    scrollTrigger: {
+      trigger: '.hero',
+      start: 'top top',
+      end: 'bottom top',
+      scrub: true,
+    }
+  });
+}
+
 // ===== HERO TIMELINE =====
 const tl = gsap.timeline();
 tl.from('.hero__tag', {
