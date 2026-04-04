@@ -14,7 +14,12 @@
       "Bash(curl -s -X POST -H \"Authorization: token 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\" -H \"Content-Type: application/json\" -d '{\"\"\"\"name\"\"\"\":\"\"\"\"lexus-is200-landing\"\"\"\",\"\"\"\"description\"\"\"\":\"\"\"\"Lexus IS 200 — landing page\"\"\"\",\"\"\"\"private\"\"\"\":false}' https://api.github.com/user/repos)",
       "Bash(python -c \"import sys,json; d=json.load\\(sys.stdin\\); print\\(d.get\\(''''html_url'''',''''''''\\), d.get\\(''''message'''',''''''''\\)\\)\")",
       "Bash(curl -s -H \"Authorization: token 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\" -H \"Content-Type: application/json\" --data \"{\"\"name\"\":\"\"lexus-is200-landing\"\",\"\"description\"\":\"\"Lexus IS 200 landing page\"\",\"\"private\"\":false}\" https://api.github.com/user/repos)",
-      "Bash(python -c \"import sys,json; d=json.load\\(sys.stdin\\); print\\(d.get\\(''''html_url''''\\) or d.get\\(''''message''''\\)\\)\")"
+      "Bash(python -c \"import sys,json; d=json.load\\(sys.stdin\\); print\\(d.get\\(''''html_url''''\\) or d.get\\(''''message''''\\)\\)\")",
+      "Bash(find /mnt/d/site/clothes -type f \\\\\\( -iname \"*.jpg\" -o -iname \"*.jpeg\" -o -iname \"*.png\" -o -iname \"*.webp\" -o -iname \"*.svg\" -o -iname \"*.gif\" \\\\\\) -exec du -k {} +)",
+      "Bash(find \"D:/site/clothes\" -type f \\\\\\( -iname \"*.jpg\" -o -iname \"*.jpeg\" -o -iname \"*.png\" -o -iname \"*.webp\" -o -iname \"*.svg\" \\\\\\) -exec du -k {} +)",
+      "Bash(find \"D:/site/clothes/prepared/sections/11_gallery/image\" -name \"*.webp\" -exec du -k {} +)",
+      "Bash(xargs du:*)",
+      "Bash(find \"D:/site/clothes/prepared/sections/10_plans/images\" -name \"*.svg\" -exec du -k {} +)"
     ]
   }
 }
