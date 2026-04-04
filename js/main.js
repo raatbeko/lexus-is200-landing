@@ -527,6 +527,8 @@ if (window.innerWidth <= 768) {
   planCard.appendChild(mobileZoom);
 }
 
+let selectAptTimer = null;
+
 function selectApt(block, index, skipScroll = false) {
   currentScale = 0.8;
   translateX = 0;
@@ -536,17 +538,21 @@ function selectApt(block, index, skipScroll = false) {
 
   const apt = plansData[block][index];
 
-  gsap.to('#planPlanCard', {
-    opacity: 0,
-    duration: 0.2,
-    ease: 'power2.in',
-    onComplete: () => {
-      planImg.src = apt.img;
-      planImg.onload = () => {
-        gsap.to('#planPlanCard', { opacity: 1, duration: 0.4, ease: 'power2.out' });
-      };
-    },
-  });
+  // Debounce rapid tab clicks — wait 80ms before actually loading image
+  clearTimeout(selectAptTimer);
+  selectAptTimer = setTimeout(() => {
+    gsap.to('#planPlanCard', {
+      opacity: 0,
+      duration: 0.2,
+      ease: 'power2.in',
+      onComplete: () => {
+        planImg.src = apt.img;
+        planImg.onload = () => {
+          gsap.to('#planPlanCard', { opacity: 1, duration: 0.4, ease: 'power2.out' });
+        };
+      },
+    });
+  }, 80);
 
   planSize.textContent = apt.size;
   planRooms.textContent = apt.rooms;
@@ -665,10 +671,11 @@ function initGallery() {
     const card = document.createElement('div');
     card.className = 'gallery__card';
     const img = document.createElement('img');
-    img.src = `${galleryBase}/${n}.webp`;
+    img.loading = 'lazy';       // MUST be set before src
+    img.decoding = 'async';
     img.alt = 'IVORY';
-    img.loading = 'lazy';
     img.dataset.n = n;
+    img.src = `${galleryBase}/${n}.webp`;
     card.appendChild(img);
     card.addEventListener('click', () => openGalleryModal(n));
     track.appendChild(card);
