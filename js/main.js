@@ -797,6 +797,45 @@ document.getElementById('modalSubmit').addEventListener('click', async () => {
   submitBtn.style.display = 'none';
 });
 
+// ===== ФУТЕР: форма заявки =====
+document.getElementById('footerSubmit').addEventListener('click', async () => {
+  const name = document.getElementById('footerName').value.trim();
+  const phone = document.getElementById('footerPhone').value.trim();
+
+  if (!name || !phone) {
+    alert('Пожалуйста, заполните все поля');
+    return;
+  }
+
+  const btn = document.getElementById('footerSubmit');
+  btn.textContent = 'Отправка...';
+  btn.disabled = true;
+
+  try {
+    const BITRIX_URL = 'https://YOUR_DOMAIN.bitrix24.ru/rest/crm.lead.add.json';
+    await fetch(BITRIX_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        fields: {
+          TITLE: `Заявка с футера IVORY — ${name}`,
+          NAME: name,
+          PHONE: [{ VALUE: phone, VALUE_TYPE: 'WORK' }],
+          SOURCE_ID: 'WEB',
+          SOURCE_DESCRIPTION: 'Лендинг IVORY — футер',
+        }
+      })
+    });
+  } catch (err) {
+    console.error(err);
+  }
+
+  document.getElementById('footerSuccess').style.display = 'block';
+  document.getElementById('footerName').value = '';
+  document.getElementById('footerPhone').value = '';
+  btn.style.display = 'none';
+});
+
 // ===== Respect prefers-reduced-motion =====
 const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
