@@ -372,6 +372,8 @@ function renderApts(block, activeIndex = 0) {
   });
 }
 
+let plansInited = false;
+
 // ===== ZOOM + PAN =====
 let currentScale = 0.8;
 const minScale = 0.3;
@@ -560,13 +562,25 @@ blockTabs.forEach(tab => {
     blockTabs.forEach(t => t.classList.remove('plans__block-tab--active'));
     tab.classList.add('plans__block-tab--active');
     const block = +tab.dataset.block;
+    plansInited = true;
     renderApts(block, 0);
     selectApt(block, 0);
   });
 });
 
-renderApts(1, 0);
-selectApt(1, 0, true);
+// Defer plans init until user is near the section
+const plansSectionEl = document.querySelector('.plans');
+if (plansSectionEl) {
+  const plansObserver = new IntersectionObserver((entries) => {
+    if (entries[0].isIntersecting && !plansInited) {
+      plansInited = true;
+      plansObserver.disconnect();
+      renderApts(1, 0);
+      selectApt(1, 0, true);
+    }
+  }, { rootMargin: '200px' });
+  plansObserver.observe(plansSectionEl);
+}
 
 // ===== COURTYARD: мобильные табы =====
 document.querySelectorAll('.courtyard__tab').forEach(tab => {
@@ -726,7 +740,17 @@ document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape') closeGalleryModal();
 });
 
-initGallery();
+// Defer gallery init until user is near the section
+const gallerySection = document.querySelector('.gallery');
+if (gallerySection) {
+  const galleryObserver = new IntersectionObserver((entries) => {
+    if (entries[0].isIntersecting) {
+      galleryObserver.disconnect();
+      initGallery();
+    }
+  }, { rootMargin: '300px' });
+  galleryObserver.observe(gallerySection);
+}
 
 // ===== ПЛАВНЫЙ СКРОЛЛ К ЯКОРЯМ =====
 document.querySelectorAll('a[href^="#"]').forEach(link => {
