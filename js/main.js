@@ -21,12 +21,15 @@ if (isMobile) {
 // ===== GSAP + ScrollTrigger =====
 gsap.registerPlugin(ScrollTrigger);
 
-// Mobile: use RAF-based scroll for smoother performance
+// Mobile: prevent layout thrash and scroll jank
 if (isMobile) {
   ScrollTrigger.config({
-    ignoreMobileResize: true,  // don't refresh on every mobile resize (address bar show/hide)
-    autoRefreshEvents: 'visibilitychange,DOMContentLoaded,load', // skip orientationchange jank
+    ignoreMobileResize: true,   // don't refresh on iOS address bar show/hide
+    autoRefreshEvents: 'visibilitychange,DOMContentLoaded,load',
   });
+  // Normalize scroll: GSAP intercepts native scroll and feeds it via RAF
+  // — eliminates the "freeze on direction change" on mobile
+  ScrollTrigger.normalizeScroll(true);
 }
 
 // ===== HERO TIMELINE =====
@@ -94,6 +97,7 @@ function createSlideInAnimations() {
     scrollTrigger: {
       trigger: '#about-section',
       start: 'top 75%',
+      once: true,
     },
   });
 
@@ -107,6 +111,7 @@ function createSlideInAnimations() {
     scrollTrigger: {
       trigger: '#aboutP1',
       start: 'top 80%',
+      once: true,
     },
   });
 
@@ -119,6 +124,7 @@ function createSlideInAnimations() {
     scrollTrigger: {
       trigger: '#about-section',
       start: 'top 70%',
+      once: true,
     },
   });
 
@@ -131,6 +137,7 @@ function createSlideInAnimations() {
     scrollTrigger: {
       trigger: '#infrastructure',
       start: 'top 80%',
+      once: true,
     },
   });
 
@@ -144,6 +151,7 @@ function createSlideInAnimations() {
     scrollTrigger: {
       trigger: '#surLeft',
       start: 'top 75%',
+      once: true,
     },
   });
 
@@ -157,6 +165,7 @@ function createSlideInAnimations() {
     scrollTrigger: {
       trigger: '#surRight',
       start: 'top 75%',
+      once: true,
     },
   });
 
@@ -169,6 +178,7 @@ function createSlideInAnimations() {
     scrollTrigger: {
       trigger: '#surMap',
       start: 'top 85%',
+      once: true,
     },
   });
 
@@ -182,6 +192,7 @@ function createSlideInAnimations() {
     scrollTrigger: {
       trigger: '#architecture',
       start: 'top 75%',
+      once: true,
     },
   });
 
@@ -194,6 +205,7 @@ function createSlideInAnimations() {
     scrollTrigger: {
       trigger: '#archBig',
       start: 'top 80%',
+      once: true,
     },
   });
 
@@ -207,6 +219,7 @@ function createSlideInAnimations() {
     scrollTrigger: {
       trigger: '#archSmall',
       start: 'top 80%',
+      once: true,
     },
   });
 
@@ -220,6 +233,7 @@ function createSlideInAnimations() {
     scrollTrigger: {
       trigger: '#courtyard',
       start: 'top 75%',
+      once: true,
     },
   });
 
@@ -232,6 +246,7 @@ function createSlideInAnimations() {
     scrollTrigger: {
       trigger: '#courtyardCircles',
       start: 'top 80%',
+      once: true,
     },
   });
 
@@ -245,6 +260,7 @@ function createSlideInAnimations() {
     scrollTrigger: {
       trigger: '#courtyardCircles',
       start: 'top 80%',
+      once: true,
     },
   });
 
@@ -257,6 +273,7 @@ function createSlideInAnimations() {
     scrollTrigger: {
       trigger: '.tech__main',
       start: 'top 80%',
+      once: true,
     },
   });
 
@@ -268,6 +285,7 @@ function createSlideInAnimations() {
     scrollTrigger: {
       trigger: '.tech__image-wrap',
       start: 'top 85%',
+      once: true,
     },
   });
 
@@ -280,6 +298,7 @@ function createSlideInAnimations() {
     scrollTrigger: {
       trigger: '#plans',
       start: 'top 80%',
+      once: true,
     },
   });
 
@@ -292,6 +311,7 @@ function createSlideInAnimations() {
     scrollTrigger: {
       trigger: '.plans__blocks',
       start: 'top 85%',
+      once: true,
     },
   });
 
@@ -304,6 +324,7 @@ function createSlideInAnimations() {
     scrollTrigger: {
       trigger: '.plans__apts',
       start: 'top 85%',
+      once: true,
     },
   });
 
@@ -317,6 +338,7 @@ function createSlideInAnimations() {
     scrollTrigger: {
       trigger: '#contacts',
       start: 'top 75%',
+      once: true,
     },
   });
 
@@ -329,6 +351,7 @@ function createSlideInAnimations() {
     scrollTrigger: {
       trigger: '#contacts',
       start: 'top 75%',
+      once: true,
     },
   });
 }
