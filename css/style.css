@@ -3590,18 +3590,14 @@ a {
   }
 
   /* ===== GALLERY MOBILE ===== */
-  /* Stop CSS infinite animation — use native touch scroll instead */
-  .gallery__track-wrap {
-    overflow-x: auto;
-    overflow-y: hidden;
-    -webkit-overflow-scrolling: touch;
-    touch-action: pan-x;
-    scrollbar-width: none;
-  }
-  .gallery__track-wrap::-webkit-scrollbar { display: none; }
+  /* Keep auto-scroll but GPU-accelerate the track */
   .gallery__track {
-    animation: none;
-    padding: 0 16px;
+    will-change: transform;
+    transform: translateZ(0);
+  }
+  /* Allow touch to pause/interact but don't override horizontal animation */
+  .gallery__track-wrap {
+    touch-action: pan-y;
   }
 
   .gallery {
