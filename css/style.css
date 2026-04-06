@@ -2204,7 +2204,7 @@ a {
   display: flex;
   gap: 16px;
   width: max-content;
-  animation: galleryScroll 60s linear infinite;
+  animation: galleryScroll 120s linear infinite;
 }
 
 .gallery__card {
