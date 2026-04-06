@@ -2405,6 +2405,8 @@ a {
   color: rgba(255, 255, 255, 0.65);
   text-decoration: none;
   transition: color 0.3s ease;
+  display: inline-flex;
+  align-items: center;
 }
 
 .footer__nav-link:hover {
@@ -2458,6 +2460,8 @@ a {
   color: rgba(255, 255, 255, 0.8);
   text-decoration: none;
   transition: color 0.3s ease;
+  display: inline-flex;
+  align-items: center;
 }
 
 .footer__phone:hover {
