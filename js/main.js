@@ -78,6 +78,12 @@ document.getElementById('heroArrow').addEventListener('click', () => {
 
 // ===== SLIDE-IN АНИМАЦИИ =====
 function createSlideInAnimations() {
+  // Helper: пропускает анимацию если элемент не найден в DOM
+  const gsapFrom = (target, vars) => {
+    if (!document.querySelector(target)) return;
+    gsap.from(target, vars);
+  };
+
   // На мобильных: только opacity + небольшой y, без x (горизонтальный скролл), короче duration
   const xL = isMobile ? 0 : -60;
   const xR = isMobile ? 0 : 60;
@@ -145,7 +151,7 @@ function createSlideInAnimations() {
   );
 
   // ОКРУЖЕНИЕ: заголовок сверху
-  gsap.from('#surTitle', {
+  gsapFrom('#surTitle', {
     opacity: 0,
     y: yBase,
     duration: dur,
@@ -158,7 +164,7 @@ function createSlideInAnimations() {
   });
 
   // Фото слева
-  gsap.from('#surLeft', {
+  gsapFrom('#surLeft', {
     opacity: 0,
     x: isMobile ? 0 : -80,
     y: isMobile ? yBase : 0,
@@ -172,7 +178,7 @@ function createSlideInAnimations() {
   });
 
   // Текст справа
-  gsap.from('#surRight', {
+  gsapFrom('#surRight', {
     opacity: 0,
     x: xR,
     y: isMobile ? yBase : 0,
@@ -199,7 +205,7 @@ function createSlideInAnimations() {
   });
 
   // АРХИТЕКТУРА: текст слева, круги справа
-  gsap.from('#archText', {
+  gsapFrom('#archText', {
     opacity: 0,
     x: xL,
     y: isMobile ? yBase : 0,
@@ -212,7 +218,7 @@ function createSlideInAnimations() {
     },
   });
 
-  gsap.from('#archBig', {
+  gsapFrom('#archBig', {
     opacity: 0,
     x: xXl,
     y: isMobile ? yBase : 0,
@@ -225,7 +231,7 @@ function createSlideInAnimations() {
     },
   });
 
-  gsap.from('#archSmall', {
+  gsapFrom('#archSmall', {
     opacity: 0,
     x: isMobile ? 0 : 60,
     y: isMobile ? yBase : 40,
@@ -293,7 +299,7 @@ function createSlideInAnimations() {
     },
   });
 
-  gsap.from('.tech__image-wrap', {
+  gsapFrom('.tech__image-wrap', {
     opacity: 0,
     y: yBase,
     duration: 0.9,
@@ -707,33 +713,37 @@ ghTabs.forEach(tab => {
 });
 
 // Автопереключение табов GREEN HALL
-if (ghTabs.length > 0) {
+const ghTabsAuto = document.querySelectorAll('.gh__tab');
+if (ghTabsAuto.length > 0) {
   let ghCurrentIndex = 0;
-  let ghAutoplay;
-  let ghIsAutoClick = false;
+  let ghAutoplay = null;
 
-  function ghSwitchTab(index) {
-    ghIsAutoClick = true;
+  function ghSwitchToIndex(index) {
     ghCurrentIndex = index;
-    switchZone(ghTabs[index].dataset.zone);
-    ghIsAutoClick = false;
-  }
-
-  function ghStartAutoplay() {
-    ghAutoplay = setInterval(() => {
-      ghCurrentIndex = (ghCurrentIndex + 1) % ghTabs.length;
-      ghSwitchTab(ghCurrentIndex);
-    }, 2000);
+    ghTabsAuto.forEach(t => t.classList.remove('gh__tab--active'));
+    ghTabsAuto[index].classList.add('gh__tab--active');
+    // Триггерим существующую логику показа карточки
+    ghTabsAuto[index].dispatchEvent(new Event('click', { bubbles: false }));
   }
 
   function ghStopAutoplay() {
-    clearInterval(ghAutoplay);
+    if (ghAutoplay) {
+      clearInterval(ghAutoplay);
+      ghAutoplay = null;
+    }
   }
 
-  // Остановка при ручном клике, возобновление через 5 сек
-  ghTabs.forEach((tab, i) => {
+  function ghStartAutoplay() {
+    ghStopAutoplay(); // всегда останавливаем перед запуском
+    ghAutoplay = setInterval(() => {
+      const nextIndex = (ghCurrentIndex + 1) % ghTabsAuto.length;
+      ghSwitchToIndex(nextIndex);
+    }, 2000);
+  }
+
+  // Ручной клик — останавливает, возобновляет через 5 сек
+  ghTabsAuto.forEach((tab, i) => {
     tab.addEventListener('click', () => {
-      if (ghIsAutoClick) return;
       ghCurrentIndex = i;
       ghStopAutoplay();
       setTimeout(ghStartAutoplay, 5000);
