@@ -128,6 +128,22 @@ function createSlideInAnimations() {
     },
   });
 
+  // О ПРОЕКТЕ: круг уменьшается при скролле
+  gsap.fromTo('.about__photo',
+    { scale: 1.3, transformOrigin: 'center center' },
+    {
+      scale: 1,
+      transformOrigin: 'center center',
+      ease: 'none',
+      scrollTrigger: {
+        trigger: '.about',
+        start: 'top bottom',
+        end: 'center center',
+        scrub: 1,
+      },
+    }
+  );
+
   // ОКРУЖЕНИЕ: заголовок сверху
   gsap.from('#surTitle', {
     opacity: 0,
