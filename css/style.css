@@ -857,7 +857,7 @@ a {
 /* ===== ОКРУЖЕНИЕ ===== */
 .surroundings {
   background: var(--bg);
-  padding: 40px 0 120px;
+  padding: 40px 0 0;
   position: relative;
   z-index: 1;
 }

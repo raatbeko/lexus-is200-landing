@@ -170,6 +170,87 @@
     </div>
   </section>
 
+  <!-- ===== ПЛАНИРОВКИ ===== -->
+  <section class="plans" id="plans">
+    <div class="plans__inner">
+
+      <!-- Заголовок -->
+      <div class="plans__header">
+        <p class="plans__label">Планировки</p>
+        <h2 class="plans__title">Выберите свою квартиру</h2>
+      </div>
+
+      <!-- Уровень 1: блоки -->
+      <div class="plans__blocks">
+        <button class="plans__block-tab plans__block-tab--active" data-block="1">1 Блок</button>
+        <button class="plans__block-tab" data-block="2">2 Блок</button>
+        <button class="plans__block-tab" data-block="3">3 Блок</button>
+      </div>
+
+      <!-- Уровень 2: квартиры -->
+      <div class="plans__apts" id="plansApts"></div>
+
+      <!-- Отображение планировки -->
+      <div class="plans__viewer">
+
+        <!-- ЛЕВАЯ КОЛОНКА — инфо 35% -->
+        <div class="plans__sidebar">
+          <div class="plans__sidebar-size" id="planSize">48,48 м²</div>
+          <div class="plans__sidebar-rooms" id="planRooms">2-комнатная</div>
+          <div class="plans__sidebar-desc-row">
+            <span class="plans__desc-icon">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M3 9.5L12 3l9 6.5V20a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9.5z"/>
+                <path d="M9 21V12h6v9"/>
+              </svg>
+            </span>
+            <span class="plans__sidebar-desc" id="planDesc">Квартира для семьи, которая хочет расти</span>
+          </div>
+
+          <div class="plans__sidebar-divider"></div>
+
+          <!-- Подсказка зума -->
+          <div class="plans__zoom-hint">
+            <div class="plans__zoom-hint-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="1.5">
+                <circle cx="11" cy="11" r="8"/>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                <line x1="11" y1="8" x2="11" y2="14"/>
+                <line x1="8" y1="11" x2="14" y2="11"/>
+              </svg>
+            </div>
+            <span>Используйте + / − для масштаба.<br>Зажмите и перетащите для просмотра.</span>
+          </div>
+
+          <!-- Кнопки зума -->
+          <div class="plans__zoom-controls">
+            <button class="plans__zoom-btn" id="zoomIn">+</button>
+            <button class="plans__zoom-btn" id="zoomOut">−</button>
+            <button class="plans__zoom-btn" id="zoomReset">↺</button>
+          </div>
+
+        </div>
+
+        <!-- ПРАВАЯ КОЛОНКА — планировка 65% -->
+        <div class="plans__plan-card" id="planPlanCard">
+          <img id="planSvg" src="" alt="" loading="eager">
+
+          <!-- Подсказка drag поверх фото -->
+          <div class="plans__drag-hint" id="dragHint">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+              stroke="white" stroke-width="1.5">
+              <path d="M5 9l-3 3 3 3M9 5l3-3 3 3M15 19l-3 3-3-3M19 9l3 3-3 3"/>
+            </svg>
+            <span>Перетащите для просмотра</span>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
   <!-- ===== ДВОР И ПЛОЩАДКА ===== -->
   <section class="courtyard" id="courtyard">
     <div class="courtyard__inner">
@@ -432,87 +513,6 @@
         <div class="borsan__photo-circle">
           <img src="prepared/sections/09_borsan/image/borsan-team.webp" alt="Команда Borsan Service" loading="lazy" decoding="async">
         </div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- ===== ПЛАНИРОВКИ ===== -->
-  <section class="plans" id="plans">
-    <div class="plans__inner">
-
-      <!-- Заголовок -->
-      <div class="plans__header">
-        <p class="plans__label">Планировки</p>
-        <h2 class="plans__title">Выберите свою квартиру</h2>
-      </div>
-
-      <!-- Уровень 1: блоки -->
-      <div class="plans__blocks">
-        <button class="plans__block-tab plans__block-tab--active" data-block="1">1 Блок</button>
-        <button class="plans__block-tab" data-block="2">2 Блок</button>
-        <button class="plans__block-tab" data-block="3">3 Блок</button>
-      </div>
-
-      <!-- Уровень 2: квартиры -->
-      <div class="plans__apts" id="plansApts"></div>
-
-      <!-- Отображение планировки -->
-      <div class="plans__viewer">
-
-        <!-- ЛЕВАЯ КОЛОНКА — инфо 35% -->
-        <div class="plans__sidebar">
-          <div class="plans__sidebar-size" id="planSize">48,48 м²</div>
-          <div class="plans__sidebar-rooms" id="planRooms">2-комнатная</div>
-          <div class="plans__sidebar-desc-row">
-            <span class="plans__desc-icon">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                <path d="M3 9.5L12 3l9 6.5V20a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9.5z"/>
-                <path d="M9 21V12h6v9"/>
-              </svg>
-            </span>
-            <span class="plans__sidebar-desc" id="planDesc">Квартира для семьи, которая хочет расти</span>
-          </div>
-
-          <div class="plans__sidebar-divider"></div>
-
-          <!-- Подсказка зума -->
-          <div class="plans__zoom-hint">
-            <div class="plans__zoom-hint-icon">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
-                stroke="currentColor" stroke-width="1.5">
-                <circle cx="11" cy="11" r="8"/>
-                <line x1="21" y1="21" x2="16.65" y2="16.65"/>
-                <line x1="11" y1="8" x2="11" y2="14"/>
-                <line x1="8" y1="11" x2="14" y2="11"/>
-              </svg>
-            </div>
-            <span>Используйте + / − для масштаба.<br>Зажмите и перетащите для просмотра.</span>
-          </div>
-
-          <!-- Кнопки зума -->
-          <div class="plans__zoom-controls">
-            <button class="plans__zoom-btn" id="zoomIn">+</button>
-            <button class="plans__zoom-btn" id="zoomOut">−</button>
-            <button class="plans__zoom-btn" id="zoomReset">↺</button>
-          </div>
-
-        </div>
-
-        <!-- ПРАВАЯ КОЛОНКА — планировка 65% -->
-        <div class="plans__plan-card" id="planPlanCard">
-          <img id="planSvg" src="" alt="" loading="eager">
-
-          <!-- Подсказка drag поверх фото -->
-          <div class="plans__drag-hint" id="dragHint">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-              stroke="white" stroke-width="1.5">
-              <path d="M5 9l-3 3 3 3M9 5l3-3 3 3M15 19l-3 3-3-3M19 9l3 3-3 3"/>
-            </svg>
-            <span>Перетащите для просмотра</span>
-          </div>
-        </div>
-
       </div>
 
     </div>
