@@ -856,7 +856,7 @@ a {
 /* ===== ОКРУЖЕНИЕ ===== */
 .surroundings {
   background: var(--bg);
-  padding: 120px 0;
+  padding: 40px 0 120px;
   position: relative;
   z-index: 1;
 }
@@ -1064,7 +1064,7 @@ a {
 /* ===== О ПРОЕКТЕ ===== */
 .about {
   background: var(--bg);
-  padding: 140px 0;
+  padding: 140px 0 50px;
   position: relative;
   z-index: 2;
   margin-top: 0;
