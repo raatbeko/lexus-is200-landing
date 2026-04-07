@@ -706,6 +706,43 @@ ghTabs.forEach(tab => {
   });
 });
 
+// Автопереключение табов GREEN HALL
+if (ghTabs.length > 0) {
+  let ghCurrentIndex = 0;
+  let ghAutoplay;
+  let ghIsAutoClick = false;
+
+  function ghSwitchTab(index) {
+    ghIsAutoClick = true;
+    ghCurrentIndex = index;
+    switchZone(ghTabs[index].dataset.zone);
+    ghIsAutoClick = false;
+  }
+
+  function ghStartAutoplay() {
+    ghAutoplay = setInterval(() => {
+      ghCurrentIndex = (ghCurrentIndex + 1) % ghTabs.length;
+      ghSwitchTab(ghCurrentIndex);
+    }, 2000);
+  }
+
+  function ghStopAutoplay() {
+    clearInterval(ghAutoplay);
+  }
+
+  // Остановка при ручном клике, возобновление через 5 сек
+  ghTabs.forEach((tab, i) => {
+    tab.addEventListener('click', () => {
+      if (ghIsAutoClick) return;
+      ghCurrentIndex = i;
+      ghStopAutoplay();
+      setTimeout(ghStartAutoplay, 5000);
+    });
+  });
+
+  ghStartAutoplay();
+}
+
 // ===== ГАЛЕРЕЯ =====
 const galleryBase = 'prepared/sections/11_gallery/image';
 const galleryImages = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,18,19,20,21,22,23,24,25,26];
