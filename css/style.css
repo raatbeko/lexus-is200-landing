@@ -4088,6 +4088,7 @@ a {
 
 @media (max-width: 768px) {
   .gh__top {
+    padding-top: 10px !important;
     padding-left: 20px !important;
     padding-right: 20px !important;
     box-sizing: border-box !important;
