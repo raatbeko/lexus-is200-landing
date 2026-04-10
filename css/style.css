@@ -1150,6 +1150,8 @@ a {
   overflow: hidden;
   outline: 5px solid #c3ae98;
   outline-offset: 0;
+  will-change: transform;
+  transform: translateZ(0);
 }
 
 .about__photo img {

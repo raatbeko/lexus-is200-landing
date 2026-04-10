@@ -141,11 +141,12 @@ function createSlideInAnimations() {
       scale: 1,
       transformOrigin: 'center center',
       ease: 'none',
+      force3D: true,
       scrollTrigger: {
         trigger: '.about',
         start: 'top bottom',
         end: 'center center',
-        scrub: 1,
+        scrub: 0.5,
       },
     }
   );
