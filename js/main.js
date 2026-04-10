@@ -134,22 +134,24 @@ function createSlideInAnimations() {
     },
   });
 
-  // О ПРОЕКТЕ: круг уменьшается при скролле
-  gsap.fromTo('.about__photo',
-    { scale: 1.3, transformOrigin: 'center center' },
-    {
-      scale: 1,
-      transformOrigin: 'center center',
-      ease: 'none',
-      force3D: true,
-      scrollTrigger: {
-        trigger: '.about',
-        start: 'top bottom',
-        end: 'center center',
-        scrub: 0.5,
-      },
-    }
-  );
+  // О ПРОЕКТЕ: круг уменьшается при скролле (только десктоп — scrub дорог для мобильного CPU)
+  if (!isMobile) {
+    gsap.fromTo('.about__photo',
+      { scale: 1.3, transformOrigin: 'center center' },
+      {
+        scale: 1,
+        transformOrigin: 'center center',
+        ease: 'none',
+        force3D: true,
+        scrollTrigger: {
+          trigger: '.about',
+          start: 'top bottom',
+          end: 'center center',
+          scrub: 0.5,
+        },
+      }
+    );
+  }
 
   // ОКРУЖЕНИЕ: заголовок сверху
   gsapFrom('#surTitle', {
@@ -530,12 +532,15 @@ planImg.addEventListener('touchstart', (e) => {
 }, { passive: false });
 
 planImg.addEventListener('touchmove', (e) => {
-  if (e.touches.length === 1 && currentScale > 1) {
+  const isPanning = e.touches.length === 1 && currentScale > 1;
+  const isPinching = e.touches.length === 2 && initialPinchDistance;
+
+  if (isPanning) {
     translateX = e.touches[0].clientX - lastTouchX;
     translateY = e.touches[0].clientY - lastTouchY;
     updateTransform();
   }
-  if (e.touches.length === 2 && initialPinchDistance) {
+  if (isPinching) {
     const currentDistance = Math.hypot(
       e.touches[0].clientX - e.touches[1].clientX,
       e.touches[0].clientY - e.touches[1].clientY
@@ -545,7 +550,10 @@ planImg.addEventListener('touchmove', (e) => {
     initialPinchDistance = currentDistance;
     updateTransform();
   }
-  e.preventDefault();
+  // Блокируем дефолт только при реальном жесте — иначе страница может скроллиться
+  if (isPanning || isPinching) {
+    e.preventDefault();
+  }
 }, { passive: false });
 
 planImg.addEventListener('touchend', () => {
@@ -811,7 +819,8 @@ function openGalleryModal(n) {
   modalImg.style.opacity = '0';
 
   const img = new Image();
-  img.src = `${galleryBase}/${n}.jpg`;
+  // WebP в 5-10x меньше JPG — используем для модалки
+  img.src = `${galleryBase}/${n}.webp`;
   img.onload = () => {
     modalImg.src = img.src;
     loader.style.display = 'none';
@@ -842,6 +851,26 @@ document.addEventListener('keydown', (e) => {
   if (e.key === 'ArrowRight') navigateModal(1);
   if (e.key === 'Escape') closeGalleryModal();
 });
+
+// Свайп влево/вправо для навигации в модалке (мобильные)
+(function() {
+  const modal = document.getElementById('galleryModal');
+  let swipeStartX = 0;
+  let swipeStartY = 0;
+  modal.addEventListener('touchstart', (e) => {
+    swipeStartX = e.changedTouches[0].clientX;
+    swipeStartY = e.changedTouches[0].clientY;
+  }, { passive: true });
+  modal.addEventListener('touchend', (e) => {
+    if (!modal.classList.contains('open')) return;
+    const dx = e.changedTouches[0].clientX - swipeStartX;
+    const dy = e.changedTouches[0].clientY - swipeStartY;
+    // Горизонтальный свайп > 50px и не вертикальный
+    if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) {
+      navigateModal(dx < 0 ? 1 : -1);
+    }
+  }, { passive: true });
+})();
 
 // Defer gallery init until user is near the section
 const gallerySection = document.querySelector('.gallery');
