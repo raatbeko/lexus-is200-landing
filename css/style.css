@@ -68,6 +68,11 @@ button {
   font-family: inherit;
 }
 
+/* picture — прозрачная обёртка, не влияет на лейаут */
+picture {
+  display: contents;
+}
+
 img {
   max-width: 100%;
   height: auto;
@@ -91,18 +96,34 @@ a {
   color: inherit;
 }
 
-/* Hover-эффект для фотографий */
-.facts__image:hover img,
-.about__photo:hover img,
-.surroundings__circle:hover img,
-.arch__circle:hover img,
-.courtyard__circle:hover img,
-.tech__mother-circle:hover img,
-.borsan__photo-circle:hover img,
-.gh__card-circle:hover img,
-.plans__image-wrap:hover img,
-.gallery__slider .swiper-slide:hover img {
-  transform: scale(1.08);
+/* Hover-эффект только на устройствах с указателем (не тач) */
+@media (hover: hover) and (pointer: fine) {
+  .facts__image:hover img,
+  .about__photo:hover img,
+  .surroundings__circle:hover img,
+  .arch__circle:hover img,
+  .courtyard__circle:hover img,
+  .tech__mother-circle:hover img,
+  .borsan__photo-circle:hover img,
+  .gh__card-circle:hover img,
+  .plans__image-wrap:hover img,
+  .gallery__slider .swiper-slide:hover img {
+    transform: scale(1.08);
+  }
+}
+
+/* content-visibility: ускоряет рендер секций ниже экрана */
+.about,
+.surroundings,
+.arch,
+.courtyard,
+.gh,
+.tech,
+.plans,
+.gallery,
+.borsan {
+  content-visibility: auto;
+  contain-intrinsic-size: 0 600px;
 }
 
 /* ===== ХЕДЕР ===== */
@@ -353,7 +374,6 @@ a {
   bottom: 0;
   left: 0;
   right: 0;
-  will-change: transform;
 }
 
 .hero__layer img {
@@ -3099,5 +3119,42 @@ a {
   .arch__inner,
   .courtyard__inner {
     gap: 40px;
+  }
+}
+
+/* ===== ПРОИЗВОДИТЕЛЬНОСТЬ НА МОБИЛЬНЫХ ===== */
+
+/* Убираем transition на тач-устройствах — нет смысла анимировать hover */
+@media (hover: none) {
+  img {
+    transition: none;
+  }
+}
+
+/* Отменяем content-visibility для hero — он сразу виден */
+.hero {
+  content-visibility: visible;
+}
+
+/* Плавный скролл внутри горизонтально-скроллируемых блоков */
+.plans__blocks,
+.plans__apts {
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+}
+
+.plans__block-tab,
+.plans__apt-tab {
+  scroll-snap-align: start;
+}
+
+/* Анимации отключены при prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }

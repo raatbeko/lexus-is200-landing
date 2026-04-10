@@ -1,14 +1,6 @@
 // ===== Immediate mobile detection =====
 let isMobile = window.innerWidth <= 768;
 
-window.addEventListener('resize', () => {
-  isMobile = window.innerWidth <= 768;
-  ScrollTrigger.refresh();
-});
-
-console.log('Initial isMobile:', isMobile, 'width:', window.innerWidth);
-
-// If mobile, skip all JS animations and scripts
 if (isMobile) {
   document.documentElement.classList.add('is-mobile');
 }
@@ -49,6 +41,16 @@ mobileLinks.forEach(link => {
 document.getElementById('heroArrow').addEventListener('click', () => {
   document.querySelector('#about-section, .about').scrollIntoView({ behavior: 'smooth' });
 });
+
+// ===== DEBOUNCED RESIZE =====
+let resizeTimer;
+window.addEventListener('resize', () => {
+  clearTimeout(resizeTimer);
+  resizeTimer = setTimeout(() => {
+    isMobile = window.innerWidth <= 768;
+    ScrollTrigger.refresh();
+  }, 150);
+}, { passive: true });
 
 // ===== SLIDE-IN АНИМАЦИИ =====
 function createSlideInAnimations() {
@@ -385,17 +387,17 @@ function renderApts(block, activeIndex = 0) {
 
 function selectApt(block, index) {
   const apt = plansData[block][index];
-  
+
   document.querySelectorAll('.plans__apt-tab').forEach((b, i) =>
     b.classList.toggle('plans__apt-tab--active', i === index)
   );
-  
+
   planImage.src = apt.img;
   planImage.alt = apt.size;
   planSize.textContent = apt.size;
   planRooms.textContent = apt.rooms;
-  
-  gsap.fromTo(plansDisplay, 
+
+  gsap.fromTo(plansDisplay,
     { opacity: 0, y: 20, scale: 0.98 },
     { opacity: 1, y: 0, scale: 1, duration: 0.4, ease: 'power2.out' }
   );
@@ -414,11 +416,19 @@ blockTabs.forEach(tab => {
 renderApts(1, 0);
 selectApt(1, 0);
 
-// Preload всех картинок планировок при загрузке страницы
-Object.values(plansData).flat().forEach(apt => {
-  const img = new Image();
-  img.src = apt.img;
-});
+// Preload планировок во время простоя браузера
+const preloadPlans = () => {
+  Object.values(plansData).flat().forEach(apt => {
+    const img = new Image();
+    img.src = apt.img;
+  });
+};
+
+if ('requestIdleCallback' in window) {
+  requestIdleCallback(preloadPlans, { timeout: 3000 });
+} else {
+  setTimeout(preloadPlans, 2000);
+}
 
 // ===== GREEN HALL: переключение зон =====
 const ghTabs = document.querySelectorAll('.gh__tab');
@@ -435,10 +445,14 @@ function switchZone(zone) {
     tab.classList.toggle('gh__tab--active', tab.dataset.zone === zone);
   });
 
+  // На мобильных убираем x-смещение чтобы избежать горизонтального скролла
+  const slideX = isMobile ? 0 : -30;
+  const enterX = isMobile ? 0 : 40;
+
   if (activeCard) {
     gsap.to(activeCard, {
       opacity: 0,
-      x: -30,
+      x: slideX,
       duration: 0.15,
       ease: 'power2.in',
       onComplete: () => {
@@ -453,7 +467,7 @@ function switchZone(zone) {
         newCard.style.pointerEvents = 'auto';
 
         gsap.fromTo(newCard,
-          { opacity: 0, x: 40 },
+          { opacity: 0, x: enterX },
           { opacity: 1, x: 0, duration: 0.35, ease: 'power2.out' }
         );
         newCard.classList.add('gh__card--active');
@@ -502,8 +516,6 @@ document.querySelectorAll('a[href^="#"]').forEach(link => {
 });
 
 // ===== Respect prefers-reduced-motion =====
-const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-if (prefersReducedMotion) {
+if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
   gsap.globalTimeline.pause();
 }
