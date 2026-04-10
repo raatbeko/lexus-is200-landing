@@ -56,9 +56,8 @@ main, .wrapper {
 }
 
 html {
-  scroll-behavior: smooth;
+  /* scroll-behavior управляет Lenis — CSS smooth убираем чтобы избежать двойного сглаживания */
   -webkit-overflow-scrolling: touch;
-  /* pan-y: browser handles vertical scroll natively, no 300ms delay */
   touch-action: pan-y;
 }
 
