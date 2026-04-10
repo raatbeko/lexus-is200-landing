@@ -335,7 +335,24 @@ function createSlideInAnimations() {
   });
 }
 
-createSlideInAnimations();
+// На мобильных: никаких GSAP ScrollTrigger — они создают 18+ scroll-слушателей
+// и блокируют нативный 120fps скролл. Элементы просто видимы с самого начала.
+if (!isMobile) {
+  createSlideInAnimations();
+
+  // Галерея — тоже только на десктопе
+  gsap.from('.gallery__card', {
+    opacity: 0,
+    y: 50,
+    duration: 0.8,
+    stagger: 0.15,
+    ease: 'power3.out',
+    scrollTrigger: {
+      trigger: '.gallery__grid',
+      start: 'top 80%',
+    },
+  });
+}
 
 // ===== ПЛАНИРОВКИ =====
 const plansBase = 'prepared/sections/10_plans/images';
@@ -489,19 +506,6 @@ ghTabs.forEach(tab => {
   tab.addEventListener('click', () => {
     switchZone(tab.dataset.zone);
   });
-});
-
-// ===== ГАЛЕРЕЯ: анимация карточек =====
-gsap.from('.gallery__card', {
-  opacity: 0,
-  y: 50,
-  duration: 0.8,
-  stagger: 0.15,
-  ease: 'power3.out',
-  scrollTrigger: {
-    trigger: '.gallery__grid',
-    start: 'top 80%',
-  },
 });
 
 // ===== ПЛАВНЫЙ СКРОЛЛ К ЯКОРЯМ =====
