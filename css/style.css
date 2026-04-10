@@ -39,7 +39,6 @@ main, .wrapper {
 
 html {
   scroll-behavior: smooth;
-  -webkit-overflow-scrolling: touch;
 }
 
 body {
@@ -112,19 +111,6 @@ a {
   }
 }
 
-/* content-visibility: ускоряет рендер секций ниже экрана */
-.about,
-.surroundings,
-.arch,
-.courtyard,
-.gh,
-.tech,
-.plans,
-.gallery,
-.borsan {
-  content-visibility: auto;
-  contain-intrinsic-size: 0 600px;
-}
 
 /* ===== ХЕДЕР ===== */
 .header {
@@ -2172,7 +2158,7 @@ a {
   
   body {
     -webkit-text-size-adjust: 100%;
-    overscroll-behavior: contain;
+    overscroll-behavior-x: none;
   }
 
   /* Hero */
@@ -3131,16 +3117,10 @@ a {
   }
 }
 
-/* Отменяем content-visibility для hero — он сразу виден */
-.hero {
-  content-visibility: visible;
-}
-
 /* Плавный скролл внутри горизонтально-скроллируемых блоков */
 .plans__blocks,
 .plans__apts {
   scroll-snap-type: x mandatory;
-  -webkit-overflow-scrolling: touch;
 }
 
 .plans__block-tab,
