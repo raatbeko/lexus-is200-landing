@@ -384,9 +384,8 @@ function createSlideInAnimations() {
 createSlideInAnimations();
 
 // ===== MOBILE АНИМАЦИИ: IntersectionObserver + CSS transitions =====
-// Принцип: элементы стартуют видимыми, JS добавляет класс .mob-anim (скрывает),
-// IntersectionObserver добавляет .mob-anim--visible когда входят в экран.
-// Ноль GSAP в потоке скролла — нативный скролл остаётся чистым.
+// Только opacity (без transform) — не нагружает GPU при обратном скролле.
+// Элементы уже видимые при загрузке — не скрываем (иначе мигают при скролле вверх).
 if (isMobile) {
   const mobTargets = [
     '#aboutTitle', '#aboutP1', '#aboutP2', '#aboutPhoto',
@@ -398,13 +397,6 @@ if (isMobile) {
     '#borsanLeft', '#borsanPhoto',
   ];
 
-  // Небольшая задержка для "вторых" элементов пар — лёгкий stagger
-  const mobDelays = {
-    '#aboutP2': 0.1,
-    '#archSmall': 0.12,
-    '#cyard2': 0.12,
-  };
-
   const mobObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
@@ -412,13 +404,15 @@ if (isMobile) {
         mobObserver.unobserve(entry.target);
       }
     });
-  }, { threshold: 0.1, rootMargin: '0px 0px -20px 0px' });
+  }, { threshold: 0.08 });
 
+  const vh = window.innerHeight;
   mobTargets.forEach(selector => {
     document.querySelectorAll(selector).forEach(el => {
+      const rect = el.getBoundingClientRect();
+      // Элемент уже в viewport при загрузке — не скрываем, не наблюдаем
+      if (rect.top < vh && rect.bottom > 0) return;
       el.classList.add('mob-anim');
-      const delay = mobDelays[selector];
-      if (delay) el.style.transitionDelay = `${delay}s`;
       mobObserver.observe(el);
     });
   });
