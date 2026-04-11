@@ -126,16 +126,16 @@
 
       <!-- Текст слева -->
       <div class="about__text">
-        <h2 class="about__title" id="aboutTitle">
+        <h2 class="about__title" id="aboutTitle" data-anim>
           <span class="about__title-accent">IVORY</span>
           <span class="about__title-sub">&nbsp;— жилой комплекс премиум класса</span>
         </h2>
-        <p class="about__para" id="aboutP1">
+        <p class="about__para" id="aboutP1" data-anim>
           Это проект, который создаёт новый уровень городской жизни.
           Он продуман для людей, которые привыкли окружать себя качеством,
           эстетикой и продуманными решениями — без компромиссов и случайных деталей.
         </p>
-        <p class="about__para" id="aboutP2">
+        <p class="about__para" id="aboutP2" data-anim style="--anim-delay:.12s">
           Комплекс формирует пространство, где всё работает на ощущение
           уверенности и гармонии: архитектура с характером, продуманная внутренняя
           среда и атмосфера, которая чувствуется с первых минут.
@@ -143,7 +143,7 @@
       </div>
 
       <!-- Круглое фото справа -->
-      <div class="about__photo" id="aboutPhoto">
+      <div class="about__photo" id="aboutPhoto" data-anim style="--anim-delay:.08s">
         <img src="prepared/sections/03_about/image/interior-circle.webp" alt="IVORY — интерьер" loading="lazy" decoding="async">
       </div>
 
@@ -155,7 +155,7 @@
     <div class="surroundings__inner">
 
       <!-- Карта -->
-      <div class="sur__map-wrap" id="surMap">
+      <div class="sur__map-wrap" id="surMap" data-anim>
         <!-- Фильтры -->
         <div class="sur__filters">
           <button class="sur__filter sur__filter--active" data-category="all">Все объекты</button>
@@ -202,13 +202,13 @@
     <div class="plans__inner">
 
       <!-- Заголовок -->
-      <div class="plans__header">
+      <div class="plans__header" data-anim>
         <p class="plans__label">Планировки</p>
         <h2 class="plans__title">Выберите свою квартиру</h2>
       </div>
 
       <!-- Уровень 1: блоки -->
-      <div class="plans__blocks">
+      <div class="plans__blocks" data-anim style="--anim-delay:.1s">
         <button class="plans__block-tab plans__block-tab--active" data-block="1">1 Блок</button>
         <button class="plans__block-tab" data-block="2">2 Блок</button>
         <button class="plans__block-tab" data-block="3">3 Блок</button>
@@ -283,7 +283,7 @@
     <div class="courtyard__inner">
 
       <!-- Левая: текст -->
-      <div class="courtyard__text" id="courtyardText">
+      <div class="courtyard__text" id="courtyardText" data-anim>
         <p class="courtyard__label">Детская площадка на уровне 3-го этажа</p>
         <p class="courtyard__para">
           Место, где детство звучит смехом и движением. Площадка продумана
@@ -302,12 +302,12 @@
       <div class="courtyard__circles" id="courtyardCircles">
 
         <!-- Круг 1: двор (больший, сверху-слева) -->
-        <div class="courtyard__circle courtyard__circle--big" id="cyard1">
+        <div class="courtyard__circle courtyard__circle--big" id="cyard1" data-anim>
           <img src="prepared/sections/06_courtyard/image/courtyard-wide.webp" alt="Двор IVORY" loading="lazy" decoding="async">
         </div>
 
         <!-- Круг 2: площадка (меньший, снизу-справа) + цитата -->
-        <div class="courtyard__photo-wrap" id="cyard2">
+        <div class="courtyard__photo-wrap" id="cyard2" data-anim style="--anim-delay:.12s">
           <div class="courtyard__circle courtyard__circle--small">
             <img src="prepared/sections/06_courtyard/image/playground-aerial.webp" alt="Детская площадка IVORY" loading="lazy" decoding="async">
           </div>
@@ -502,7 +502,7 @@
     <div class="tech__inner">
       <!-- Основные технические решения -->
       <div class="tech__main">
-        <h2 class="tech__title">Основные технические решения</h2>
+        <h2 class="tech__title" data-anim>Основные технические решения</h2>
         <p class="tech__para">Каждый элемент проекта продуман до деталей — от инженерных систем до отделки общих пространств. Всё, что скрыто за стенами, работает на ваш комфорт.</p>
       </div>
 
@@ -561,7 +561,7 @@
     <div class="borsan__inner">
 
       <!-- Левая: текст -->
-      <div class="borsan__left" id="borsanLeft">
+      <div class="borsan__left" id="borsanLeft" data-anim>
 
         <!-- Логотип -->
         <div class="borsan__logo">
@@ -580,7 +580,7 @@
       </div>
 
       <!-- Правая: фото -->
-      <div class="borsan__photo" id="borsanPhoto">
+      <div class="borsan__photo" id="borsanPhoto" data-anim style="--anim-delay:.1s">
         <div class="borsan__photo-circle">
           <img src="prepared/sections/09_borsan/image/borsan-team.webp" alt="Команда Borsan Service" loading="lazy" decoding="async">
         </div>
