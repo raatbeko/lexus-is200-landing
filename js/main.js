@@ -383,6 +383,47 @@ function createSlideInAnimations() {
 
 createSlideInAnimations();
 
+// ===== MOBILE АНИМАЦИИ: IntersectionObserver + CSS transitions =====
+// Принцип: элементы стартуют видимыми, JS добавляет класс .mob-anim (скрывает),
+// IntersectionObserver добавляет .mob-anim--visible когда входят в экран.
+// Ноль GSAP в потоке скролла — нативный скролл остаётся чистым.
+if (isMobile) {
+  const mobTargets = [
+    '#aboutTitle', '#aboutP1', '#aboutP2', '#aboutPhoto',
+    '#surTitle', '#surLeft', '#surRight', '#surMap',
+    '#archText', '#archBig', '#archSmall',
+    '#courtyardText', '#cyard1', '#cyard2',
+    '.tech__title', '.tech__image-wrap',
+    '.plans__header', '.plans__blocks', '.plans__apts',
+    '#borsanLeft', '#borsanPhoto',
+  ];
+
+  // Небольшая задержка для "вторых" элементов пар — лёгкий stagger
+  const mobDelays = {
+    '#aboutP2': 0.1,
+    '#archSmall': 0.12,
+    '#cyard2': 0.12,
+  };
+
+  const mobObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('mob-anim--visible');
+        mobObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -20px 0px' });
+
+  mobTargets.forEach(selector => {
+    document.querySelectorAll(selector).forEach(el => {
+      el.classList.add('mob-anim');
+      const delay = mobDelays[selector];
+      if (delay) el.style.transitionDelay = `${delay}s`;
+      mobObserver.observe(el);
+    });
+  });
+}
+
 // ===== ПЛАНИРОВКИ =====
 const plansBase = 'prepared/sections/10_plans/images';
 const plansData = {
