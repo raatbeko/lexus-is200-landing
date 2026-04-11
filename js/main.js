@@ -76,11 +76,6 @@ document.getElementById('heroArrow').addEventListener('click', () => {
 
 // ===== SLIDE-IN АНИМАЦИИ =====
 function createSlideInAnimations() {
-  // На мобиле — нативный скролл + GSAP ScrollTrigger конфликтуют (iOS rubber band,
-  // momentum scroll даёт "кривые" позиции). Элементы мигают и opacity застревает в 0.
-  // Решение как у Tilda: на мобиле вообще без scroll-анимаций — элементы просто видны.
-  if (isMobile) return;
-
   // Helper: пропускает анимацию если элемент не найден в DOM
   const gsapFrom = (target, vars) => {
     if (!document.querySelector(target)) return;
@@ -95,324 +90,174 @@ function createSlideInAnimations() {
   const yBase = 40;
   const dur = 0.8;
 
+  // immediateRender: false — элементы НЕ уходят в opacity:0 при загрузке.
+  // Только в момент срабатывания trigger начинается анимация from→to.
+  // Это ключ к работе на мобиле без normalizeScroll: нет "зависших" невидимых элементов.
+
   // О ПРОЕКТЕ: текст слева, фото справа
   gsap.from('#aboutTitle', {
-    opacity: 0,
-    x: xL,
-    y: 0,
-    duration: dur,
-    ease: 'power3.out',
-    scrollTrigger: {
-      trigger: '#about-section',
-      start: 'top 75%',
-      once: true,
-    },
+    opacity: 0, x: xL,
+    duration: dur, ease: 'power3.out',
+    immediateRender: false,
+    scrollTrigger: { trigger: '#about-section', start: 'top 75%', once: true },
   });
 
   gsap.from('#aboutP1, #aboutP2', {
-    opacity: 0,
-    x: -40,
-    y: 0,
-    duration: dur,
-    stagger: 0.2,
-    ease: 'power3.out',
-    scrollTrigger: {
-      trigger: '#aboutP1',
-      start: 'top 80%',
-      once: true,
-    },
+    opacity: 0, x: -40,
+    duration: dur, stagger: 0.2, ease: 'power3.out',
+    immediateRender: false,
+    scrollTrigger: { trigger: '#aboutP1', start: 'top 80%', once: true },
   });
 
   gsap.from('#aboutPhoto', {
-    opacity: 0,
-    x: xRg,
-    y: 0,
-    duration: dur,
-    ease: 'power3.out',
-    scrollTrigger: {
-      trigger: '#about-section',
-      start: 'top 70%',
-      once: true,
-    },
+    opacity: 0, x: xRg,
+    duration: dur, ease: 'power3.out',
+    immediateRender: false,
+    scrollTrigger: { trigger: '#about-section', start: 'top 70%', once: true },
   });
 
-  // О ПРОЕКТЕ: круг уменьшается при скролле (scale 1.3 → 1) — только десктоп
-  gsap.fromTo('.about__photo',
-    { scale: 1.3, transformOrigin: 'center center' },
-    {
-      scale: 1,
-      transformOrigin: 'center center',
-      ease: 'none',
-      force3D: true,
-      scrollTrigger: {
-        trigger: '.about',
-        start: 'top bottom',
-        end: 'center center',
-        scrub: 0.5,
-      },
-    }
-  );
+  // О ПРОЕКТЕ: круг уменьшается при скролле — scrub только на десктопе
+  if (!isMobile) {
+    gsap.fromTo('.about__photo',
+      { scale: 1.3, transformOrigin: 'center center' },
+      {
+        scale: 1, transformOrigin: 'center center',
+        ease: 'none', force3D: true,
+        scrollTrigger: { trigger: '.about', start: 'top bottom', end: 'center center', scrub: 0.5 },
+      }
+    );
+  }
 
   // ОКРУЖЕНИЕ: заголовок сверху
   gsapFrom('#surTitle', {
-    opacity: 0,
-    y: yBase,
-    duration: dur,
-    ease: 'power3.out',
-    scrollTrigger: {
-      trigger: '#infrastructure',
-      start: 'top 80%',
-      once: true,
-    },
+    opacity: 0, y: yBase,
+    duration: dur, ease: 'power3.out',
+    immediateRender: false,
+    scrollTrigger: { trigger: '#infrastructure', start: 'top 80%', once: true },
   });
 
   // Фото слева
   gsapFrom('#surLeft', {
-    opacity: 0,
-    x: -80,
-    y: 0,
-    duration: dur,
-    ease: 'power3.out',
-    scrollTrigger: {
-      trigger: '#surLeft',
-      start: 'top 75%',
-      once: true,
-    },
+    opacity: 0, x: -80,
+    duration: dur, ease: 'power3.out',
+    immediateRender: false,
+    scrollTrigger: { trigger: '#surLeft', start: 'top 75%', once: true },
   });
 
   // Текст справа
   gsapFrom('#surRight', {
-    opacity: 0,
-    x: xR,
-    y: 0,
-    duration: 0.9,
-    ease: 'power3.out',
-    scrollTrigger: {
-      trigger: '#surRight',
-      start: 'top 75%',
-      once: true,
-    },
+    opacity: 0, x: xR,
+    duration: 0.9, ease: 'power3.out',
+    immediateRender: false,
+    scrollTrigger: { trigger: '#surRight', start: 'top 75%', once: true },
   });
 
   // Карта снизу
   gsap.from('#surMap', {
-    opacity: 0,
-    y: yBase,
-    duration: 0.9,
-    ease: 'power3.out',
-    scrollTrigger: {
-      trigger: '#surMap',
-      start: 'top 85%',
-      once: true,
-    },
+    opacity: 0, y: yBase,
+    duration: 0.9, ease: 'power3.out',
+    immediateRender: false,
+    scrollTrigger: { trigger: '#surMap', start: 'top 85%', once: true },
   });
 
   // АРХИТЕКТУРА: текст слева, круги справа
   gsapFrom('#archText', {
-    opacity: 0,
-    x: xL,
-    y: 0,
-    duration: 0.9,
-    ease: 'power3.out',
-    scrollTrigger: {
-      trigger: '#architecture',
-      start: 'top 75%',
-      once: true,
-    },
+    opacity: 0, x: xL,
+    duration: 0.9, ease: 'power3.out',
+    immediateRender: false,
+    scrollTrigger: { trigger: '#architecture', start: 'top 75%', once: true },
   });
 
   gsapFrom('#archBig', {
-    opacity: 0,
-    x: xXl,
-    y: 0,
-    duration: dur,
-    ease: 'power3.out',
-    scrollTrigger: {
-      trigger: '#archBig',
-      start: 'top 80%',
-      once: true,
-    },
+    opacity: 0, x: xXl,
+    duration: dur, ease: 'power3.out',
+    immediateRender: false,
+    scrollTrigger: { trigger: '#archBig', start: 'top 80%', once: true },
   });
 
   gsapFrom('#archSmall', {
-    opacity: 0,
-    x: 60,
-    y: 40,
-    duration: dur,
-    delay: 0.2,
-    ease: 'power3.out',
-    scrollTrigger: {
-      trigger: '#archSmall',
-      start: 'top 80%',
-      once: true,
-    },
+    opacity: 0, x: 60, y: 40,
+    duration: dur, delay: 0.2, ease: 'power3.out',
+    immediateRender: false,
+    scrollTrigger: { trigger: '#archSmall', start: 'top 80%', once: true },
   });
 
   // ДВОР: текст слева, фото справа
   gsap.from('#courtyardText', {
-    opacity: 0,
-    x: xL,
-    y: 0,
-    duration: 0.9,
-    ease: 'power3.out',
-    scrollTrigger: {
-      trigger: '#courtyard',
-      start: 'top 75%',
-      once: true,
-    },
+    opacity: 0, x: xL,
+    duration: 0.9, ease: 'power3.out',
+    immediateRender: false,
+    scrollTrigger: { trigger: '#courtyard', start: 'top 75%', once: true },
   });
 
   gsap.from('#cyard1', {
-    opacity: 0,
-    x: xRg,
-    y: 0,
-    duration: dur,
-    ease: 'power3.out',
-    scrollTrigger: {
-      trigger: '#courtyardCircles',
-      start: 'top 80%',
-      once: true,
-    },
+    opacity: 0, x: xRg,
+    duration: dur, ease: 'power3.out',
+    immediateRender: false,
+    scrollTrigger: { trigger: '#courtyardCircles', start: 'top 80%', once: true },
   });
 
   gsap.from('#cyard2', {
-    opacity: 0,
-    x: 50,
-    y: 30,
-    duration: dur,
-    delay: 0.2,
-    ease: 'power3.out',
-    scrollTrigger: {
-      trigger: '#courtyardCircles',
-      start: 'top 80%',
-      once: true,
-    },
+    opacity: 0, x: 50, y: 30,
+    duration: dur, delay: 0.2, ease: 'power3.out',
+    immediateRender: false,
+    scrollTrigger: { trigger: '#courtyardCircles', start: 'top 80%', once: true },
   });
 
   // ТЕХНИЧЕСКИЕ РЕШЕНИЯ
   gsap.from('.tech__title', {
-    opacity: 0,
-    y: yBase,
-    duration: dur,
-    ease: 'power3.out',
-    scrollTrigger: {
-      trigger: '.tech__main',
-      start: 'top 80%',
-      once: true,
-    },
+    opacity: 0, y: yBase,
+    duration: dur, ease: 'power3.out',
+    immediateRender: false,
+    scrollTrigger: { trigger: '.tech__main', start: 'top 80%', once: true },
   });
 
   gsapFrom('.tech__image-wrap', {
-    opacity: 0,
-    y: yBase,
-    duration: 0.9,
-    ease: 'power3.out',
-    scrollTrigger: {
-      trigger: '.tech__image-wrap',
-      start: 'top 85%',
-      once: true,
-    },
+    opacity: 0, y: yBase,
+    duration: 0.9, ease: 'power3.out',
+    immediateRender: false,
+    scrollTrigger: { trigger: '.tech__image-wrap', start: 'top 85%', once: true },
   });
 
   // ПЛАНИРОВКИ
   gsap.from('.plans__header', {
-    opacity: 0,
-    y: yBase,
-    duration: dur,
-    ease: 'power3.out',
-    scrollTrigger: {
-      trigger: '#plans',
-      start: 'top 80%',
-      once: true,
-    },
+    opacity: 0, y: yBase,
+    duration: dur, ease: 'power3.out',
+    immediateRender: false,
+    scrollTrigger: { trigger: '#plans', start: 'top 80%', once: true },
   });
 
   gsap.from('.plans__blocks', {
-    opacity: 0,
-    y: 30,
-    duration: 0.7,
-    delay: 0.1,
-    ease: 'power3.out',
-    scrollTrigger: {
-      trigger: '.plans__blocks',
-      start: 'top 85%',
-      once: true,
-    },
+    opacity: 0, y: 30,
+    duration: 0.7, delay: 0.1, ease: 'power3.out',
+    immediateRender: false,
+    scrollTrigger: { trigger: '.plans__blocks', start: 'top 85%', once: true },
   });
 
   gsap.from('.plans__apts', {
-    opacity: 0,
-    y: 20,
-    duration: 0.6,
-    delay: 0.2,
-    ease: 'power3.out',
-    scrollTrigger: {
-      trigger: '.plans__apts',
-      start: 'top 85%',
-      once: true,
-    },
+    opacity: 0, y: 20,
+    duration: 0.6, delay: 0.2, ease: 'power3.out',
+    immediateRender: false,
+    scrollTrigger: { trigger: '.plans__apts', start: 'top 85%', once: true },
   });
 
   // BORSAN SERVICE
   gsap.from('#borsanLeft', {
-    opacity: 0,
-    x: -80,
-    y: 0,
-    duration: dur,
-    ease: 'power3.out',
-    scrollTrigger: {
-      trigger: '#contacts',
-      start: 'top 75%',
-      once: true,
-    },
+    opacity: 0, x: -80,
+    duration: dur, ease: 'power3.out',
+    immediateRender: false,
+    scrollTrigger: { trigger: '#contacts', start: 'top 75%', once: true },
   });
 
   gsap.from('#borsanPhoto', {
-    opacity: 0,
-    x: xRg,
-    y: 0,
-    duration: dur,
-    ease: 'power3.out',
-    scrollTrigger: {
-      trigger: '#contacts',
-      start: 'top 75%',
-      once: true,
-    },
+    opacity: 0, x: xRg,
+    duration: dur, ease: 'power3.out',
+    immediateRender: false,
+    scrollTrigger: { trigger: '#contacts', start: 'top 75%', once: true },
   });
 }
 
 createSlideInAnimations();
-
-// ===== MOBILE АНИМАЦИИ: IntersectionObserver + CSS transitions =====
-// Только opacity (без transform) — нет GPU-слоёв, нет глюков при скролле вверх.
-// Без viewport check — content-visibility:auto искажает getBoundingClientRect.
-if (isMobile) {
-  const mobTargets = [
-    '#aboutTitle', '#aboutP1', '#aboutP2', '#aboutPhoto',
-    '#surTitle', '#surLeft', '#surRight', '#surMap',
-    '#archText', '#archBig', '#archSmall',
-    '#courtyardText', '#cyard1', '#cyard2',
-    '.tech__title', '.tech__image-wrap',
-    '.plans__header', '.plans__blocks', '.plans__apts',
-    '#borsanLeft', '#borsanPhoto',
-  ];
-
-  const mobObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('mob-anim--visible');
-        mobObserver.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.08 });
-
-  mobTargets.forEach(selector => {
-    document.querySelectorAll(selector).forEach(el => {
-      el.classList.add('mob-anim');
-      mobObserver.observe(el);
-    });
-  });
-}
 
 // ===== ПЛАНИРОВКИ =====
 const plansBase = 'prepared/sections/10_plans/images';

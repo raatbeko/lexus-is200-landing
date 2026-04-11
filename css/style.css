@@ -4143,11 +4143,3 @@ a {
   }
 }
 
-/* ===== MOBILE SCROLL ANIMATIONS (IntersectionObserver, без GSAP в потоке скролла) ===== */
-.mob-anim {
-  opacity: 0;
-  transition: opacity 0.6s ease;
-}
-.mob-anim.mob-anim--visible {
-  opacity: 1;
-}
