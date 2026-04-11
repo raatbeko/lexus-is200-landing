@@ -384,8 +384,8 @@ function createSlideInAnimations() {
 createSlideInAnimations();
 
 // ===== MOBILE АНИМАЦИИ: IntersectionObserver + CSS transitions =====
-// Только opacity (без transform) — не нагружает GPU при обратном скролле.
-// Элементы уже видимые при загрузке — не скрываем (иначе мигают при скролле вверх).
+// Только opacity (без transform) — нет GPU-слоёв, нет глюков при скролле вверх.
+// Без viewport check — content-visibility:auto искажает getBoundingClientRect.
 if (isMobile) {
   const mobTargets = [
     '#aboutTitle', '#aboutP1', '#aboutP2', '#aboutPhoto',
@@ -406,12 +406,8 @@ if (isMobile) {
     });
   }, { threshold: 0.08 });
 
-  const vh = window.innerHeight;
   mobTargets.forEach(selector => {
     document.querySelectorAll(selector).forEach(el => {
-      const rect = el.getBoundingClientRect();
-      // Элемент уже в viewport при загрузке — не скрываем, не наблюдаем
-      if (rect.top < vh && rect.bottom > 0) return;
       el.classList.add('mob-anim');
       mobObserver.observe(el);
     });
