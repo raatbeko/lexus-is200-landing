@@ -27,8 +27,7 @@ if (isMobile) {
     ignoreMobileResize: true,
     autoRefreshEvents: 'visibilitychange,DOMContentLoaded,load',
   });
-  // Normalize scroll: убирает фриз при смене направления на iOS
-  ScrollTrigger.normalizeScroll(true);
+  // normalizeScroll убран — нативный скролл браузера плавнее любой JS-замены
 }
 
 // ===== HERO TIMELINE =====
@@ -134,21 +133,36 @@ function createSlideInAnimations() {
   });
 
   // О ПРОЕКТЕ: круг уменьшается при скролле (scale 1.3 → 1)
-  gsap.fromTo('.about__photo',
-    { scale: 1.3, transformOrigin: 'center center' },
-    {
-      scale: 1,
-      transformOrigin: 'center center',
-      ease: 'none',
-      force3D: true,
+  // На мобиле — одноразовая анимация без scrub (нативный скролл не нагружается)
+  if (isMobile) {
+    gsap.from('.about__photo', {
+      scale: 1.15,
+      opacity: 0,
+      duration: 0.8,
+      ease: 'power3.out',
       scrollTrigger: {
         trigger: '.about',
-        start: 'top bottom',
-        end: 'center center',
-        scrub: isMobile ? 1 : 0.5,
+        start: 'top 80%',
+        once: true,
       },
-    }
-  );
+    });
+  } else {
+    gsap.fromTo('.about__photo',
+      { scale: 1.3, transformOrigin: 'center center' },
+      {
+        scale: 1,
+        transformOrigin: 'center center',
+        ease: 'none',
+        force3D: true,
+        scrollTrigger: {
+          trigger: '.about',
+          start: 'top bottom',
+          end: 'center center',
+          scrub: 0.5,
+        },
+      }
+    );
+  }
 
   // ОКРУЖЕНИЕ: заголовок сверху
   gsapFrom('#surTitle', {
