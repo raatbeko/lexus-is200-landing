@@ -56,7 +56,7 @@ main, .wrapper {
 }
 
 html {
-  /* scroll-behavior управляет Lenis — CSS smooth убираем чтобы избежать двойного сглаживания */
+  scroll-behavior: smooth;
   -webkit-overflow-scrolling: touch;
   touch-action: pan-y;
 }

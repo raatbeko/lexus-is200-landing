@@ -21,34 +21,15 @@ if (isMobile) {
 // ===== GSAP + ScrollTrigger =====
 gsap.registerPlugin(ScrollTrigger);
 
-// Mobile: prevent layout thrash
+// Mobile: prevent layout thrash and scroll jank
 if (isMobile) {
   ScrollTrigger.config({
     ignoreMobileResize: true,
     autoRefreshEvents: 'visibilitychange,DOMContentLoaded,load',
   });
+  // Normalize scroll: убирает фриз при смене направления на iOS
+  ScrollTrigger.normalizeScroll(true);
 }
-
-// ===== LENIS SMOOTH SCROLL =====
-// Плавный скролл с momentum — заменяет нативный резкий отклик
-const lenis = new Lenis({
-  // lerp = какую долю оставшегося расстояния проходим за кадр (0–1)
-  // 0.08 на мобильных — мягко и отзывчиво; 0.1 на десктопе чуть быстрее
-  lerp: isMobile ? 0.08 : 0.1,
-  smoothTouch: true,      // включаем smooth на touch-устройствах
-  touchMultiplier: 1.8,   // чуть больше скорость свайпа пальцем
-  infinite: false,
-  gestureOrientation: 'vertical',
-});
-
-// Интеграция Lenis ↔ GSAP: каждый RAF-кадр GSAP тикает Lenis
-gsap.ticker.add((time) => lenis.raf(time * 1000));
-gsap.ticker.lagSmoothing(0);
-// ScrollTrigger узнаёт актуальную позицию скролла от Lenis
-lenis.on('scroll', ScrollTrigger.update);
-
-// Делаем lenis глобально доступным для модалок и зума
-window.__lenis = lenis;
 
 // ===== HERO TIMELINE =====
 const tl = gsap.timeline();
@@ -79,21 +60,19 @@ const mobileLinks = document.querySelectorAll('.mobile-menu__link, .mobile-menu_
 burger.addEventListener('click', () => {
   const isOpen = burger.classList.toggle('open');
   mobileMenu.classList.toggle('open', isOpen);
-  // Lenis управляет блокировкой скролла при открытом меню
-  isOpen ? lenis.stop() : lenis.start();
+  document.body.style.overflow = isOpen ? 'hidden' : '';
 });
 
 mobileLinks.forEach(link => {
   link.addEventListener('click', () => {
     burger.classList.remove('open');
     mobileMenu.classList.remove('open');
-    lenis.start();
+    document.body.style.overflow = '';
   });
 });
 
 document.getElementById('heroArrow').addEventListener('click', () => {
-  const target = document.querySelector('#about-section') || document.querySelector('.about');
-  if (target) lenis.scrollTo(target, { offset: 0, duration: 1.2 });
+  document.querySelector('#about-section, .about').scrollIntoView({ behavior: 'smooth' });
 });
 
 // ===== SLIDE-IN АНИМАЦИИ =====
@@ -536,8 +515,6 @@ document.addEventListener('mouseup', () => {
 
 // Тач
 planImg.addEventListener('touchstart', (e) => {
-  // Паузируем Lenis пока пользователь взаимодействует с планировкой
-  lenis.stop();
   if (e.touches.length === 1) {
     lastTouchX = e.touches[0].clientX - translateX;
     lastTouchY = e.touches[0].clientY - translateY;
@@ -578,8 +555,6 @@ planImg.addEventListener('touchmove', (e) => {
 
 planImg.addEventListener('touchend', () => {
   initialPinchDistance = null;
-  // Возобновляем Lenis после взаимодействия с планировкой
-  lenis.start();
 });
 
 // Скрыть drag-подсказку после первого взаимодействия
@@ -835,7 +810,7 @@ function openGalleryModal(n) {
   const loader = document.getElementById('galleryModalLoader');
 
   modal.classList.add('open');
-  lenis.stop();
+  document.body.style.overflow = 'hidden';
 
   loader.style.display = 'flex';
   modalImg.style.opacity = '0';
@@ -857,7 +832,7 @@ function navigateModal(dir) {
 
 function closeGalleryModal() {
   document.getElementById('galleryModal').classList.remove('open');
-  lenis.start();
+  document.body.style.overflow = '';
 }
 
 document.getElementById('galleryModalClose').addEventListener('click', closeGalleryModal);
@@ -912,8 +887,7 @@ document.querySelectorAll('a[href^="#"]').forEach(link => {
     const href = link.getAttribute('href');
     if (href !== '#') {
       e.preventDefault();
-      const target = document.querySelector(href);
-      if (target) lenis.scrollTo(target, { offset: 0, duration: 1.2 });
+      document.querySelector(href).scrollIntoView({ behavior: 'smooth' });
     }
   });
 });
@@ -923,12 +897,12 @@ const modalOverlay = document.getElementById('modalOverlay');
 
 function openModalFn() {
   modalOverlay.classList.add('open');
-  lenis.stop();
+  document.body.style.overflow = 'hidden';
 }
 
 function closeModalFn() {
   modalOverlay.classList.remove('open');
-  lenis.start();
+  document.body.style.overflow = '';
   document.getElementById('modalSuccess').style.display = 'none';
   document.getElementById('modalSubmit').style.display = '';
   document.getElementById('modalSubmit').disabled = false;
@@ -947,7 +921,8 @@ document.getElementById('headerCta').addEventListener('click', (e) => {
 document.getElementById('mobileMenuCta').addEventListener('click', () => {
   burger.classList.remove('open');
   mobileMenu.classList.remove('open');
-  openModalFn(); // lenis.stop() вызовется внутри openModalFn
+  document.body.style.overflow = '';
+  openModalFn();
 });
 
 modalOverlay.addEventListener('click', (e) => {
