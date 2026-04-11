@@ -154,24 +154,22 @@ function createSlideInAnimations() {
     },
   });
 
-  // О ПРОЕКТЕ: круг уменьшается при скролле (только десктоп — scrub дорог для мобильного CPU)
-  if (!isMobile) {
-    gsap.fromTo('.about__photo',
-      { scale: 1.3, transformOrigin: 'center center' },
-      {
-        scale: 1,
-        transformOrigin: 'center center',
-        ease: 'none',
-        force3D: true,
-        scrollTrigger: {
-          trigger: '.about',
-          start: 'top bottom',
-          end: 'center center',
-          scrub: 0.5,
-        },
-      }
-    );
-  }
+  // О ПРОЕКТЕ: круг уменьшается при скролле (scale 1.3 → 1)
+  gsap.fromTo('.about__photo',
+    { scale: 1.3, transformOrigin: 'center center' },
+    {
+      scale: 1,
+      transformOrigin: 'center center',
+      ease: 'none',
+      force3D: true,
+      scrollTrigger: {
+        trigger: '.about',
+        start: 'top bottom',
+        end: 'center center',
+        scrub: isMobile ? 1 : 0.5,
+      },
+    }
+  );
 
   // ОКРУЖЕНИЕ: заголовок сверху
   gsapFrom('#surTitle', {
