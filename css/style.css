@@ -2961,12 +2961,7 @@ a {
   .hero__cta-btn  { font-size: 12px; padding: 10px 28px; }
   .hero__slogan   { display: none; }
   .hero__subtitle { font-size: 12px; letter-spacing: 0.2em; }
-  /* На мобильных backdrop-filter на 6+ тегах — дорого, заменяем на полупрозрачный фон */
-  .hero__tag, .hero__cta-btn {
-    backdrop-filter: none;
-    -webkit-backdrop-filter: none;
-    background: rgba(0, 0, 0, 0.25);
-  }
+
   .hero__desc     {
     bottom: 68px;
     left: 20px;
