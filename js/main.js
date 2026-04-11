@@ -82,13 +82,14 @@ function createSlideInAnimations() {
     gsap.from(target, vars);
   };
 
-  const xL = -60;
-  const xR = 60;
-  const xLg = 80;
-  const xRg = 80;
-  const xXl = 100;
-  const yBase = 40;
-  const dur = 0.8;
+  // На мобиле x-анимации вызывают горизонтальный overflow и конфликт со scroll-detection.
+  // Только y + opacity — безопасно и плавно. Десктоп — полные x/y анимации.
+  const xL  = isMobile ? 0 : -60;
+  const xR  = isMobile ? 0 :  60;
+  const xRg = isMobile ? 0 :  80;
+  const xXl = isMobile ? 0 : 100;
+  const yBase = isMobile ? 20 : 40;
+  const dur   = isMobile ? 0.6 : 0.8;
 
   // immediateRender: false — элементы НЕ уходят в opacity:0 при загрузке.
   // Только в момент срабатывания trigger начинается анимация from→to.
@@ -103,7 +104,7 @@ function createSlideInAnimations() {
   });
 
   gsap.from('#aboutP1, #aboutP2', {
-    opacity: 0, x: -40,
+    opacity: 0, x: isMobile ? 0 : -40,
     duration: dur, stagger: 0.2, ease: 'power3.out',
     immediateRender: false,
     scrollTrigger: { trigger: '#aboutP1', start: 'top 80%', once: true },
@@ -138,7 +139,7 @@ function createSlideInAnimations() {
 
   // Фото слева
   gsapFrom('#surLeft', {
-    opacity: 0, x: -80,
+    opacity: 0, x: isMobile ? 0 : -80,
     duration: dur, ease: 'power3.out',
     immediateRender: false,
     scrollTrigger: { trigger: '#surLeft', start: 'top 75%', once: true },
@@ -176,7 +177,7 @@ function createSlideInAnimations() {
   });
 
   gsapFrom('#archSmall', {
-    opacity: 0, x: 60, y: 40,
+    opacity: 0, x: isMobile ? 0 : 60, y: isMobile ? yBase : 40,
     duration: dur, delay: 0.2, ease: 'power3.out',
     immediateRender: false,
     scrollTrigger: { trigger: '#archSmall', start: 'top 80%', once: true },
@@ -198,7 +199,7 @@ function createSlideInAnimations() {
   });
 
   gsap.from('#cyard2', {
-    opacity: 0, x: 50, y: 30,
+    opacity: 0, x: isMobile ? 0 : 50, y: isMobile ? yBase : 30,
     duration: dur, delay: 0.2, ease: 'power3.out',
     immediateRender: false,
     scrollTrigger: { trigger: '#courtyardCircles', start: 'top 80%', once: true },
@@ -243,7 +244,7 @@ function createSlideInAnimations() {
 
   // BORSAN SERVICE
   gsap.from('#borsanLeft', {
-    opacity: 0, x: -80,
+    opacity: 0, x: isMobile ? 0 : -80,
     duration: dur, ease: 'power3.out',
     immediateRender: false,
     scrollTrigger: { trigger: '#contacts', start: 'top 75%', once: true },
