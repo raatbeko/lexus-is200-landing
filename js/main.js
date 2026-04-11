@@ -76,26 +76,30 @@ document.getElementById('heroArrow').addEventListener('click', () => {
 
 // ===== SLIDE-IN АНИМАЦИИ =====
 function createSlideInAnimations() {
+  // На мобиле — нативный скролл + GSAP ScrollTrigger конфликтуют (iOS rubber band,
+  // momentum scroll даёт "кривые" позиции). Элементы мигают и opacity застревает в 0.
+  // Решение как у Tilda: на мобиле вообще без scroll-анимаций — элементы просто видны.
+  if (isMobile) return;
+
   // Helper: пропускает анимацию если элемент не найден в DOM
   const gsapFrom = (target, vars) => {
     if (!document.querySelector(target)) return;
     gsap.from(target, vars);
   };
 
-  // На мобильных: только opacity + небольшой y, без x (горизонтальный скролл), короче duration
-  const xL = isMobile ? 0 : -60;
-  const xR = isMobile ? 0 : 60;
-  const xLg = isMobile ? 0 : 80;
-  const xRg = isMobile ? 0 : 80;
-  const xXl = isMobile ? 0 : 100;
-  const yBase = isMobile ? 20 : 40;
-  const dur = isMobile ? 0.5 : 0.8;   // shorter on mobile = less JS work per frame
+  const xL = -60;
+  const xR = 60;
+  const xLg = 80;
+  const xRg = 80;
+  const xXl = 100;
+  const yBase = 40;
+  const dur = 0.8;
 
   // О ПРОЕКТЕ: текст слева, фото справа
   gsap.from('#aboutTitle', {
     opacity: 0,
     x: xL,
-    y: isMobile ? yBase : 0,
+    y: 0,
     duration: dur,
     ease: 'power3.out',
     scrollTrigger: {
@@ -107,8 +111,8 @@ function createSlideInAnimations() {
 
   gsap.from('#aboutP1, #aboutP2', {
     opacity: 0,
-    x: isMobile ? 0 : -40,
-    y: isMobile ? yBase : 0,
+    x: -40,
+    y: 0,
     duration: dur,
     stagger: 0.2,
     ease: 'power3.out',
@@ -122,7 +126,7 @@ function createSlideInAnimations() {
   gsap.from('#aboutPhoto', {
     opacity: 0,
     x: xRg,
-    y: isMobile ? yBase : 0,
+    y: 0,
     duration: dur,
     ease: 'power3.out',
     scrollTrigger: {
@@ -132,37 +136,22 @@ function createSlideInAnimations() {
     },
   });
 
-  // О ПРОЕКТЕ: круг уменьшается при скролле (scale 1.3 → 1)
-  // На мобиле — одноразовая анимация без scrub (нативный скролл не нагружается)
-  if (isMobile) {
-    gsap.from('.about__photo', {
-      scale: 1.15,
-      opacity: 0,
-      duration: 0.8,
-      ease: 'power3.out',
+  // О ПРОЕКТЕ: круг уменьшается при скролле (scale 1.3 → 1) — только десктоп
+  gsap.fromTo('.about__photo',
+    { scale: 1.3, transformOrigin: 'center center' },
+    {
+      scale: 1,
+      transformOrigin: 'center center',
+      ease: 'none',
+      force3D: true,
       scrollTrigger: {
         trigger: '.about',
-        start: 'top 80%',
-        once: true,
+        start: 'top bottom',
+        end: 'center center',
+        scrub: 0.5,
       },
-    });
-  } else {
-    gsap.fromTo('.about__photo',
-      { scale: 1.3, transformOrigin: 'center center' },
-      {
-        scale: 1,
-        transformOrigin: 'center center',
-        ease: 'none',
-        force3D: true,
-        scrollTrigger: {
-          trigger: '.about',
-          start: 'top bottom',
-          end: 'center center',
-          scrub: 0.5,
-        },
-      }
-    );
-  }
+    }
+  );
 
   // ОКРУЖЕНИЕ: заголовок сверху
   gsapFrom('#surTitle', {
@@ -180,8 +169,8 @@ function createSlideInAnimations() {
   // Фото слева
   gsapFrom('#surLeft', {
     opacity: 0,
-    x: isMobile ? 0 : -80,
-    y: isMobile ? yBase : 0,
+    x: -80,
+    y: 0,
     duration: dur,
     ease: 'power3.out',
     scrollTrigger: {
@@ -195,7 +184,7 @@ function createSlideInAnimations() {
   gsapFrom('#surRight', {
     opacity: 0,
     x: xR,
-    y: isMobile ? yBase : 0,
+    y: 0,
     duration: 0.9,
     ease: 'power3.out',
     scrollTrigger: {
@@ -222,7 +211,7 @@ function createSlideInAnimations() {
   gsapFrom('#archText', {
     opacity: 0,
     x: xL,
-    y: isMobile ? yBase : 0,
+    y: 0,
     duration: 0.9,
     ease: 'power3.out',
     scrollTrigger: {
@@ -235,7 +224,7 @@ function createSlideInAnimations() {
   gsapFrom('#archBig', {
     opacity: 0,
     x: xXl,
-    y: isMobile ? yBase : 0,
+    y: 0,
     duration: dur,
     ease: 'power3.out',
     scrollTrigger: {
@@ -247,8 +236,8 @@ function createSlideInAnimations() {
 
   gsapFrom('#archSmall', {
     opacity: 0,
-    x: isMobile ? 0 : 60,
-    y: isMobile ? yBase : 40,
+    x: 60,
+    y: 40,
     duration: dur,
     delay: 0.2,
     ease: 'power3.out',
@@ -263,7 +252,7 @@ function createSlideInAnimations() {
   gsap.from('#courtyardText', {
     opacity: 0,
     x: xL,
-    y: isMobile ? yBase : 0,
+    y: 0,
     duration: 0.9,
     ease: 'power3.out',
     scrollTrigger: {
@@ -276,7 +265,7 @@ function createSlideInAnimations() {
   gsap.from('#cyard1', {
     opacity: 0,
     x: xRg,
-    y: isMobile ? yBase : 0,
+    y: 0,
     duration: dur,
     ease: 'power3.out',
     scrollTrigger: {
@@ -288,8 +277,8 @@ function createSlideInAnimations() {
 
   gsap.from('#cyard2', {
     opacity: 0,
-    x: isMobile ? 0 : 50,
-    y: isMobile ? yBase : 30,
+    x: 50,
+    y: 30,
     duration: dur,
     delay: 0.2,
     ease: 'power3.out',
@@ -340,7 +329,7 @@ function createSlideInAnimations() {
 
   gsap.from('.plans__blocks', {
     opacity: 0,
-    y: isMobile ? 20 : 30,
+    y: 30,
     duration: 0.7,
     delay: 0.1,
     ease: 'power3.out',
@@ -367,8 +356,8 @@ function createSlideInAnimations() {
   // BORSAN SERVICE
   gsap.from('#borsanLeft', {
     opacity: 0,
-    x: isMobile ? 0 : -80,
-    y: isMobile ? yBase : 0,
+    x: -80,
+    y: 0,
     duration: dur,
     ease: 'power3.out',
     scrollTrigger: {
@@ -381,7 +370,7 @@ function createSlideInAnimations() {
   gsap.from('#borsanPhoto', {
     opacity: 0,
     x: xRg,
-    y: isMobile ? yBase : 0,
+    y: 0,
     duration: dur,
     ease: 'power3.out',
     scrollTrigger: {
