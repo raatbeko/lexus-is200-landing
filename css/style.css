@@ -2174,6 +2174,7 @@ a {
   width: 64px;
   height: 64px;
   border-radius: 100%;
+  background: #EDE7D9;
   border: 1px solid var(--accent-light);
   display: flex;
   align-items: center;
