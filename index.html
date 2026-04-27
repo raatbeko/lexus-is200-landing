@@ -776,12 +776,7 @@
       const pad = (size - iconPx) / 2;
       const sw = (1.6 / scale).toFixed(2);
       const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="0 0 ${size} ${size}">
-        <defs>
-          <filter id="sh" x="-50%" y="-50%" width="200%" height="200%">
-            <feDropShadow dx="0" dy="3" stdDeviation="3" flood-color="rgba(0,0,0,0.35)"/>
-          </filter>
-        </defs>
-        <circle cx="${size/2}" cy="${size/2}" r="${size/2 - 2}" fill="${fill}" stroke="${border}" stroke-width="2.5" filter="url(#sh)"/>
+        <circle cx="${size/2}" cy="${size/2}" r="${size/2 - 2}" fill="${fill}" stroke="${border}" stroke-width="2.5"/>
         <g transform="translate(${pad.toFixed(1)},${pad.toFixed(1)}) scale(${scale})" fill="none" stroke="${iconStroke}" stroke-width="${sw}" stroke-linecap="round" stroke-linejoin="round">${paths}</g>
       </svg>`;
       return {
