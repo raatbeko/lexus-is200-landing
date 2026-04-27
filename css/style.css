@@ -2124,8 +2124,8 @@ a {
 
 .tech__circle-wrap {
   position: relative;
-  width: 400px;
-  height: 400px;
+  width: 450px;
+  height: 450px;
 }
 
 .tech__circle-wrap::before {
@@ -2143,30 +2143,30 @@ a {
   flex-direction: column;
   align-items: center;
   gap: 8px;
-  width: 90px;
+  width: 100px;
   /* Anchor = horizontal center of item, vertical center of 64px icon-wrap */
   transform: translate(-50%, -32px);
   transition: opacity 0.3s ease;
 }
 
 /*
-  cx=200, cy=200, r=160, step=360/7≈51.4286°, first at -90°
+  cx=225, cy=225, r=160, step=360/7≈51.4286°, first at -90°
   x = cx + r*cos(angle), y = cy + r*sin(angle)
-  1: -90°          → (200.00,  40.00)
-  2: -38.5714°     → (325.09, 100.24)
-  3:  12.8571°     → (355.99, 235.60)
-  4:  64.2857°     → (269.42, 344.16)
-  5: 115.7143°     → (130.58, 344.16)
-  6: 167.1429°     → ( 44.01, 235.60)
-  7: 218.5714°     → ( 74.91, 100.24)
+  1: -90°          → (225.00,  65.00)
+  2: -38.5714°     → (350.09, 125.24)
+  3:  12.8571°     → (380.99, 260.60)
+  4:  64.2857°     → (294.42, 369.16)
+  5: 115.7143°     → (155.58, 369.16)
+  6: 167.1429°     → ( 69.01, 260.60)
+  7: 218.5714°     → ( 99.91, 125.24)
 */
-.tech__circle-wrap .tech__item:nth-child(1) { left: 200.00px; top:  40.00px; }
-.tech__circle-wrap .tech__item:nth-child(2) { left: 325.09px; top: 100.24px; }
-.tech__circle-wrap .tech__item:nth-child(3) { left: 355.99px; top: 235.60px; }
-.tech__circle-wrap .tech__item:nth-child(4) { left: 269.42px; top: 344.16px; }
-.tech__circle-wrap .tech__item:nth-child(5) { left: 130.58px; top: 344.16px; }
-.tech__circle-wrap .tech__item:nth-child(6) { left:  44.01px; top: 235.60px; }
-.tech__circle-wrap .tech__item:nth-child(7) { left:  74.91px; top: 100.24px; }
+.tech__circle-wrap .tech__item:nth-child(1) { left: 225.00px; top:  65.00px; }
+.tech__circle-wrap .tech__item:nth-child(2) { left: 350.09px; top: 125.24px; }
+.tech__circle-wrap .tech__item:nth-child(3) { left: 380.99px; top: 260.60px; }
+.tech__circle-wrap .tech__item:nth-child(4) { left: 294.42px; top: 369.16px; }
+.tech__circle-wrap .tech__item:nth-child(5) { left: 155.58px; top: 369.16px; }
+.tech__circle-wrap .tech__item:nth-child(6) { left:  69.01px; top: 260.60px; }
+.tech__circle-wrap .tech__item:nth-child(7) { left:  99.91px; top: 125.24px; }
 
 .tech__item:hover { opacity: 0.8; }
 
@@ -2203,12 +2203,12 @@ a {
 }
 
 @media (max-width: 768px) {
-  /* Circle stays — smaller radius 130px, container 300x300 */
+  /* Circle stays — smaller radius 130px, container 340x340 */
   .tech__circle-wrap {
-    width: 300px;
-    height: 300px;
+    width: 340px;
+    height: 340px;
     margin: 0 auto;
-    display: block; /* keep relative positioning context */
+    display: block;
   }
   .tech__circle-wrap::before {
     display: block; /* keep the decorative circle ring */
@@ -2224,23 +2224,23 @@ a {
     border-radius: 0;
   }
   /*
-    cx=150, cy=150, r=130
+    cx=170, cy=170, r=130
     x = cx + r*cos(angle), y = cy + r*sin(angle)
-    1: -90°       → (150.00,  20.00)
-    2: -38.5714°  → (251.64,  68.95)
-    3:  12.8571°  → (276.74, 178.93)
-    4:  64.2857°  → (206.40, 267.13)
-    5: 115.7143°  → ( 93.60, 267.13)
-    6: 167.1429°  → ( 23.26, 178.93)
-    7: 218.5714°  → ( 48.36,  68.95)
+    1: -90°       → (170.00,  40.00)
+    2: -38.5714°  → (271.64,  88.95)
+    3:  12.8571°  → (296.74, 198.93)
+    4:  64.2857°  → (226.40, 287.13)
+    5: 115.7143°  → (113.60, 287.13)
+    6: 167.1429°  → ( 43.26, 198.93)
+    7: 218.5714°  → ( 68.36,  88.95)
   */
-  .tech__circle-wrap .tech__item:nth-child(1) { left: 150.00px; top:  20.00px; }
-  .tech__circle-wrap .tech__item:nth-child(2) { left: 251.64px; top:  68.95px; }
-  .tech__circle-wrap .tech__item:nth-child(3) { left: 276.74px; top: 178.93px; }
-  .tech__circle-wrap .tech__item:nth-child(4) { left: 206.40px; top: 267.13px; }
-  .tech__circle-wrap .tech__item:nth-child(5) { left:  93.60px; top: 267.13px; }
-  .tech__circle-wrap .tech__item:nth-child(6) { left:  23.26px; top: 178.93px; }
-  .tech__circle-wrap .tech__item:nth-child(7) { left:  48.36px; top:  68.95px; }
+  .tech__circle-wrap .tech__item:nth-child(1) { left: 170.00px; top:  40.00px; }
+  .tech__circle-wrap .tech__item:nth-child(2) { left: 271.64px; top:  88.95px; }
+  .tech__circle-wrap .tech__item:nth-child(3) { left: 296.74px; top: 198.93px; }
+  .tech__circle-wrap .tech__item:nth-child(4) { left: 226.40px; top: 287.13px; }
+  .tech__circle-wrap .tech__item:nth-child(5) { left: 113.60px; top: 287.13px; }
+  .tech__circle-wrap .tech__item:nth-child(6) { left:  43.26px; top: 198.93px; }
+  .tech__circle-wrap .tech__item:nth-child(7) { left:  68.36px; top:  88.95px; }
   .tech__icon-wrap { width: 52px; height: 52px; }
   .tech__icon-wrap img { width: 26px; height: 26px; }
   .tech__item span { font-size: 9px; line-height: 1.3; }
