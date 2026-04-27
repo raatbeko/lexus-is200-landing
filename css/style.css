@@ -42,7 +42,7 @@ main, .wrapper {
   --surface:      #EDE7D9;
   --accent:       #8B7355;
   --accent-light: #C4A882;
-  --text-primary: #1A1A1A;
+  --text-primary: #8B7355;
   --text-sec:     #6B6355;
   --white:        #FFFFFF;
   --border:       #D9D0C0;
@@ -2703,7 +2703,7 @@ a {
   font-family: 'Montserrat', serif;
   font-size: 36px;
   font-weight: 400;
-  color: #2C2416;
+  color: #8B7355;
   margin-bottom: 8px;
 }
 
@@ -2711,7 +2711,7 @@ a {
   font-family: 'Montserrat', sans-serif;
   font-size: 14px;
   font-weight: 300;
-  color: rgba(44,36,22,0.6);
+  color: rgba(139,115,85,0.6);
   line-height: 1.6;
   margin-bottom: 32px;
 }
@@ -2734,7 +2734,7 @@ a {
   border: none;
   border-bottom: 1px solid rgba(139,115,85,0.4);
   padding: 12px 0 10px;
-  color: #2C2416;
+  color: #8B7355;
   font-family: 'Montserrat', sans-serif;
   font-size: 14px;
   font-weight: 300;
