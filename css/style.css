@@ -2131,7 +2131,7 @@ a {
 .tech__circle-wrap::before {
   content: '';
   position: absolute;
-  inset: 8px;
+  inset: 40px;
   border-radius: 50%;
   border: 1px solid var(--border);
   pointer-events: none;
@@ -2212,7 +2212,7 @@ a {
   }
   .tech__circle-wrap::before {
     display: block;
-    inset: -6px;
+    inset: 20px;
   }
   .tech__item {
     position: absolute;
