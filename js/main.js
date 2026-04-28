@@ -74,6 +74,17 @@ document.getElementById('heroArrow').addEventListener('click', () => {
   document.querySelector('#about-section, .about').scrollIntoView({ behavior: 'smooth' });
 });
 
+document.querySelectorAll('.footer__nav-link').forEach(link => {
+  link.addEventListener('click', e => {
+    const href = link.getAttribute('href');
+    if (!href || !href.startsWith('#')) return;
+    const target = document.querySelector(href);
+    if (!target) return;
+    e.preventDefault();
+    target.scrollIntoView({ behavior: 'smooth' });
+  });
+});
+
 // ===== SLIDE-IN АНИМАЦИИ =====
 function createSlideInAnimations() {
   // Только десктоп — на мобиле анимации через CSS + IntersectionObserver (см. ниже)
