@@ -2727,7 +2727,6 @@ a {
   margin: 0 auto;
   background: #E8E0D0;
   border-radius: 35px;
-  overflow: hidden;
 }
 
 .footer__cta-section {
@@ -4242,3 +4241,118 @@ a {
   }
 }
 
+
+/* ===== PHONE PICKER ===== */
+.footer__field--phone,
+.modal__field--phone {
+  position: relative;
+}
+
+.phone-wrap {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid rgba(139,115,85,0.4);
+  transition: border-color 0.3s ease;
+}
+
+.phone-wrap:focus-within {
+  border-color: #8B7355;
+}
+
+.footer__field--phone .footer__input,
+.modal__field--phone .modal__input {
+  border-bottom: none;
+  flex: 1;
+  min-width: 0;
+  padding-left: 10px;
+}
+
+.footer__field--phone .footer__label {
+  top: -14px;
+  font-size: 10px;
+  color: #8B7355;
+  letter-spacing: 0.08em;
+  transition: none;
+}
+
+.phone-country {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: none;
+  border: none;
+  border-right: 1px solid rgba(139,115,85,0.25);
+  padding: 8px 8px 8px 0;
+  margin-right: 2px;
+  cursor: pointer;
+  color: #8B7355;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 12px;
+  font-weight: 300;
+  white-space: nowrap;
+  flex-shrink: 0;
+  user-select: none;
+  transition: color 0.2s ease;
+}
+
+.phone-country:hover { color: #6e5a40; }
+
+.phone-country__flag { font-size: 14px; line-height: 1; }
+
+.phone-country__chevron {
+  color: rgba(139,115,85,0.5);
+  transition: transform 0.2s ease;
+}
+
+.phone-country.open .phone-country__chevron { transform: rotate(180deg); }
+
+.phone-dropdown {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  width: 220px;
+  background: #FBF8F3;
+  border: 1px solid rgba(139,115,85,0.2);
+  border-radius: 10px;
+  list-style: none;
+  margin: 0;
+  padding: 4px;
+  z-index: 300;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+  display: none;
+  max-height: 180px;
+  overflow-y: auto;
+}
+
+.phone-dropdown.open { display: block; }
+
+.phone-option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 10px;
+  border-radius: 7px;
+  cursor: pointer;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 12px;
+  font-weight: 300;
+  color: #2C2416;
+  transition: background 0.15s ease;
+}
+
+.phone-option:hover { background: rgba(139,115,85,0.08); }
+
+.phone-option--active {
+  background: rgba(139,115,85,0.12);
+  color: #8B7355;
+  font-weight: 400;
+}
+
+.phone-option__flag { font-size: 15px; flex-shrink: 0; }
+.phone-option__name { flex: 1; }
+.phone-option__code { color: rgba(139,115,85,0.6); font-size: 11px; }
+
+@media (max-width: 768px) {
+  .phone-dropdown { width: 200px; }
+  .phone-option { padding: 8px 10px; font-size: 13px; }
+}

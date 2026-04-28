@@ -727,7 +727,8 @@ modalOverlay.addEventListener('click', (e) => {
 
 document.getElementById('modalSubmit').addEventListener('click', async () => {
   const name = document.getElementById('modalName').value.trim();
-  const phone = document.getElementById('modalPhone').value.trim();
+  const modalPhoneInput = document.getElementById('modalPhone');
+  const phone = ((modalPhoneInput.dataset.countryCode || '+996') + ' ' + modalPhoneInput.value).trim();
 
   if (!name || !phone) {
     alert('Пожалуйста, заполните все поля');
@@ -763,7 +764,8 @@ document.getElementById('modalSubmit').addEventListener('click', async () => {
 
 async function submitForm(nameId, phoneId, btnId, successId, source) {
   const name = document.getElementById(nameId).value.trim();
-  const phone = document.getElementById(phoneId).value.trim();
+  const phoneInput = document.getElementById(phoneId);
+  const phone = ((phoneInput.dataset.countryCode || '+996') + ' ' + phoneInput.value).trim();
 
   if (!name || !phone) {
     alert('Пожалуйста, заполните все поля');
@@ -809,61 +811,140 @@ document.getElementById('contactSubmit').addEventListener('click', () =>
   submitForm('contactName', 'contactPhone', 'contactSubmit', 'contactSuccess', 'Лендинг IVORY — контакты')
 );
 
-// ===== МАСКА ТЕЛЕФОНА +996 =====
-function applyPhoneMask(input) {
-  const PREFIX = '+996 ';
+// ===== PHONE PICKER =====
+const PHONE_COUNTRIES = [
+  { flag: '🇰🇬', name: 'Кыргызстан',  code: '+996', mask: '### ## ## ##',   digits: 9 },
+  { flag: '🇷🇺', name: 'Россия',       code: '+7',   mask: '### ### ## ##',  digits: 10 },
+  { flag: '🇰🇿', name: 'Казахстан',    code: '+7',   mask: '### ### ## ##',  digits: 10 },
+  { flag: '🇺🇿', name: 'Узбекистан',   code: '+998', mask: '## ### ## ##',   digits: 9 },
+  { flag: '🇹🇯', name: 'Таджикистан',  code: '+992', mask: '## ### ####',    digits: 9 },
+  { flag: '🇹🇲', name: 'Туркменистан', code: '+993', mask: '## ######',      digits: 8 },
+  { flag: '🇦🇿', name: 'Азербайджан',  code: '+994', mask: '## ### ## ##',   digits: 9 },
+  { flag: '🇬🇪', name: 'Грузия',       code: '+995', mask: '### ### ###',    digits: 9 },
+  { flag: '🇺🇦', name: 'Украина',      code: '+380', mask: '## ### ## ##',   digits: 9 },
+  { flag: '🇧🇾', name: 'Беларусь',     code: '+375', mask: '## ### ## ##',   digits: 9 },
+  { flag: '🇩🇪', name: 'Германия',     code: '+49',  mask: '### ## ## ####', digits: 11 },
+  { flag: '🇹🇷', name: 'Турция',       code: '+90',  mask: '### ### ## ##',  digits: 10 },
+  { flag: '🇨🇳', name: 'Китай',        code: '+86',  mask: '### #### ####',  digits: 11 },
+  { flag: '🇦🇪', name: 'ОАЭ',          code: '+971', mask: '## ### ####',    digits: 9 },
+  { flag: '🇺🇸', name: 'США / Канада', code: '+1',   mask: '### ### ####',   digits: 10 },
+];
 
-  function format(raw) {
-    // Оставляем только цифры после +996
-    const digits = raw.replace(/\D/g, '').replace(/^996/, '');
-    const d = digits.slice(0, 9); // макс 9 цифр: XXX XX XX XX
-    let out = PREFIX;
-    if (d.length > 0) out += d.slice(0, 3);
-    if (d.length > 3) out += ' ' + d.slice(3, 5);
-    if (d.length > 5) out += ' ' + d.slice(5, 7);
-    if (d.length > 7) out += ' ' + d.slice(7, 9);
-    return out;
+function initPhonePicker(inputId) {
+  const input = document.getElementById(inputId);
+  if (!input) return;
+
+  const field = input.closest('.footer__field') || input.closest('.modal__field');
+  if (!field) return;
+
+  let activeIdx = 0;
+  let active = PHONE_COUNTRIES[0];
+
+  // Wrap input
+  const wrap = document.createElement('div');
+  wrap.className = 'phone-wrap';
+  input.parentNode.insertBefore(wrap, input);
+  wrap.appendChild(input);
+
+  // Country button
+  const btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'phone-country';
+  wrap.insertBefore(btn, input);
+
+  // Dropdown
+  const dropdown = document.createElement('ul');
+  dropdown.className = 'phone-dropdown';
+  field.appendChild(dropdown);
+
+  const isModal = field.classList.contains('modal__field');
+  field.classList.add(isModal ? 'modal__field--phone' : 'footer__field--phone');
+
+  function maskToPlaceholder(mask) {
+    return mask.replace(/#/g, '0');
   }
 
-  input.addEventListener('focus', () => {
-    if (!input.value) input.value = PREFIX;
-    // Ставим курсор в конец
-    setTimeout(() => input.setSelectionRange(input.value.length, input.value.length), 0);
+  function formatDigits(digits, mask) {
+    let result = '';
+    let di = 0;
+    for (let i = 0; i < mask.length && di < digits.length; i++) {
+      if (mask[i] === '#') {
+        result += digits[di++];
+      } else if (di > 0) {
+        result += mask[i];
+      }
+    }
+    return result;
+  }
+
+  function renderBtn() {
+    btn.innerHTML = `
+      <span class="phone-country__flag">${active.flag}</span>
+      <span class="phone-country__code">${active.code}</span>
+      <svg class="phone-country__chevron" width="10" height="6" viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 1l4 4 4-4"/></svg>
+    `;
+  }
+
+  function renderDropdown() {
+    dropdown.innerHTML = '';
+    PHONE_COUNTRIES.forEach((c, i) => {
+      const li = document.createElement('li');
+      li.className = 'phone-option' + (i === activeIdx ? ' phone-option--active' : '');
+      li.innerHTML = `<span class="phone-option__flag">${c.flag}</span><span class="phone-option__name">${c.name}</span><span class="phone-option__code">${c.code}</span>`;
+      li.addEventListener('mousedown', (e) => { e.preventDefault(); selectCountry(i); });
+      dropdown.appendChild(li);
+    });
+  }
+
+  function selectCountry(i) {
+    activeIdx = i;
+    active = PHONE_COUNTRIES[i];
+    input.dataset.countryCode = active.code;
+    input.placeholder = maskToPlaceholder(active.mask);
+    const digits = input.value.replace(/\D/g, '').slice(0, active.digits);
+    input.value = formatDigits(digits, active.mask);
+    renderBtn();
+    renderDropdown();
+    closeDropdown();
+    input.focus();
+  }
+
+  function openDropdown()  { dropdown.classList.add('open');    btn.classList.add('open'); }
+  function closeDropdown() { dropdown.classList.remove('open'); btn.classList.remove('open'); }
+
+  btn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    dropdown.classList.contains('open') ? closeDropdown() : openDropdown();
   });
 
-  input.addEventListener('blur', () => {
-    if (input.value === PREFIX) input.value = '';
-  });
+  document.addEventListener('click', (e) => { if (!field.contains(e.target)) closeDropdown(); });
 
   input.addEventListener('input', () => {
-    const pos = input.selectionStart;
-    const raw = input.value;
-
-    // Не позволяем стереть префикс
-    if (!raw.startsWith('+')) {
-      input.value = format(raw);
-      return;
-    }
-
-    input.value = format(raw);
-    // Восстанавливаем позицию курсора
-    const newPos = Math.max(PREFIX.length, Math.min(pos, input.value.length));
-    input.setSelectionRange(newPos, newPos);
+    const digits = input.value.replace(/\D/g, '').slice(0, active.digits);
+    input.value = formatDigits(digits, active.mask);
   });
 
   input.addEventListener('keydown', (e) => {
-    // Не даём удалить символы префикса
-    const sel = input.selectionStart;
-    if ((e.key === 'Backspace' || e.key === 'Delete') && sel <= PREFIX.length && input.selectionEnd <= PREFIX.length) {
+    if (e.key !== 'Backspace' || input.selectionStart !== input.selectionEnd) return;
+    const pos = input.selectionStart;
+    if (pos > 0 && input.value[pos - 1] === ' ') {
       e.preventDefault();
+      const newVal = input.value.slice(0, pos - 2) + input.value.slice(pos);
+      const digits = newVal.replace(/\D/g, '').slice(0, active.digits);
+      input.value = formatDigits(digits, active.mask);
+      const newPos = Math.max(0, pos - 2);
+      input.setSelectionRange(newPos, newPos);
     }
   });
+
+  // Init
+  input.dataset.countryCode = active.code;
+  input.placeholder = maskToPlaceholder(active.mask);
+  renderBtn();
+  renderDropdown();
 }
 
-['footerPhone', 'contactPhone', 'modalPhone'].forEach(id => {
-  const el = document.getElementById(id);
-  if (el) applyPhoneMask(el);
-});
+['footerPhone', 'contactPhone', 'modalPhone'].forEach(initPhonePicker);
 
 // ===== Respect prefers-reduced-motion =====
 const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
