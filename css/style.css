@@ -2633,6 +2633,53 @@ a {
   color: #C4A882;
 }
 
+.footer__wa-wrapper {
+  position: relative;
+}
+
+.footer__wa-btn {
+  background: none;
+  cursor: pointer;
+  padding: 0;
+  font: inherit;
+}
+
+.footer__wa-dropdown {
+  display: none;
+  position: absolute;
+  bottom: calc(100% + 10px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: #1c1c1c;
+  border: 1px solid rgba(196, 168, 130, 0.3);
+  border-radius: 8px;
+  padding: 6px 0;
+  min-width: 175px;
+  z-index: 200;
+  white-space: nowrap;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+}
+
+.footer__wa-wrapper.open .footer__wa-dropdown {
+  display: block;
+}
+
+.footer__wa-number {
+  display: block;
+  padding: 9px 16px;
+  color: rgba(255, 255, 255, 0.8);
+  text-decoration: none;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 13px;
+  font-weight: 300;
+  transition: color 0.2s ease, background 0.2s ease;
+}
+
+.footer__wa-number:hover {
+  color: #C4A882;
+  background: rgba(196, 168, 130, 0.08);
+}
+
 .footer__phones {
   display: flex;
   align-items: center;
