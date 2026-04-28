@@ -218,17 +218,18 @@ const maxScale = 3;
 const zoomStep = 0.25;
 const planImg = document.getElementById('planSvg');
 
-// Применить начальный зум при загрузке
 window.addEventListener('load', () => {
-  if (planImg) updateTransform();
+  if (planImg) applyTransform();
 });
 let translateX = 0, translateY = 0;
 let isDragging = false;
 let startX, startY;
 let initialPinchDistance = null;
 let lastTouchX, lastTouchY;
+let rafPending = false;
 
-function updateTransform() {
+// Клamp границ — вызывается только при изменении зума, не на каждый mousemove
+function clampTranslate() {
   const card = document.getElementById('planPlanCard');
   const imgRect = planImg.getBoundingClientRect();
   const cardRect = card.getBoundingClientRect();
@@ -238,15 +239,32 @@ function updateTransform() {
 
   translateX = Math.min(maxX, Math.max(-maxX, translateX));
   translateY = Math.min(maxY, Math.max(-maxY, translateY));
+}
 
-  planImg.style.transform = `scale(${currentScale}) translate(${translateX / currentScale}px, ${translateY / currentScale}px)`;
+// Применяет трансформацию напрямую без RAF — для кнопок зума
+function applyTransform() {
+  clampTranslate();
+  planImg.style.transform = `scale(${currentScale}) translate3d(${translateX / currentScale}px, ${translateY / currentScale}px, 0)`;
+}
+
+// Применяет трансформацию через RAF — для drag/pinch (горячий путь)
+function scheduleTransform(rawX, rawY) {
+  translateX = rawX;
+  translateY = rawY;
+  if (rafPending) return;
+  rafPending = true;
+  requestAnimationFrame(() => {
+    rafPending = false;
+    clampTranslate();
+    planImg.style.transform = `scale(${currentScale}) translate3d(${translateX / currentScale}px, ${translateY / currentScale}px, 0)`;
+  });
 }
 
 // Кнопки зума
 document.getElementById('zoomIn').addEventListener('click', () => {
   if (currentScale < maxScale) {
     currentScale += zoomStep;
-    updateTransform();
+    applyTransform();
     planImg.style.cursor = 'grab';
   }
 });
@@ -258,9 +276,8 @@ document.getElementById('zoomOut').addEventListener('click', () => {
       currentScale = 1;
       translateX = 0;
       translateY = 0;
-      planImg.style.cursor = 'default';
     }
-    updateTransform();
+    applyTransform();
     planImg.style.cursor = currentScale > 1 ? 'grab' : 'default';
   }
 });
@@ -269,13 +286,13 @@ document.getElementById('zoomReset').addEventListener('click', () => {
   currentScale = 1;
   translateX = 0;
   translateY = 0;
-  updateTransform();
+  applyTransform();
   planImg.style.cursor = 'default';
 });
 
 // Мышь
 planImg.addEventListener('mousedown', (e) => {
-  if (currentScale === 1) return;
+  if (currentScale <= 1) return;
   isDragging = true;
   startX = e.clientX - translateX;
   startY = e.clientY - translateY;
@@ -285,9 +302,7 @@ planImg.addEventListener('mousedown', (e) => {
 
 document.addEventListener('mousemove', (e) => {
   if (!isDragging) return;
-  translateX = e.clientX - startX;
-  translateY = e.clientY - startY;
-  updateTransform();
+  scheduleTransform(e.clientX - startX, e.clientY - startY);
 });
 
 document.addEventListener('mouseup', () => {
@@ -316,9 +331,10 @@ planImg.addEventListener('touchmove', (e) => {
   const isPinching = e.touches.length === 2 && initialPinchDistance;
 
   if (isPanning) {
-    translateX = e.touches[0].clientX - lastTouchX;
-    translateY = e.touches[0].clientY - lastTouchY;
-    updateTransform();
+    scheduleTransform(
+      e.touches[0].clientX - lastTouchX,
+      e.touches[0].clientY - lastTouchY
+    );
   }
   if (isPinching) {
     const currentDistance = Math.hypot(
@@ -328,12 +344,9 @@ planImg.addEventListener('touchmove', (e) => {
     const ratio = currentDistance / initialPinchDistance;
     currentScale = Math.min(maxScale, Math.max(minScale, currentScale * ratio));
     initialPinchDistance = currentDistance;
-    updateTransform();
+    scheduleTransform(translateX, translateY);
   }
-  // Блокируем дефолт только при реальном жесте — иначе страница может скроллиться
-  if (isPanning || isPinching) {
-    e.preventDefault();
-  }
+  if (isPanning || isPinching) e.preventDefault();
 }, { passive: false });
 
 planImg.addEventListener('touchend', () => {
@@ -376,7 +389,7 @@ function selectApt(block, index, skipScroll = false) {
   currentScale = 0.8;
   translateX = 0;
   translateY = 0;
-  updateTransform();
+  applyTransform();
   planImg.style.cursor = 'default';
 
   const apt = plansData[block][index];
