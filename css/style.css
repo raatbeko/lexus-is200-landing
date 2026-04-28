@@ -594,7 +594,7 @@ a {
 }
 
 .hero__tag {
-  padding: 10px 22px;
+  padding: 12px 26px;
   background: rgba(255, 255, 255, 0.10);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
@@ -612,12 +612,12 @@ a {
 .hero__cta-btn {
   margin-top: 0;
   margin-bottom: 32px;
-  padding: 14px 40px;
+  padding: 16px 48px;
   background: transparent;
   border: 1px solid rgba(255, 255, 255, 0.6);
   color: white;
   font-family: 'Montserrat', sans-serif;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 300;
   letter-spacing: 0.08em;
   cursor: pointer;
