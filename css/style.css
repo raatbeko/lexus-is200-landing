@@ -2550,14 +2550,12 @@ a {
 .footer__logo {
   display: flex;
   align-items: center;
-  gap: 14px;
 }
 
 .footer__logo-icon {
   display: block;
-  width: 40px;
-  height: 40px;
-  object-fit: contain;
+  width: 320px;
+  height: auto;
   flex-shrink: 0;
 }
 
@@ -2903,8 +2901,8 @@ a {
   }
 
   .footer__logo-icon {
-    width: 16px;
-    height: 16px;
+    width: 220px;
+    height: auto;
   }
 
   .footer__logo-name {
