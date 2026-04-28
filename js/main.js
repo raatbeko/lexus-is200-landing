@@ -761,17 +761,16 @@ document.getElementById('modalSubmit').addEventListener('click', async () => {
   submitBtn.style.display = 'none';
 });
 
-// ===== ФУТЕР: форма заявки =====
-document.getElementById('footerSubmit').addEventListener('click', async () => {
-  const name = document.getElementById('footerName').value.trim();
-  const phone = document.getElementById('footerPhone').value.trim();
+async function submitForm(nameId, phoneId, btnId, successId, source) {
+  const name = document.getElementById(nameId).value.trim();
+  const phone = document.getElementById(phoneId).value.trim();
 
   if (!name || !phone) {
     alert('Пожалуйста, заполните все поля');
     return;
   }
 
-  const btn = document.getElementById('footerSubmit');
+  const btn = document.getElementById(btnId);
   btn.textContent = 'Отправка...';
   btn.disabled = true;
 
@@ -782,11 +781,11 @@ document.getElementById('footerSubmit').addEventListener('click', async () => {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         fields: {
-          TITLE: `Заявка с футера IVORY — ${name}`,
+          TITLE: `Заявка с сайта IVORY — ${name}`,
           NAME: name,
           PHONE: [{ VALUE: phone, VALUE_TYPE: 'WORK' }],
           SOURCE_ID: 'WEB',
-          SOURCE_DESCRIPTION: 'Лендинг IVORY — футер',
+          SOURCE_DESCRIPTION: source,
         }
       })
     });
@@ -794,10 +793,76 @@ document.getElementById('footerSubmit').addEventListener('click', async () => {
     console.error(err);
   }
 
-  document.getElementById('footerSuccess').style.display = 'block';
-  document.getElementById('footerName').value = '';
-  document.getElementById('footerPhone').value = '';
+  document.getElementById(successId).style.display = 'block';
+  document.getElementById(nameId).value = '';
+  document.getElementById(phoneId).value = '';
   btn.style.display = 'none';
+}
+
+// Форма после карты
+document.getElementById('footerSubmit').addEventListener('click', () =>
+  submitForm('footerName', 'footerPhone', 'footerSubmit', 'footerSuccess', 'Лендинг IVORY — после карты')
+);
+
+// Форма внизу (contact-form)
+document.getElementById('contactSubmit').addEventListener('click', () =>
+  submitForm('contactName', 'contactPhone', 'contactSubmit', 'contactSuccess', 'Лендинг IVORY — контакты')
+);
+
+// ===== МАСКА ТЕЛЕФОНА +996 =====
+function applyPhoneMask(input) {
+  const PREFIX = '+996 ';
+
+  function format(raw) {
+    // Оставляем только цифры после +996
+    const digits = raw.replace(/\D/g, '').replace(/^996/, '');
+    const d = digits.slice(0, 9); // макс 9 цифр: XXX XX XX XX
+    let out = PREFIX;
+    if (d.length > 0) out += d.slice(0, 3);
+    if (d.length > 3) out += ' ' + d.slice(3, 5);
+    if (d.length > 5) out += ' ' + d.slice(5, 7);
+    if (d.length > 7) out += ' ' + d.slice(7, 9);
+    return out;
+  }
+
+  input.addEventListener('focus', () => {
+    if (!input.value) input.value = PREFIX;
+    // Ставим курсор в конец
+    setTimeout(() => input.setSelectionRange(input.value.length, input.value.length), 0);
+  });
+
+  input.addEventListener('blur', () => {
+    if (input.value === PREFIX) input.value = '';
+  });
+
+  input.addEventListener('input', () => {
+    const pos = input.selectionStart;
+    const raw = input.value;
+
+    // Не позволяем стереть префикс
+    if (!raw.startsWith('+')) {
+      input.value = format(raw);
+      return;
+    }
+
+    input.value = format(raw);
+    // Восстанавливаем позицию курсора
+    const newPos = Math.max(PREFIX.length, Math.min(pos, input.value.length));
+    input.setSelectionRange(newPos, newPos);
+  });
+
+  input.addEventListener('keydown', (e) => {
+    // Не даём удалить символы префикса
+    const sel = input.selectionStart;
+    if ((e.key === 'Backspace' || e.key === 'Delete') && sel <= PREFIX.length && input.selectionEnd <= PREFIX.length) {
+      e.preventDefault();
+    }
+  });
+}
+
+['footerPhone', 'contactPhone', 'modalPhone'].forEach(id => {
+  const el = document.getElementById(id);
+  if (el) applyPhoneMask(el);
 });
 
 // ===== Respect prefers-reduced-motion =====

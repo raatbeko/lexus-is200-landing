@@ -1946,7 +1946,8 @@ a {
   height: auto;
   user-select: none;
   -webkit-user-drag: none;
-  transition: transform 0.15s ease;
+  will-change: transform;
+  backface-visibility: hidden;
 }
 
 .plans__drag-hint {
@@ -2818,22 +2819,28 @@ a {
 .footer__submit {
   padding: 13px 32px;
   background: var(--accent);
-  border: var(--accent);
+  border: none;
   color: #F5F0E8;
   font-family: 'Montserrat', sans-serif;
   font-size: 13px;
   letter-spacing: 0.08em;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: background 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
   align-self: center;
   width: 100%;
   border-radius: 100px;
+  box-shadow: 0 2px 12px rgba(139,115,85,0.25);
 }
 
 .footer__submit:hover {
-  background: #8B7355;
-  border-color: #8B7355;
-  color: white;
+  background: #6e5a40;
+  box-shadow: 0 4px 18px rgba(139,115,85,0.35);
+}
+
+.footer__submit:active {
+  transform: scale(0.97);
+  background: #5c4a32;
+  box-shadow: 0 1px 6px rgba(139,115,85,0.2);
 }
 
 .footer__form-success {
