@@ -2527,7 +2527,7 @@ a {
 
 /* ===== ФУТЕР ===== */
 .footer {
-  background: var(--dark-bg);
+  background: #8B7355;
   color: var(--white);
 }
 
