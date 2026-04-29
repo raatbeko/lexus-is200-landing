@@ -1126,7 +1126,7 @@ a {
 
 /* Текст */
 .about__title {
-  font-size: 0;
+  gap: 10px;
   margin-bottom: 48px;
   line-height: 1.25;
   display: block;
@@ -1137,6 +1137,12 @@ a {
   font-size: 64px;
   font-weight: 400;
   letter-spacing: 0.1em;
+  color: var(--text-primary);
+}
+
+.about__title-svg {
+  height: 44px;
+  width: auto;
   color: var(--text-primary);
 }
 
@@ -3114,7 +3120,7 @@ a {
   .about__photo { grid-area: photo; }
   .about__text  { grid-area: text; }
   .about__photo img { width: 260px; height: 260px; }
-  .about__title-accent { font-size: 40px; }
+  .about__title-svg { height: 40px; }
   .about__title-sub { font-size: 14px; }
 
   /* Факты мобильный */
@@ -3477,12 +3483,8 @@ a {
     gap: 32px;
   }
 
-  .about__title {
-    font-size: 28px;
-  }
-
-  .about__title-accent {
-    font-size: 36px;
+  .about__title-svg {
+    height: 36px;
   }
 
   .about__title-sub {
