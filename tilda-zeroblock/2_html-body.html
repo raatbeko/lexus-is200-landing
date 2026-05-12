@@ -1,0 +1,638 @@
+<!--
+  ╔══════════════════════════════════════════════════════════════╗
+  ║  TILDA → Zero Block → HTML                                   ║
+  ║                                                              ║
+  ║  Перед вставкой:                                             ║
+  ║  1. Загрузить все картинки через Медиатеку Tilda             ║
+  ║  2. Заменить пути «prepared/...» на CDN-ссылки Tilda         ║
+  ║     (ищи комментарии «IMAGE:» ниже)                          ║
+  ╚══════════════════════════════════════════════════════════════╝
+-->
+
+  <!-- ===== ХЕДЕР ===== -->
+  <header class="header" id="header">
+    <div class="header__inner">
+      <a href="#" class="header__logo">
+        <svg class="header__logo-svg" viewBox="0 0 560 109" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="IVORY">
+          <path d="M255.635 108.288C252.715 108.495 248.216 108.511 245.296 108.288C205.81 105.245 180.873 62.4837 201.087 27.5132C223.008 -10.4207 281.927 -8.82748 301.487 30.4287C318.862 65.2718 293.622 105.532 255.619 108.272L255.635 108.288ZM242.919 4.41193C217.935 6.94511 207.533 32.6114 208.921 54.7886C210.628 82.0959 233.554 111.044 263.58 102.68C311.427 89.3609 295.409 -0.909324 242.919 4.396V4.41193Z" fill="currentColor"></path>
+          <path d="M0 2.38867H25.2556C25.8938 5.8459 24.2824 4.95371 22.2243 6.41945C20.1662 7.88518 19.5121 9.70142 19.5121 12.0912V97.0561C19.7673 99.1591 20.3098 100.545 22.0807 101.756C23.4368 102.68 25.7023 102.664 25.2716 104.863H0V102.967C2.72818 102.935 5.08941 100.657 5.56804 98.0279L5.74354 10.96C5.48827 7.85332 2.87177 5.78217 0 5.0493V2.38867Z" fill="currentColor"></path>
+          <path d="M347.484 106.01C346.878 102.409 348.537 103.222 350.516 101.979C352.031 101.023 353.084 99.2067 353.228 97.4383L353.052 9.98805C352.733 8.45858 351.568 7.1203 350.292 6.25998C348.266 4.88984 346.91 5.82982 347.484 2.38853C362.848 2.93021 378.691 1.68752 394.007 2.37259C409.323 3.05767 434.196 8.44265 435.887 27.3538C437.674 47.3165 421.273 54.3584 404.521 57.4333L431.691 98.5695C432.536 99.0952 433.222 99.8759 434.02 100.449C436.477 102.218 440.194 102.441 439.349 106.01H412.179C410.679 101.198 418.162 103.715 415.689 99.2705L389.029 58.3892H367.028V97.0559C367.028 97.5498 368.145 100.354 368.544 100.88C370.299 103.094 373.697 102.122 372.756 106.01H347.5H347.484ZM366.996 54.5815C384.993 54.6771 419.231 57.7678 420.97 32.3086C422.948 3.23291 386.556 5.92541 366.996 6.19625V54.5815Z" fill="currentColor"></path>
+          <path d="M89.9345 2.38849C90.4132 5.95724 89.408 4.81014 87.1744 5.92538C85.2759 6.86536 84.5739 7.4867 85.0525 9.7331C85.5312 11.9795 89.1847 17.7787 90.3972 20.4234C101.741 45.1657 110.34 71.1347 120.184 96.4823L121.141 95.3352C130.905 70.6408 139.473 45.4206 150.353 21.1722C151.693 18.177 155.092 12.9673 155.698 10.1155C156.097 8.20364 155.874 7.05654 154.135 6.11656C151.885 4.8898 150.162 6.11656 150.8 2.38849H166.866C167.472 5.6864 166.068 4.98539 164.218 6.41926C161.33 8.6338 160.341 10.3704 158.761 13.5568C154.39 22.4308 150.577 32.7866 146.78 42.0111C138.148 63.0253 130.203 84.3263 121.668 105.388C121.396 105.978 120.934 105.946 120.375 106.01C119.067 106.153 109.367 106.201 109.032 105.755C99.4273 82.3189 90.6684 58.5325 80.9363 35.1445C78.1922 28.5487 75.4481 21.5068 72.4008 15.0703C70.1672 10.3385 69.6407 8.92057 65.2692 5.78199C63.5462 4.55523 63.1952 5.43148 63.5302 2.37256H89.9345V2.38849Z" fill="currentColor"></path>
+          <path d="M493.657 2.38849C493.53 3.07356 493.897 4.4915 493.594 5.00132C493.227 5.5908 489.302 5.90944 489.509 7.82127C489.717 9.7331 496.338 18.2567 497.806 20.5668C504.985 31.9581 511.095 44.0026 518.355 55.3462C525.343 44.2735 531.326 32.5795 538.282 21.4749C540.499 17.938 545.078 12.6008 546.626 9.20735C548.412 5.2881 544.073 6.37147 543.211 5.06505C542.797 4.42778 543.116 3.15322 543.036 2.38849H559.102C559.006 3.15322 559.341 4.44371 558.926 5.06505C558.687 5.41555 552.289 8.12398 551.635 9.60565C540.691 26.0474 530.943 43.3813 520.636 60.2691L520.493 98.1552C520.62 99.5413 521.673 100.816 522.742 101.628C524.832 103.19 526.858 102.361 526.188 105.994H500.55C499.88 102.441 501.906 103.237 503.996 101.628C505.081 100.784 506.118 99.5731 506.245 98.1552L506.102 61.7986L475.454 11.5493C474.129 10.3544 472.853 8.586 471.433 7.55043C470.651 6.97688 466.695 5.22437 466.551 4.98539C466.248 4.50744 466.615 3.05763 466.487 2.37256H493.657V2.38849Z" fill="currentColor"></path>
+        </svg>
+        <span class="header__logo-sub">жилой комплекс</span>
+      </a>
+
+      <nav class="header__nav" id="nav">
+        <a href="#about-section" class="header__nav-link">О проекте</a>
+        <a href="#infrastructure" class="header__nav-link">Инфраструктура</a>
+        <a href="#plans" class="header__nav-link">Планировки</a>
+        <a href="#gallery" class="header__nav-link">Галерея</a>
+        <a href="#contact-form" class="header__nav-link">Контакты</a>
+      </nav>
+
+      <button class="header__cta" id="headerCta">Получить консультацию</button>
+
+      <button class="header__burger" id="burger" aria-label="Меню">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+
+    <div class="mobile-menu" id="mobileMenu">
+      <nav class="mobile-menu__nav">
+        <a href="#about-section" class="mobile-menu__link">О проекте</a>
+        <a href="#infrastructure" class="mobile-menu__link">Инфраструктура</a>
+        <a href="#plans" class="mobile-menu__link">Планировки</a>
+        <a href="#gallery" class="mobile-menu__link">Галерея</a>
+        <a href="#contact-form" class="mobile-menu__link">Контакты</a>
+        <button class="mobile-menu__cta" id="mobileMenuCta">Получить консультацию</button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ===== HERO ===== -->
+  <section class="hero" id="hero">
+
+    <div class="hero__layer" id="layerBg">
+      <!-- IMAGE: prepared/sections/01_hero/image/background.webp -->
+      <img src="prepared/sections/01_hero/image/background.webp" alt="" loading="eager" fetchpriority="low" decoding="async">
+    </div>
+
+    <div class="hero__layer" id="layerTop">
+      <!-- IMAGE: prepared/sections/01_hero/image/building.webp -->
+      <picture>
+        <source srcset="prepared/sections/01_hero/image/building.webp" type="image/webp">
+        <img src="prepared/sections/01_hero/image/building.webp" alt="IVORY" loading="eager" fetchpriority="high" decoding="async">
+      </picture>
+    </div>
+
+    <div class="hero__overlay"></div>
+
+    <div class="hero__content">
+      <h1 class="hero__title" id="heroTitle">
+        <svg class="hero__title-logo" width="560" height="109" viewBox="0 0 560 109" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="IVORY">
+          <path d="M255.635 108.288C252.715 108.495 248.216 108.511 245.296 108.288C205.81 105.245 180.873 62.4837 201.087 27.5132C223.008 -10.4207 281.927 -8.82748 301.487 30.4287C318.862 65.2718 293.622 105.532 255.619 108.272L255.635 108.288ZM242.919 4.41193C217.935 6.94511 207.533 32.6114 208.921 54.7886C210.628 82.0959 233.554 111.044 263.58 102.68C311.427 89.3609 295.409 -0.909324 242.919 4.396V4.41193Z" fill="white"></path>
+          <path d="M0 2.38867H25.2556C25.8938 5.8459 24.2824 4.95371 22.2243 6.41945C20.1662 7.88518 19.5121 9.70142 19.5121 12.0912V97.0561C19.7673 99.1591 20.3098 100.545 22.0807 101.756C23.4368 102.68 25.7023 102.664 25.2716 104.863H0V102.967C2.72818 102.935 5.08941 100.657 5.56804 98.0279L5.74354 10.96C5.48827 7.85332 2.87177 5.78217 0 5.0493V2.38867Z" fill="white"></path>
+          <path d="M347.484 106.01C346.878 102.409 348.537 103.222 350.516 101.979C352.031 101.023 353.084 99.2067 353.228 97.4383L353.052 9.98805C352.733 8.45858 351.568 7.1203 350.292 6.25998C348.266 4.88984 346.91 5.82982 347.484 2.38853C362.848 2.93021 378.691 1.68752 394.007 2.37259C409.323 3.05767 434.196 8.44265 435.887 27.3538C437.674 47.3165 421.273 54.3584 404.521 57.4333L431.691 98.5695C432.536 99.0952 433.222 99.8759 434.02 100.449C436.477 102.218 440.194 102.441 439.349 106.01H412.179C410.679 101.198 418.162 103.715 415.689 99.2705L389.029 58.3892H367.028V97.0559C367.028 97.5498 368.145 100.354 368.544 100.88C370.299 103.094 373.697 102.122 372.756 106.01H347.5H347.484ZM366.996 54.5815C384.993 54.6771 419.231 57.7678 420.97 32.3086C422.948 3.23291 386.556 5.92541 366.996 6.19625V54.5815Z" fill="white"></path>
+          <path d="M89.9345 2.38849C90.4132 5.95724 89.408 4.81014 87.1744 5.92538C85.2759 6.86536 84.5739 7.4867 85.0525 9.7331C85.5312 11.9795 89.1847 17.7787 90.3972 20.4234C101.741 45.1657 110.34 71.1347 120.184 96.4823L121.141 95.3352C130.905 70.6408 139.473 45.4206 150.353 21.1722C151.693 18.177 155.092 12.9673 155.698 10.1155C156.097 8.20364 155.874 7.05654 154.135 6.11656C151.885 4.8898 150.162 6.11656 150.8 2.38849H166.866C167.472 5.6864 166.068 4.98539 164.218 6.41926C161.33 8.6338 160.341 10.3704 158.761 13.5568C154.39 22.4308 150.577 32.7866 146.78 42.0111C138.148 63.0253 130.203 84.3263 121.668 105.388C121.396 105.978 120.934 105.946 120.375 106.01C119.067 106.153 109.367 106.201 109.032 105.755C99.4273 82.3189 90.6684 58.5325 80.9363 35.1445C78.1922 28.5487 75.4481 21.5068 72.4008 15.0703C70.1672 10.3385 69.6407 8.92057 65.2692 5.78199C63.5462 4.55523 63.1952 5.43148 63.5302 2.37256H89.9345V2.38849Z" fill="white"></path>
+          <path d="M493.657 2.38849C493.53 3.07356 493.897 4.4915 493.594 5.00132C493.227 5.5908 489.302 5.90944 489.509 7.82127C489.717 9.7331 496.338 18.2567 497.806 20.5668C504.985 31.9581 511.095 44.0026 518.355 55.3462C525.343 44.2735 531.326 32.5795 538.282 21.4749C540.499 17.938 545.078 12.6008 546.626 9.20735C548.412 5.2881 544.073 6.37147 543.211 5.06505C542.797 4.42778 543.116 3.15322 543.036 2.38849H559.102C559.006 3.15322 559.341 4.44371 558.926 5.06505C558.687 5.41555 552.289 8.12398 551.635 9.60565C540.691 26.0474 530.943 43.3813 520.636 60.2691L520.493 98.1552C520.62 99.5413 521.673 100.816 522.742 101.628C524.832 103.19 526.858 102.361 526.188 105.994H500.55C499.88 102.441 501.906 103.237 503.996 101.628C505.081 100.784 506.118 99.5731 506.245 98.1552L506.102 61.7986L475.454 11.5493C474.129 10.3544 472.853 8.586 471.433 7.55043C470.651 6.97688 466.695 5.22437 466.551 4.98539C466.248 4.50744 466.615 3.05763 466.487 2.37256H493.657V2.38849Z" fill="white"></path>
+        </svg>
+      </h1>
+      <p class="hero__subtitle" id="heroSubtitle">ЖИЛОЙ КОМПЛЕКС</p>
+      <button class="hero__cta-btn" id="openModal">Получить консультацию</button>
+      <div class="hero__tags">
+        <div class="hero__tag">от 48 м²</div>
+        <div class="hero__tag">18 этажей</div>
+        <div class="hero__tag">3 блока</div>
+        <div class="hero__tag">Премиум класс</div>
+        <div class="hero__tag">Закрытый двор</div>
+        <div class="hero__tag">Умный доступ</div>
+      </div>
+    </div>
+
+    <p class="hero__slogan" id="heroSlogan">Выше ожиданий...</p>
+
+    <button class="hero__arrow" id="heroArrow" aria-label="Прокрутить вниз">
+      <svg width="20" height="38" viewBox="0 0 20 38" fill="none">
+        <line x1="10" y1="0" x2="10" y2="30" stroke="white" stroke-width="1.2"/>
+        <polyline points="3,22 10,32 17,22" stroke="white" stroke-width="1.2" fill="none"/>
+      </svg>
+    </button>
+
+  </section>
+
+  <!-- ===== О ПРОЕКТЕ ===== -->
+  <section class="about" id="about-section">
+    <div class="about__inner">
+      <div class="about__text">
+        <p class="about__eyebrow" data-anim>О проекте</p>
+        <h2 class="about__title" id="aboutTitle" data-anim>
+          <span class="about__title-accent">
+            <svg class="about__title-svg" viewBox="0 0 560 109" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="IVORY">
+              <path d="M255.635 108.288C252.715 108.495 248.216 108.511 245.296 108.288C205.81 105.245 180.873 62.4837 201.087 27.5132C223.008 -10.4207 281.927 -8.82748 301.487 30.4287C318.862 65.2718 293.622 105.532 255.619 108.272L255.635 108.288ZM242.919 4.41193C217.935 6.94511 207.533 32.6114 208.921 54.7886C210.628 82.0959 233.554 111.044 263.58 102.68C311.427 89.3609 295.409 -0.909324 242.919 4.396V4.41193Z" fill="currentColor"></path>
+              <path d="M0 2.38867H25.2556C25.8938 5.8459 24.2824 4.95371 22.2243 6.41945C20.1662 7.88518 19.5121 9.70142 19.5121 12.0912V97.0561C19.7673 99.1591 20.3098 100.545 22.0807 101.756C23.4368 102.68 25.7023 102.664 25.2716 104.863H0V102.967C2.72818 102.935 5.08941 100.657 5.56804 98.0279L5.74354 10.96C5.48827 7.85332 2.87177 5.78217 0 5.0493V2.38867Z" fill="currentColor"></path>
+              <path d="M347.484 106.01C346.878 102.409 348.537 103.222 350.516 101.979C352.031 101.023 353.084 99.2067 353.228 97.4383L353.052 9.98805C352.733 8.45858 351.568 7.1203 350.292 6.25998C348.266 4.88984 346.91 5.82982 347.484 2.38853C362.848 2.93021 378.691 1.68752 394.007 2.37259C409.323 3.05767 434.196 8.44265 435.887 27.3538C437.674 47.3165 421.273 54.3584 404.521 57.4333L431.691 98.5695C432.536 99.0952 433.222 99.8759 434.02 100.449C436.477 102.218 440.194 102.441 439.349 106.01H412.179C410.679 101.198 418.162 103.715 415.689 99.2705L389.029 58.3892H367.028V97.0559C367.028 97.5498 368.145 100.354 368.544 100.88C370.299 103.094 373.697 102.122 372.756 106.01H347.5H347.484ZM366.996 54.5815C384.993 54.6771 419.231 57.7678 420.97 32.3086C422.948 3.23291 386.556 5.92541 366.996 6.19625V54.5815Z" fill="currentColor"></path>
+              <path d="M89.9345 2.38849C90.4132 5.95724 89.408 4.81014 87.1744 5.92538C85.2759 6.86536 84.5739 7.4867 85.0525 9.7331C85.5312 11.9795 89.1847 17.7787 90.3972 20.4234C101.741 45.1657 110.34 71.1347 120.184 96.4823L121.141 95.3352C130.905 70.6408 139.473 45.4206 150.353 21.1722C151.693 18.177 155.092 12.9673 155.698 10.1155C156.097 8.20364 155.874 7.05654 154.135 6.11656C151.885 4.8898 150.162 6.11656 150.8 2.38849H166.866C167.472 5.6864 166.068 4.98539 164.218 6.41926C161.33 8.6338 160.341 10.3704 158.761 13.5568C154.39 22.4308 150.577 32.7866 146.78 42.0111C138.148 63.0253 130.203 84.3263 121.668 105.388C121.396 105.978 120.934 105.946 120.375 106.01C119.067 106.153 109.367 106.201 109.032 105.755C99.4273 82.3189 90.6684 58.5325 80.9363 35.1445C78.1922 28.5487 75.4481 21.5068 72.4008 15.0703C70.1672 10.3385 69.6407 8.92057 65.2692 5.78199C63.5462 4.55523 63.1952 5.43148 63.5302 2.37256H89.9345V2.38849Z" fill="currentColor"></path>
+              <path d="M493.657 2.38849C493.53 3.07356 493.897 4.4915 493.594 5.00132C493.227 5.5908 489.302 5.90944 489.509 7.82127C489.717 9.7331 496.338 18.2567 497.806 20.5668C504.985 31.9581 511.095 44.0026 518.355 55.3462C525.343 44.2735 531.326 32.5795 538.282 21.4749C540.499 17.938 545.078 12.6008 546.626 9.20735C548.412 5.2881 544.073 6.37147 543.211 5.06505C542.797 4.42778 543.116 3.15322 543.036 2.38849H559.102C559.006 3.15322 559.341 4.44371 558.926 5.06505C558.687 5.41555 552.289 8.12398 551.635 9.60565C540.691 26.0474 530.943 43.3813 520.636 60.2691L520.493 98.1552C520.62 99.5413 521.673 100.816 522.742 101.628C524.832 103.19 526.858 102.361 526.188 105.994H500.55C499.88 102.441 501.906 103.237 503.996 101.628C505.081 100.784 506.118 99.5731 506.245 98.1552L506.102 61.7986L475.454 11.5493C474.129 10.3544 472.853 8.586 471.433 7.55043C470.651 6.97688 466.695 5.22437 466.551 4.98539C466.248 4.50744 466.615 3.05763 466.487 2.37256H493.657V2.38849Z" fill="currentColor"></path>
+            </svg>
+          </span>
+          <span class="about__title-sub">— жилой комплекс премиум-класса</span>
+        </h2>
+        <p class="about__para" id="aboutP1" data-anim>
+          Это проект, который создаёт новый уровень городской жизни.
+          Он продуман для людей, которые привыкли окружать себя качеством,
+          эстетикой и продуманными решениями — без компромиссов и случайных деталей.
+        </p>
+        <p class="about__para" id="aboutP2" data-anim style="--anim-delay:.12s">
+          Комплекс формирует пространство, где всё работает на ощущение
+          уверенности и гармонии: архитектура с характером, продуманная внутренняя
+          среда и атмосфера, которая чувствуется с первых минут.
+        </p>
+      </div>
+
+      <div class="about__photo" id="aboutPhoto" data-anim style="--anim-delay:.08s">
+        <!-- IMAGE: prepared/sections/03_about/image/interior-circle.webp -->
+        <img src="prepared/sections/03_about/image/interior-circle.webp" alt="IVORY — интерьер" loading="lazy" decoding="async">
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== ОКРУЖЕНИЕ / КАРТА ===== -->
+  <section class="surroundings" id="infrastructure">
+    <div class="surroundings__inner">
+      <div class="sur__map-wrap" id="surMap" data-anim>
+        <div class="sur__filters">
+          <button class="sur__filter sur__filter--active" data-category="all">Все объекты</button>
+          <button class="sur__filter" data-category="school">Школы и садики</button>
+          <button class="sur__filter" data-category="med">Мед. учреждения</button>
+          <button class="sur__filter" data-category="mall">Торговые центры</button>
+        </div>
+        <div id="ymap" style="width:100%; height:500px;"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== ФОРМА ЗАЯВКИ (после карты) ===== -->
+  <section class="cta-section">
+    <div class="cta-section__inner">
+      <div class="footer__cta-section">
+        <p class="footer__cta-eyebrow">СВЯЗАТЬСЯ С НАМИ</p>
+        <div class="footer__cta-left">
+          <h3 class="footer__cta-title">Оставьте заявку</h3>
+          <p class="footer__cta-sub">Мы свяжемся с вами и ответим на все вопросы</p>
+        </div>
+        <div class="footer__cta-form">
+          <div class="footer__field">
+            <input type="text" id="footerName" class="footer__input" placeholder=" ">
+            <label for="footerName" class="footer__label">Ваше имя</label>
+          </div>
+          <div class="footer__field">
+            <input type="tel" id="footerPhone" class="footer__input" placeholder=" ">
+          </div>
+          <button class="footer__submit" id="footerSubmit">Отправить заявку</button>
+        </div>
+        <div class="footer__form-success" id="footerSuccess" style="display:none">
+          ✓ Заявка отправлена! Мы свяжемся с вами.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== ПЛАНИРОВКИ ===== -->
+  <section class="plans" id="plans">
+    <div class="plans__inner">
+      <div class="plans__header" data-anim>
+        <p class="plans__label">Планировки</p>
+        <h2 class="plans__title">Выберите свою квартиру</h2>
+      </div>
+
+      <div class="plans__blocks" data-anim style="--anim-delay:.1s">
+        <button class="plans__block-tab plans__block-tab--active" data-block="1">1 Блок</button>
+        <button class="plans__block-tab" data-block="2">2 Блок</button>
+        <button class="plans__block-tab" data-block="3">3 Блок</button>
+      </div>
+
+      <div class="plans__apts" id="plansApts"></div>
+
+      <div class="plans__viewer">
+        <div class="plans__sidebar">
+          <div class="plans__sidebar-size" id="planSize">48,48 м²</div>
+          <div class="plans__sidebar-rooms" id="planRooms">2-комнатная</div>
+          <div class="plans__sidebar-desc-row">
+            <span class="plans__desc-icon">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M3 9.5L12 3l9 6.5V20a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9.5z"/>
+                <path d="M9 21V12h6v9"/>
+              </svg>
+            </span>
+            <span class="plans__sidebar-desc" id="planDesc">Квартира для семьи, которая хочет расти</span>
+          </div>
+          <div class="plans__sidebar-divider"></div>
+          <div class="plans__zoom-hint">
+            <div class="plans__zoom-hint-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <circle cx="11" cy="11" r="8"/>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                <line x1="11" y1="8" x2="11" y2="14"/>
+                <line x1="8" y1="11" x2="14" y2="11"/>
+              </svg>
+            </div>
+            <span>Используйте + / − для масштаба.<br>Зажмите и перетащите для просмотра.</span>
+          </div>
+          <div class="plans__zoom-controls">
+            <button class="plans__zoom-btn" id="zoomIn">+</button>
+            <button class="plans__zoom-btn" id="zoomOut">−</button>
+            <button class="plans__zoom-btn" id="zoomReset">↺</button>
+          </div>
+        </div>
+
+        <div class="plans__plan-card" id="planPlanCard">
+          <!-- IMAGE: prepared/sections/10_plans/images/ — пути формируются в JS (4_js.js) -->
+          <img id="planSvg" src="" alt="" loading="eager">
+          <div class="plans__drag-hint" id="dragHint">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5">
+              <path d="M5 9l-3 3 3 3M9 5l3-3 3 3M15 19l-3 3-3-3M19 9l3 3-3 3"/>
+            </svg>
+            <span>Перетащите для просмотра</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== ДВОР И ПЛОЩАДКА ===== -->
+  <section class="courtyard" id="courtyard">
+    <div class="courtyard__inner">
+      <div class="courtyard__text" id="courtyardText" data-anim>
+        <p class="courtyard__label">Детская площадка на уровне 3-го этажа</p>
+        <p class="courtyard__para">Место, где детство звучит смехом и движением. Площадка продумана так, чтобы дети чувствовали свободу игры, а родители — спокойствие.</p>
+        <h3 class="courtyard__subtitle">Свой парк во дворе</h3>
+        <p class="courtyard__para">Это маленький закрытый мир, спрятанный от городской суеты. Здесь можно гулять, отдыхать, проводить вечера с семьёй или просто замедлиться среди зелени и света.</p>
+      </div>
+
+      <div class="courtyard__circles" id="courtyardCircles">
+        <div class="courtyard__circle courtyard__circle--big" id="cyard1" data-anim>
+          <!-- IMAGE: prepared/sections/06_courtyard/image/courtyard-wide.webp -->
+          <img src="prepared/sections/06_courtyard/image/courtyard-wide.webp" alt="Двор IVORY" loading="lazy" decoding="async">
+        </div>
+        <div class="courtyard__photo-wrap" id="cyard2" data-anim style="--anim-delay:.12s">
+          <div class="courtyard__circle courtyard__circle--small">
+            <!-- IMAGE: prepared/sections/06_courtyard/image/playground-aerial.webp -->
+            <img src="prepared/sections/06_courtyard/image/playground-aerial.webp" alt="Детская площадка IVORY" loading="lazy" decoding="async">
+          </div>
+          <div class="courtyard__quote-circle">
+            <p>Безопасность здесь ощущается естественно, без лишних напоминаний.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Мобильные табы -->
+    <div class="courtyard__mobile">
+      <div class="courtyard__tabs">
+        <button class="courtyard__tab courtyard__tab--active" data-ctab="playground">Детская площадка</button>
+        <button class="courtyard__tab" data-ctab="park">Свой парк</button>
+        <button class="courtyard__tab" data-ctab="greenhall">Терраса на 19-м этаже</button>
+      </div>
+      <div class="courtyard__tab-panel courtyard__tab-panel--active" id="cyard-tab-playground">
+        <div class="courtyard__tab-grid">
+          <div class="courtyard__tab-text">
+            <p class="courtyard__tab-title">Детская площадка на уровне 3-го этажа</p>
+            <p class="courtyard__tab-desc">Место, где детство звучит смехом и движением.</p>
+          </div>
+          <div class="courtyard__tab-photo">
+            <div class="courtyard__tab-circle">
+              <img src="prepared/sections/06_courtyard/image/courtyard-wide.webp" alt="" loading="lazy">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="courtyard__tab-panel" id="cyard-tab-park">
+        <div class="courtyard__tab-grid">
+          <div class="courtyard__tab-photo">
+            <div class="courtyard__tab-circle">
+              <img src="prepared/sections/06_courtyard/image/playground-aerial.webp" alt="" loading="lazy">
+            </div>
+          </div>
+          <div class="courtyard__tab-text">
+            <p class="courtyard__tab-title">Свой парк во дворе</p>
+            <p class="courtyard__tab-desc">Маленький закрытый мир, спрятанный от городской суеты.</p>
+          </div>
+        </div>
+      </div>
+      <div class="courtyard__tab-panel" id="cyard-tab-greenhall">
+        <div class="courtyard__tab-grid">
+          <div class="courtyard__tab-text">
+            <p class="courtyard__tab-title">Терраса на 19-м этаже</p>
+            <p class="courtyard__tab-desc">Эксклюзивное пространство на вершине комплекса.</p>
+          </div>
+          <div class="courtyard__tab-photo">
+            <div class="courtyard__tab-circle">
+              <!-- IMAGE: prepared/sections/07_green_hall/image/green-hall.webp -->
+              <img src="prepared/sections/07_green_hall/image/green-hall.webp" alt="" loading="lazy">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== GREEN HALL ===== -->
+  <section class="gh" id="green-hall">
+    <div class="gh__top">
+      <div class="gh__top-inner">
+        <div class="gh__hero__circle gh__photo-col">
+          <!-- IMAGE: prepared/sections/07_green_hall/image/green-hall.webp -->
+          <img src="prepared/sections/07_green_hall/image/green-hall.webp" alt="GREEN HALL" loading="lazy" decoding="async" class="gh__hero-img">
+        </div>
+        <div class="gh__text-col">
+          <h2 class="gh__title">Терраса на 19-м этаже</h2>
+          <p class="gh__intro">Эксклюзивное пространство на вершине комплекса. Место где город открывается с новой стороны.</p>
+        </div>
+      </div>
+      <div class="gh__tabs">
+        <button class="gh__tab gh__tab--active" data-zone="winter">
+          <span class="gh__tab-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/><circle cx="12" cy="12" r="4"/></svg></span>
+          Зимний сад
+        </button>
+        <button class="gh__tab" data-zone="sport">
+          <span class="gh__tab-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="6" height="12" rx="2"/><rect x="16" y="6" width="6" height="12" rx="2"/><line x1="8" y1="10" x2="16" y2="10"/><line x1="16" y1="14" x2="8" y2="14"/></svg></span>
+          Спортивный зал
+        </button>
+        <button class="gh__tab" data-zone="library">
+          <span class="gh__tab-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span>
+          Библиотека
+        </button>
+        <button class="gh__tab" data-zone="coworking">
+          <span class="gh__tab-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></span>
+          Коворкинг
+        </button>
+      </div>
+    </div>
+
+    <div class="gh__cards">
+      <div class="gh__card gh__card--active" id="zone-winter">
+        <div class="gh__card-photo-wrap">
+          <div class="gh__card-circle">
+            <!-- IMAGE: prepared/sections/07_green_hall/image/winter-garden.webp -->
+            <img src="prepared/sections/07_green_hall/image/winter-garden.webp" alt="Зимний сад" loading="lazy">
+          </div>
+          <div class="gh__card-quote"><p>Атмосфера, которая вдохновляет без слов.</p></div>
+        </div>
+        <div class="gh__card-text">
+          <h3 class="gh__card-title">Зимний сад</h3>
+          <p class="gh__card-para">Уютное пространство с библиотекой и коворкинг-зоной, наполненное светом и тишиной.</p>
+        </div>
+      </div>
+
+      <div class="gh__card" id="zone-sport">
+        <div class="gh__card-text">
+          <h3 class="gh__card-title">Sport Room</h3>
+          <p class="gh__card-para">Зал для тренировок и практик, где можно перезагрузиться и вернуть внутреннее равновесие.</p>
+        </div>
+        <div class="gh__card-photo-wrap">
+          <div class="gh__card-circle">
+            <!-- IMAGE: prepared/sections/07_green_hall/image/sport-room.webp -->
+            <img src="prepared/sections/07_green_hall/image/sport-room.webp" alt="Sport Room" loading="lazy">
+          </div>
+        </div>
+      </div>
+
+      <div class="gh__card" id="zone-library">
+        <div class="gh__card-photo-wrap">
+          <div class="gh__card-circle">
+            <!-- IMAGE: prepared/sections/07_green_hall/image/library.webp -->
+            <img src="prepared/sections/07_green_hall/image/library.webp" alt="Библиотека" loading="lazy">
+          </div>
+          <div class="gh__card-quote"><p>Пространство тишины и сосредоточенности.</p></div>
+        </div>
+        <div class="gh__card-text">
+          <h3 class="gh__card-title">Библиотека</h3>
+          <p class="gh__card-para">Мягкий свет, удобные кресла и атмосфера спокойствия.</p>
+        </div>
+      </div>
+
+      <div class="gh__card" id="zone-coworking">
+        <div class="gh__card-text">
+          <h3 class="gh__card-title">Коворкинг-зона</h3>
+          <p class="gh__card-para">Среда для работы и новых идей. Продуманная акустика, комфортные рабочие места.</p>
+        </div>
+        <div class="gh__card-photo-wrap">
+          <div class="gh__card-circle">
+            <!-- IMAGE: prepared/sections/07_green_hall/image/coworking.webp -->
+            <img src="prepared/sections/07_green_hall/image/coworking.webp" alt="Коворкинг" loading="lazy">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== ТЕХНИЧЕСКИЕ РЕШЕНИЯ ===== -->
+  <section class="tech" id="tech">
+    <div class="tech__inner">
+      <div class="tech__main">
+        <h2 class="tech__title" data-anim>Основные технические решения</h2>
+        <p class="tech__para">Каждый элемент проекта продуман до деталей — от инженерных систем до отделки общих пространств.</p>
+      </div>
+      <div class="tech__grid">
+        <div class="tech__circle-wrap">
+          <div class="tech__item">
+            <div class="tech__icon-wrap">
+              <!-- IMAGE: prepared/sections/08_technical/image/icon_lift.svg -->
+              <img src="prepared/sections/08_technical/image/icon_lift.svg" width="48" height="48" alt="Лифты Otis">
+            </div>
+            <span>Лифты Otis</span>
+          </div>
+          <div class="tech__item">
+            <div class="tech__icon-wrap">
+              <!-- IMAGE: prepared/sections/08_technical/image/icon_facade.svg -->
+              <img src="prepared/sections/08_technical/image/icon_facade.svg" width="48" height="48" alt="Фасад">
+            </div>
+            <span>Фасад LAMINAM + керамогранит</span>
+          </div>
+          <div class="tech__item">
+            <div class="tech__icon-wrap">
+              <!-- IMAGE: prepared/sections/08_technical/image/icon_window.svg -->
+              <img src="prepared/sections/08_technical/image/icon_window.svg" width="48" height="48" alt="Алюминиевые окна">
+            </div>
+            <span>Алюминиевые окна</span>
+          </div>
+          <div class="tech__item">
+            <div class="tech__icon-wrap">
+              <!-- IMAGE: prepared/sections/08_technical/image/icon_360.svg -->
+              <img src="prepared/sections/08_technical/image/icon_360.svg" width="48" height="48" alt="360° изоляция">
+            </div>
+            <span>360° шумо- и теплоизоляция</span>
+          </div>
+          <div class="tech__item">
+            <div class="tech__icon-wrap">
+              <!-- IMAGE: prepared/sections/08_technical/image/icon_parking.svg -->
+              <img src="prepared/sections/08_technical/image/icon_parking.svg" width="48" height="48" alt="Паркинг">
+            </div>
+            <span>Двухуровневый паркинг</span>
+          </div>
+          <div class="tech__item">
+            <div class="tech__icon-wrap">
+              <!-- IMAGE: prepared/sections/08_technical/image/icon_ceiling.svg -->
+              <img src="prepared/sections/08_technical/image/icon_ceiling.svg" width="48" height="48" alt="Потолки 3,6 м">
+            </div>
+            <span>Потолки 3,6 м</span>
+          </div>
+          <div class="tech__item">
+            <div class="tech__icon-wrap">
+              <!-- IMAGE: prepared/sections/08_technical/image/icon_access.svg -->
+              <img src="prepared/sections/08_technical/image/icon_access.svg" width="48" height="48" alt="Умный доступ">
+            </div>
+            <span>Умный доступ <br>(ID access)</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== BORSAN SERVICE ===== -->
+  <section class="borsan" id="contacts">
+    <div class="borsan__inner">
+      <div class="borsan__left" id="borsanLeft" data-anim>
+        <div class="borsan__logo">
+          <!-- IMAGE: prepared/footer/image/icon.jpg -->
+          <img class="borsan__logo-icon" src="prepared/footer/image/icon.jpg" alt="Borsan">
+          <span class="borsan__logo-name">BORSAN SERVICE</span>
+        </div>
+        <h2 class="borsan__title">Управляющая компания</h2>
+        <p class="borsan__para">Команда профессионалов берёт на себя все вопросы: от технического обслуживания до решения любых бытовых задач.</p>
+        <p class="borsan__para">Наша команда всегда рядом — обеспечивает безопасный подъезд, надёжное хранение и решение всех вопросов.</p>
+        <!-- IMAGE: prepared/sections/09_borsan/image/borsan-icon.svg -->
+        <img class="borsan__icons-img" src="prepared/sections/09_borsan/image/borsan-icon.svg" alt="">
+      </div>
+      <div class="borsan__photo" id="borsanPhoto" data-anim style="--anim-delay:.1s">
+        <div class="borsan__photo-circle">
+          <!-- IMAGE: prepared/sections/09_borsan/image/borsan-team.webp -->
+          <img src="prepared/sections/09_borsan/image/borsan-team.webp" alt="Команда Borsan Service" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== ГАЛЕРЕЯ ===== -->
+  <section class="gallery" id="gallery">
+    <div class="gallery__header">
+      <h2 class="gallery__title">ГАЛЕРЕЯ ВАШЕГО ДОМА</h2>
+    </div>
+    <div class="gallery__body">
+      <div class="gallery__track-wrap" id="galleryTrackWrap">
+        <!-- IMAGE: prepared/sections/11_gallery/image/{1-26}.webp — пути строятся в JS -->
+        <div class="gallery__track" id="galleryTrack"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Модалка галереи -->
+  <div class="gallery__modal" id="galleryModal">
+    <button class="gallery__modal-close" id="galleryModalClose">✕</button>
+    <button class="gallery__modal-nav--prev" id="galleryModalPrev">←</button>
+    <div class="gallery__modal-loader" id="galleryModalLoader">
+      <div class="gallery__spinner"></div>
+    </div>
+    <img class="gallery__modal-img" id="galleryModalImg" src="" alt="">
+    <button class="gallery__modal-nav--next" id="galleryModalNext">→</button>
+  </div>
+
+  <!-- ===== ФОРМА ЗАЯВКИ (основная) ===== -->
+  <section class="cta-section" id="contact-form">
+    <div class="cta-section__inner">
+      <div class="footer__cta-section">
+        <p class="footer__cta-eyebrow">СВЯЗАТЬСЯ С НАМИ</p>
+        <div class="footer__cta-left">
+          <h3 class="footer__cta-title">Оставьте заявку</h3>
+          <p class="footer__cta-sub">Мы свяжемся с вами и ответим на все вопросы</p>
+        </div>
+        <div class="footer__cta-form">
+          <div class="footer__field">
+            <input type="text" id="contactName" class="footer__input" placeholder=" ">
+            <label for="contactName" class="footer__label">Ваше имя</label>
+          </div>
+          <div class="footer__field">
+            <input type="tel" id="contactPhone" class="footer__input" placeholder=" ">
+          </div>
+          <button class="footer__submit" id="contactSubmit">Отправить заявку</button>
+        </div>
+        <div class="footer__form-success" id="contactSuccess" style="display:none">
+          ✓ Заявка отправлена! Мы свяжемся с вами.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== ФУТЕР ===== -->
+  <footer class="footer">
+    <div class="footer__top">
+      <div class="footer__logo">
+        <!-- IMAGE: prepared/footer/image/BORSAN.svg -->
+        <img class="footer__logo-icon" src="prepared/footer/image/BORSAN.svg" alt="Borsan">
+      </div>
+      <nav class="footer__nav">
+        <a href="#about-section" class="footer__nav-link">О проекте</a>
+        <span class="footer__nav-sep">·</span>
+        <a href="#infrastructure" class="footer__nav-link">Инфраструктура</a>
+        <span class="footer__nav-sep">·</span>
+        <a href="#plans" class="footer__nav-link">Планировки</a>
+        <span class="footer__nav-sep">·</span>
+        <a href="#gallery" class="footer__nav-link">Галерея</a>
+        <span class="footer__nav-sep">·</span>
+        <a href="#contact-form" class="footer__nav-link">Контакты</a>
+      </nav>
+      <div class="footer__social">
+        <div class="footer__wa-wrapper">
+          <button class="footer__social-link footer__wa-btn" aria-label="WhatsApp" type="button" id="waBtn">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
+            </svg>
+          </button>
+          <div class="footer__wa-dropdown" id="waDropdown">
+            <a href="https://wa.me/996700880044" target="_blank" class="footer__wa-number">+996 700 88 00 44</a>
+            <a href="https://wa.me/996555880044" target="_blank" class="footer__wa-number">+996 555 88 00 44</a>
+            <a href="https://wa.me/996777880044" target="_blank" class="footer__wa-number">+996 777 88 00 44</a>
+          </div>
+        </div>
+        <a href="https://www.instagram.com/borsan.kg/?hl=ru" target="_blank" class="footer__social-link" aria-label="Instagram">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+            <circle cx="12" cy="12" r="4"/>
+            <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor"/>
+          </svg>
+        </a>
+        <a href="https://www.facebook.com/borsanbckg" target="_blank" class="footer__social-link" aria-label="Facebook">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+          </svg>
+        </a>
+      </div>
+      <div class="footer__phones">
+        <a href="tel:+996700880044" class="footer__phone">+996 700 88 00 44</a>
+        <span class="footer__phone-sep">|</span>
+        <a href="tel:+996555880044" class="footer__phone">+996 555 88 00 44</a>
+        <span class="footer__phone-sep">|</span>
+        <a href="tel:+996777880044" class="footer__phone">+996 777 88 00 44</a>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <p class="footer__copyright">© 2024 IVORY. Все права защищены. BORSAN Group.</p>
+    </div>
+  </footer>
+
+  <!-- ===== МОДАЛКА ЗАЯВКИ ===== -->
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal">
+      <button class="modal__close" id="closeModal">✕</button>
+      <div class="modal__header">
+        <h3 class="modal__title">Получить консультацию</h3>
+        <p class="modal__subtitle">Заполните форму — мы свяжемся с вами в ближайшее время</p>
+      </div>
+      <div class="modal__body">
+        <div class="modal__field">
+          <label class="modal__label">ФИО</label>
+          <input type="text" id="modalName" class="modal__input" placeholder="Иванов Иван Иванович">
+        </div>
+        <div class="modal__field">
+          <input type="tel" id="modalPhone" class="modal__input" placeholder="+996 700 000 000">
+        </div>
+        <p class="modal__agree">Нажимая кнопку, вы соглашаетесь на обработку персональных данных</p>
+        <button class="modal__submit" id="modalSubmit">Отправить заявку</button>
+        <div class="modal__success" id="modalSuccess" style="display:none">
+          ✓ Заявка отправлена! Мы свяжемся с вами в ближайшее время.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--
+    ╔══════════════════════════════════════════════════════╗
+    ║  Google Maps — загружается последним (нужен initMap) ║
+    ║  TILDA: вставить в Настройки страницы →              ║
+    ║  Ещё → Добавить HTML перед </body>                   ║
+    ╚══════════════════════════════════════════════════════╝
+  -->
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhwxvBopFiAyR16Gf-h59JH-KeObd_E-4&loading=async&callback=initMap" async defer></script>
